@@ -6,4 +6,15 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 config config --local status.showUntrackedFiles no
 echo "alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" >> $HOME/.bashrc
 
-# Setup hyper key config
+# --- Setup hyper key config ---
+# create configs for hyper keys
+cd /usr/share/X11/xkb/symbols/
+touch hyper
+sudo cat $HOME/.hyper_file >> hyper
+
+# add hyper key rules to evdev files from the configs we just
+# created
+cd /usr/share/X11/xkb/rules/
+sudo sed -i.bkp '/lv5:rwin_switch_lock_cancel/a \ \ hyper:ralt = +hyper(ralt)\n \ hyper:rwin = +hyper(rwin)\n \ hyper:rctl = +hyper(rctl)' evdev
+sudo sed -i.bkp '/terminate:ctrl_alt_bksp/a \ \ hyper\t Position of the Hyper key\n \ hyper:ralt\t Right Alt as Hyper\n \ hyper:rwin\t Right Windows key as Hyper\n \ hyper:rctl\t Right Ctrl as Hyper\n' evdev.lst
+sudo sed -i.bkp '/xkbConfigRegistry/e cat $HOME/.hyper_optionlist' evdev.xml

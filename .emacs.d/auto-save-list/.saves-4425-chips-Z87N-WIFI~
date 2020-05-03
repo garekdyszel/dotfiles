@@ -2,5 +2,11 @@
 /home/chips/Dropbox/org/#jot#
 /home/chips/.dotfilecfg
 /home/chips/#.dotfilecfg#
+/usr/share/X11/xkb/rules/evdev.xml
+/usr/share/X11/xkb/rules/#evdev.xml#
+/usr/share/X11/xkb/rules/evdev
+/usr/share/X11/xkb/rules/#evdev#
+/home/chips/.hyper_file
+/home/chips/#.hyper_file#
 /home/chips/.bashrc
 /home/chips/#.bashrc#
