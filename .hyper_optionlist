@@ -1,0 +1,26 @@
+  <optionList>
+    <group allowMultipleSelection="true">
+      <configItem>
+        <name>Hyper</name>
+        <description>Position of the Hyper key</description>
+      </configItem>
+      <option>
+        <configItem>
+          <name>hyper:ralt</name>
+          <description>Right Alt as Hyper</description>
+        </configItem>
+      </option>
+      <option>
+        <configItem>
+          <name>hyper:rwin</name>
+          <description>Right Windows key as Hyper</description>
+        </configItem>
+      </option>
+      <option>
+        <configItem>
+          <name>hyper:rctl</name>
+          <description>Right Ctrl as Hyper</description>
+        </configItem>
+      </option>
+    </group>
+  </optionList>
