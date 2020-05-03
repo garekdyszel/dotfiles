@@ -1,0 +1,128 @@
+gcc sum.c -o sum
+./sum
+gcc sum.c -o sum
+./sum
+gcc sum.c -o sum
+./sum
+gcc sum.c -o sum
+./sum
+./sum
+gcc sum.c -o sum
+./sum
+gcc star.c -o star
+gcc star.c -o star
+./star
+gcc star.c -o star
+./star
+clear
+
+gcc star.c -o star
+./star
+gcc star.c -o star
+./star
+gcc star.c -o star
+gcc star.c -o star
+./star
+gcc star.c -o star
+./star
+gcc star.c -o star
+./star
+./star
+clear
+
+gcc sum.c -o sum
+./sum
+gcc scorefor.c -o scorefor
+gcc scorefor.c -o scorefor
+gcc scorefor.c -o scorefor
+gcc scorefor.c -o scorefor
+./scorefor
+clear
+
+gcc scorefor.c -o scorefor
+./scorefor
+gcc scoredowhile.c -o scoredowhile
+gcc scoredowhile.c -o scoredowhile
+./scoredowhile
+terminator
+exit
+man std::ifstream
+clear
+
+clear
+
+terminator
+ls
+gcc common.c -o common
+gcc common.c -o common
+./common
+gcc common.c -o common
+./common
+gcc common.c -o common
+./common
+gcc common.c -o common
+./commonm
+./common
+gcc common.c -o common
+./common
+gcc common.c -o common
+gcc common.c -o common
+gcc common.c -o common
+gcc common.c -o common
+./common
+gcc common.c -o common
+./common
+gcc common.c -o common
+./common
+emacs -nw
+exit
+gcc common.c -o common
+./common
+gcc common.c -o common
+./common
+gcc common.c -o common
+./common
+gcc common.c -o common
+./common
+man fgets
+man strcpy
+man toupper
+./toCapital
+./toCapital
+./toCapital
+./toCapital
+f
+f
+f
+f
+f
+f
+f
+f
+f
+./toCapital
+./toCapital
+./toCapital
+./toCapital
+./toCapital
+./toCapital
+./toCapital
+./toCapital
+./toCapital
+./toCapital
+./toCapital
+./toCapital
+./toCapital
+./toCapital
+./toCapital
+man fgets
+man strcmp
+./string
+./string
+./string
+./string
+./string
+./string
+man lfind
+ascii table
+man ascii

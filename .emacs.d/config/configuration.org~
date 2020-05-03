@@ -1,0 +1,5 @@
+* Display Preferences
+
+Bullets instead of asterisks
+
+#+BEGIN_SRC emacs-lisp

@@ -1,0 +1,10 @@
+* Display Preferences
+
+Bullets instead of asterisks
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook
+            (lambda()
+              (org-bullets-mode t)))
+  (setq org-hide-leading-stars t)
+#+END_SRC
