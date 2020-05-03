@@ -1,0 +1,17 @@
+partial modifier_keys
+xkb_symbols "ralt" {
+    key <RALT> { [ Hyper_R ] };
+    modifier_map Mod3 { <HYPR>, Hyper_R };
+};
+
+partial modifier_keys
+xkb_symbols "rwin" {
+    key <RWIN> { [ Hyper_R ] };
+    modifier_map Mod3 { <HYPR>, Hyper_R };
+};
+
+partial modifier_keys
+xkb_symbols "rctl" {
+    key <RCTL> { [ Hyper_R ] };
+    modifier_map Mod3 { <HYPR>, Hyper_R };
+};
