@@ -492,10 +492,8 @@ With argument ARG, do this that many times."
 
 ;; type latex symbols more quickly
 (use-package cdlatex
-  :ensure t
-  :config
-  (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
-  ;;(bind-key "H-l" 'org-cdlatex-mode)
+  ;;:config
+  ;;(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
   )
 
 ;; creation of paired delimiters
