@@ -10,16 +10,16 @@
 // - set it within a user.js file in your profile.
 
 user_pref("app.update.lastUpdateTime.addon-background-update-timer", 1588445537);
-user_pref("app.update.lastUpdateTime.background-update-timer", 1588421613);
-user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1588421493);
-user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1588445657);
+user_pref("app.update.lastUpdateTime.background-update-timer", 1588618261);
+user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1588618141);
+user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1588610881);
 user_pref("app.update.lastUpdateTime.xpi-signature-verification", 1588421853);
 user_pref("browser.cache.disk.capacity", 358400);
 user_pref("browser.cache.disk.filesystem_reported", 1);
 user_pref("browser.dom.window.dump.enabled", false);
 user_pref("extensions.blocklist.pingCountVersion", -1);
 user_pref("extensions.databaseSchema", 27);
-user_pref("extensions.lastAppBuildId", "20200227004230");
+user_pref("extensions.lastAppBuildId", "20200324123222");
 user_pref("extensions.lastAppVersion", "5.0.85");
 user_pref("extensions.lastPlatformVersion", "60.9.0");
 user_pref("extensions.pendingOperations", false);
