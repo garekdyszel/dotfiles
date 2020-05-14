@@ -178,7 +178,7 @@ exec feh --bg-scale ~/Pictures/all_work_and_no_play.png
 bindsym $mod+m exec emacsclient --create-frame
 bindsym $mod+i exec firefox
 bindsym $mod+z exec zotero
-bindsym $mod+t exec firefox mail.google.com/mail/u/1
+bindsym $mod+t exec firefox mail.google.com/mail/u/0
 bindsym $mod+p exec pcmanfm
 bindsym $mod+c exec $HOME/.emacs_everywhere/bin/run
 # bindsym $mod+o exec ~/i3-keyboard-layout cycle us pl
@@ -191,5 +191,6 @@ exec setxkbmap -model pc105 -layout us -option hyper:rctl -option caps:ctrl_modi
 exec emacs --daemon
 exec redshift
 
+# set up external filesystems (not working right now)
 # exec sshfs chips@97.95.66.118:/media/wdhdd/garek/Files /media/chips/raspberrypi -p 53711
 # exec google-drive-ocamlfuse /media/chips/mtu-google-drive
