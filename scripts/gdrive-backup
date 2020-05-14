@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# This file backs up my home directory and my research folder separately.
+
+# back up home folder
+rsync --ignore-existing -r -P --exclude='cores' --exclude='databases' --exclude='Dropbox' --exclude='rsch' --exclude='SageMath' /home/chips/ /media/chips/mtu-google-drive/backups/$(date +"%Y_%m_%d")
+
+# back up research folder
+rsync --ignore-existing -r -P /home/chips/rsch/ /media/chips/mtu-google-drive/Garek\ Dyszel/
+
+# pull any changes in research folder
+rsync --ignore-existing -r -P /media/chips/mtu-google-drive/Garek\ Dyszel/ /home/chips/rsch/

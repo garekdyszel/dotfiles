@@ -42,8 +42,9 @@
 
 ;; set up keyboard shortcuts to jump to commonly-used files.
 (global-set-key (kbd "\C-ctd") (lambda () (interactive) (find-file "~/Dropbox/org/todolist.org")))
-(global-set-key (kbd "\C-ctp") (lambda () (interactive) (find-file "~/rsch/current_projects/projects")))
+(global-set-key (kbd "\C-ctp") (lambda () (interactive) (find-file "~/rsch/current_projects/.projects/projects")))
 (global-set-key (kbd "\C-cj") (lambda () (interactive) (find-file "~/Dropbox/org/jot")))
+(global-set-key (kbd "\C-cd") (lambda () (interactive) (find-file "~/Dropbox/org/done")))
 
 ;; add keyboard macros for "{{{INDENT}}}" and "{{{NEWLINE}}}" blocks.
 ;; {{{INDENT}}}
@@ -229,7 +230,7 @@ With argument ARG, do this that many times."
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(org-agenda-files
    (quote
-    ("~/rsch/current_projects/projects.org" "~/Dropbox/org/todolist.org")))
+    ("~/rsch/current_projects/projects" "~/Dropbox/org/todolist.org")))
  '(org-highlight-latex-and-related (quote (latex entities)))
  '(org-latex-classes
    (quote
@@ -396,15 +397,13 @@ With argument ARG, do this that many times."
   :after org
   :ensure t
   :config
-  (global-set-key (kbd "\C-cd") 'doi-add-bibtex-entry)
+  ;;(global-set-key (kbd "\C-cd") 'doi-add-bibtex-entry)
   ;; set default directories for org-ref
-  (setq org-ref-default-bibliography '("~/refs/rsch-refs.bib"))
-  (setq org-ref-pdf-directory '("~/Research/papers"))
   (setq org-ref-default-citation-link "cite")
-  (setq org-ref-notes-directory "~/rsch/notes/rschnotes_pc.org"
-        org-ref-bibliography-notes "~/refs/refnotes.org"
-        org-ref-default-bibliography '("~/refs/rsch-refs.bib")
-        org-ref-pdf-directory "~/refs/"))
+  (setq org-ref-notes-directory "~/rsch/general_notes"
+        org-ref-bibliography-notes "~/refs/general_notes"
+        org-ref-default-bibliography '("~/rsch/refs/rsch-refs.bib")
+        org-ref-pdf-directory "~/rsch/refs/"))
 
 ;; set up org-noter & keybindings
 (use-package org-noter

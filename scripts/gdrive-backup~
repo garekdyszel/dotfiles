@@ -1,0 +1,2 @@
+0 21 * * 5 chips rsync --ignore-existing -r -v -P --exclude='cores' --exclude='databases' --exclude='Dropbox' --exclude='rsch' --exclude='SageMath' /home/chips/ /media/chips/mtu-google-drive/backups/$(date +"%Y_%m_%d")
+0 21 * * * chips rsync --ignore-existing /home/chips/rsch/ /media/chips/mtu-google-drive/Garek\ Dyszel/
