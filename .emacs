@@ -594,6 +594,7 @@ With argument ARG, do this that many times."
   (bind-key "C-c m s" #'magit-stage)
   (bind-key "C-c m b" 'magit-branch)
   (bind-key "C-c m p" 'magit-push)
+  (bind-key "C-c m u" 'magit-pull)
   (bind-key "C-c m h" #'magit-checkout))
 
 ;; get a better interface to sagemath
