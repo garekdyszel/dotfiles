@@ -10,3 +10,6 @@ rsync --ignore-existing -r -P /home/chips/rsch/ /media/chips/mtu-google-drive/Ga
 
 # pull any changes in research folder
 rsync --ignore-existing -r -P /media/chips/mtu-google-drive/Garek\ Dyszel/ /home/chips/rsch/
+
+# remove the lockfile for the next backup
+rm -f ~/tmp/gdrive_backup_lock.lockfile
