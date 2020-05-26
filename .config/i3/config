@@ -178,7 +178,7 @@ bindsym $mod+m exec emacsclient --create-frame
 bindsym $mod+i exec firefox
 bindsym $mod+z exec zotero
 bindsym $mod+t exec firefox mail.google.com/mail/u/0
-bindsym $mod+p exec mc
+bindsym $mod+p exec terminator -e mc
 bindsym $mod+c exec $HOME/.emacs_everywhere/bin/run
 # bindsym $mod+o exec ~/i3-keyboard-layout cycle us pl
 
