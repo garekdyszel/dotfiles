@@ -189,6 +189,7 @@ exec setxkbmap -model pc105 -layout us -option hyper:rctl -option caps:ctrl_modi
 # startup programs 
 exec emacs --daemon
 exec redshift
+exec xbindkeys --poll-rc # load up keymaps for volume control
 
 # set up external filesystems (not working right now)
 # exec sshfs chips@97.95.66.118:/media/wdhdd/garek/Files /media/chips/raspberrypi -p 53711
