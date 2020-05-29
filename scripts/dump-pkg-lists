@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# This script dumps the list of currently installed packages and their repos.
+
+# packages
+apt-mark showmanual >> /home/chips/backup/lists/packages.list
+
+# repos
+grep -h ^deb /etc/apt/sources.list /etc/apt/sources.list.d/* >> /home/chips/backup/lists/repos.list
