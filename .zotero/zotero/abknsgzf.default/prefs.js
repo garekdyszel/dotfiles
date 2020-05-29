@@ -9,11 +9,11 @@
 // - modify it via the UI (e.g. via about:config in the browser); or
 // - set it within a user.js file in your profile.
 
-user_pref("app.update.lastUpdateTime.addon-background-update-timer", 1590590001);
-user_pref("app.update.lastUpdateTime.background-update-timer", 1590589641);
-user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1590590121);
-user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1590608081);
-user_pref("app.update.lastUpdateTime.xpi-signature-verification", 1590589761);
+user_pref("app.update.lastUpdateTime.addon-background-update-timer", 1590681287);
+user_pref("app.update.lastUpdateTime.background-update-timer", 1590681047);
+user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1590681407);
+user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1590680927);
+user_pref("app.update.lastUpdateTime.xpi-signature-verification", 1590681167);
 user_pref("browser.cache.disk.capacity", 358400);
 user_pref("browser.cache.disk.filesystem_reported", 1);
 user_pref("browser.dom.window.dump.enabled", false);
@@ -135,13 +135,13 @@ user_pref("extensions.zutilo.itemmenu.showAttachments", "Zutilo");
 user_pref("extensions.zutilo.lastVersion", "3.4.0");
 user_pref("font.internaluseonly.changed", true);
 user_pref("gecko.handlerService.migrated", true);
-user_pref("idle.lastDailyNotification", 1590590868);
+user_pref("idle.lastDailyNotification", 1590681318);
 user_pref("intl.accept_languages", "en-US, en");
 user_pref("media.gmp.storage.version.observed", 1);
 user_pref("network.cookie.prefsMigrated", true);
 user_pref("network.predictor.cleaned-up", true);
 user_pref("places.database.lastMaintenance", 1590503407);
-user_pref("places.history.expiration.transient_current_max_pages", 9687);
+user_pref("places.history.expiration.transient_current_max_pages", 104858);
 user_pref("signon.importedFromSqlite", true);
 user_pref("storage.vacuum.last.index", 1);
 user_pref("storage.vacuum.last.places.sqlite", 1589225154);
