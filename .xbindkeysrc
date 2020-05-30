@@ -71,7 +71,7 @@
 "amixer -c 2 set Master 5%-"
   Scroll_Lock  
 
-"amixer -c 2 set Master mute"
+"amixer -c 2 set Master toggle"
   Print
 
 ##################################
