@@ -1,67 +1,25 @@
-# paths
-set folder = ~/mail
-set header_cache = ~/.mutt/cache/headers
-set message_cachedir = ~/.mutt/cache/bodies
-set mailcap_path = ~/.mutt/mailcap
-set tmpdir = ~/.mutt/tmp
+set folder      = imaps://imap.gmail.com/
+set imap_user   = garekdyszel@gmail.com
+set spoolfile   = +INBOX
+mailboxes       = +INBOX
 
-# user info
-set imap_user = "garekdyszel"
-set smtp_url = "smtp://[user]@gmail.com@smtp.gmail.com:587/"
-set realname = "Garek Dyszel"
+# Store message headers locally to speed things up.
+# If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
+set header_cache = ~/.cache/mutt
 
-source "gpg -d ~/.mutt/passwords.gpg |" # grab passwords from secure pw directory
+# Store messages locally to speed things up, like searching message bodies.
+# Can be the same folder as header_cache.
+# This will cost important disk usage according to your e-mail amount.
+set message_cachedir = "~/.cache/mutt"
 
-# basic options
-set wait_key = no
-set mbox_type = Maildir
-set timeout = 3
-set mail_check = 0
-set delete
-set quit
-set thorough_search
-unset confirmappend
-unset move
-unset mark_old
-unset beep_new
+# Specify where to save and/or look for postponed messages.
+set postponed = +[Gmail]/Drafts
 
-# compose View Options
-set envelope_from                    # which from?
-set edit_headers                     # show headers when composing
-set fast_reply                       # skip to compose when replying
-# set askcc                            # ask for CC:
-set fcc_attach                       # save attachments with the body
-set forward_format = "Fwd: %s"       # format of subject when forwarding
-set forward_decode                   # decode when forwarding
-set attribution = "On %d, %n wrote:" # format of quoting header
-set reply_to                         # reply to Reply to: field
-set reverse_name                     # reply using the address the original message was sent to
-set include                          # include message in replies
-set forward_quote                    # include message in forwards
-set editor="emacsclient -a \"\" -t"  # have mutt connect to the Emacs daemon
-set text_flowed
-# unset sig_dashes                     # no dashes before signature
-unset mime_forward                   # forward attachments as part of body
+# Allow Mutt to open a new IMAP connection automatically.
+unset imap_passive
 
-# Basic config, you can leave this as is
-set folder = "imaps://imap.gmail.com:993"
-set spoolfile = "+INBOX"
-set imap_check_subscribed
-set hostname = gmail.com
-set mail_check = 120
-set timeout = 300
+# Keep the IMAP connection alive by polling intermittently (time in seconds).
 set imap_keepalive = 300
-set postponed = "+[Gmail]/Drafts"
-set record = "+[Gmail]/Sent Mail"
-set header_cache=~/.mutt/cache/headers
-set message_cachedir=~/.mutt/cache/bodies
-set certificate_file=~/.mutt/certificates
-set move = no
-set include
-set sort = 'threads'
-set auto_tag = yes
-hdr_order Date From To Cc
-auto_view text/html
-bind editor <Tab> complete-query
-bind editor ^T complete
-bind editor <space> noop
+
+# How often to check for new mail (time in seconds).
+set mail_check = 120
