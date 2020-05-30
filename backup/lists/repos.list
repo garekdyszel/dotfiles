@@ -55,3 +55,35 @@ deb [arch=amd64,i386] http://repo.steampowered.com/steam/ precise steam
 deb-src [arch=amd64,i386] http://repo.steampowered.com/steam/ precise steam
 deb https://dl.yarnpkg.com/debian/ stable main
 deb https://github.com/retorquere/zotero-deb/releases/download/apt-get/ ./
+deb http://us.archive.ubuntu.com/ubuntu/ focal main restricted
+deb http://us.archive.ubuntu.com/ubuntu/ focal-updates main restricted
+deb http://us.archive.ubuntu.com/ubuntu/ focal universe
+deb http://us.archive.ubuntu.com/ubuntu/ focal-updates universe
+deb http://us.archive.ubuntu.com/ubuntu/ focal multiverse
+deb http://us.archive.ubuntu.com/ubuntu/ focal-updates multiverse
+deb http://us.archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu focal-security main restricted
+deb http://security.ubuntu.com/ubuntu focal-security universe
+deb http://security.ubuntu.com/ubuntu focal-security multiverse
+deb http://ppa.launchpad.net/alessandro-strada/ppa/ubuntu bionic main
+deb http://cvmrepo.web.cern.ch/cvmrepo/apt bionic-prod main
+deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu bionic main
+deb http://ppa.launchpad.net/ginggs/deal.ii-backports/ubuntu bionic main
+deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main 
+deb http://ppa.launchpad.net/graphics-drivers/ppa/ubuntu bionic main
+deb http://ppa.launchpad.net/kelleyk/emacs/ubuntu bionic main
+deb http://ppa.launchpad.net/kxstudio-debian/libs/ubuntu bionic main
+deb http://ppa.launchpad.net/kxstudio-debian/music/ubuntu bionic main
+deb http://ppa.launchpad.net/kxstudio-debian/plugins/ubuntu bionic main
+deb http://ppa.launchpad.net/kxstudio-debian/apps/ubuntu bionic main
+deb http://ppa.launchpad.net/kxstudio-debian/kxstudio/ubuntu bionic main
+deb [arch=amd64,i386] https://kx.studio/repo/ stable free
+deb [arch=amd64,i386] https://kx.studio/repo/ gcc5 free
+deb http://ppa.launchpad.net/nadaeck/spectrum3d/ubuntu bionic main
+deb [arch=amd64] https://repo.skype.com/deb stable main
+deb [arch=amd64,i386] http://repo.steampowered.com/steam/ precise steam
+deb-src [arch=amd64,i386] http://repo.steampowered.com/steam/ precise steam
+deb https://dl.yarnpkg.com/debian/ stable main
+deb https://github.com/retorquere/zotero-deb/releases/download/apt-get/ ./

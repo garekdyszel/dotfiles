@@ -650,10 +650,8 @@ With argument ARG, do this that many times."
   :config
   (flyspell-mode 1))
 
-
-
-
-
+;; add support for mutt
+(setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
 
 ;; Set the default mode of the scratch buffer to Org
 (setq initial-major-mode 'org-mode)
