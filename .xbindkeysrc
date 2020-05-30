@@ -65,13 +65,13 @@
 #"rxvt"
 #  Control + b:2 + Release
 
-"pactl set-sink-volume @DEFAULT_SINK@ +5%"
+"amixer -c 2 set Master 5%+"
   Pause  
 
-"pactl set-sink-volume @DEFAULT_SINK@ -5%"
+"amixer -c 2 set Master 5%-"
   Scroll_Lock  
 
-"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+"amixer -c 2 set Master mute"
   Print
 
 ##################################
