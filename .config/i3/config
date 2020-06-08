@@ -171,7 +171,7 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 # client.background       #ffffff
 
 # set background image
-exec feh --bg-scale ~/Pictures/all_work_and_no_play.png
+exec feh --bg-scale ~/pics/all_work_and_no_play.png
 
 # keybindings for specific programs
 bindsym $mod+m exec emacsclient --create-frame

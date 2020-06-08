@@ -101,7 +101,7 @@
 (add-hook 'c-mode-hook
           (lambda ()
             (set (make-local-variable 'compile-command)
-                 (format "gcc %s -o %s -g" (buffer-file-name) (file-name-sans-extension)))))
+                 (format "g++ %s -o %s -g" (buffer-file-name) (file-name-sans-extension)))))
 
 ; from enberg on #emacs for compilation window killing
 (add-hook 'compilation-finish-functions
@@ -595,7 +595,8 @@ With argument ARG, do this that many times."
   (bind-key "C-c m b" 'magit-branch)
   (bind-key "C-c m p" 'magit-push)
   (bind-key "C-c m u" 'magit-pull)
-  (bind-key "C-c m h" #'magit-checkout))
+  (bind-key "C-c m h" #'magit-checkout)
+  (bind-key "C-c m t" #'magit-tag))
 
 ;; get a better interface to sagemath
 (use-package sage-shell-mode
