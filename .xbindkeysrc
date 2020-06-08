@@ -1,4 +1,19 @@
-# For the benefit of emacs users: -*- shell-script -*-
+# -*- shell-script -*-
+"amixer -c 1 set Master 5%+"
+  Pause  
+
+"amixer -c 1 set Master 5%-"
+  Scroll_Lock  
+
+"amixer -c 1 set Master toggle"
+  Print
+
+########################
+# End xbindkeys config #
+########################
+
+# Bunch of extra documentation I won't modify often.
+
 ###########################
 # xbindkeys configuration #
 ###########################
@@ -39,8 +54,8 @@
 
 # Examples of commands:
 
-"xbindkeys_show" 
-  control+shift + q
+#"xbindkeys_show" 
+#  control+shift + q
 
 # set directly keycode (here control + f with my keyboard)
 #"xterm"
@@ -64,16 +79,3 @@
 ## Control + mouse button 2 release event starts rxvt
 #"rxvt"
 #  Control + b:2 + Release
-
-"amixer -c 2 set Master 5%+"
-  Pause  
-
-"amixer -c 2 set Master 5%-"
-  Scroll_Lock  
-
-"amixer -c 2 set Master toggle"
-  Print
-
-##################################
-# End of xbindkeys configuration #
-##################################

@@ -38,13 +38,13 @@
 (dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o")) (global-unset-key key))
 
 ;; set save and quit to something other than C-x C-c
-(global-set-key (kbd "C-c C-q") 'save-buffers-kill-terminal)
+(global-set-key (kbd "C-x C-c") 'save-buffers-kill-terminal)
 
 ;; set up keyboard shortcuts to jump to commonly-used files.
-(global-set-key (kbd "\C-ctd") (lambda () (interactive) (find-file "~/Dropbox/org/todolist.org")))
+(global-set-key (kbd "\C-ctd") (lambda () (interactive) (find-file "~/notes/org/todolist.org")))
 (global-set-key (kbd "\C-ctp") (lambda () (interactive) (find-file "~/rsch/current_projects/.projects/projects")))
-(global-set-key (kbd "\C-cj") (lambda () (interactive) (find-file "~/Dropbox/org/jot")))
-(global-set-key (kbd "\C-cd") (lambda () (interactive) (find-file "~/Dropbox/org/done")))
+(global-set-key (kbd "\C-cj") (lambda () (interactive) (find-file "~/notes/org/jot")))
+(global-set-key (kbd "\C-cd") (lambda () (interactive) (find-file "~/notes/org/done")))
 
 ;; add keyboard macros for "{{{INDENT}}}" and "{{{NEWLINE}}}" blocks.
 ;; {{{INDENT}}}
@@ -76,7 +76,7 @@
 ;;(bind-key "H-e H-b" #'eval-buffer)
 
 ;; calendar file shortcut
-(global-set-key (kbd "\C-zal") (lambda () (interactive) (find-file "~/Dropbox/org/calendar.org")))
+(global-set-key (kbd "\C-zal") (lambda () (interactive) (find-file "~/notes/org/calendar.org")))
 
 ;; .emacs shortcut
 (global-set-key (kbd "\C-cem") (lambda () (interactive) (find-file "~/.emacs")))
@@ -230,7 +230,7 @@ With argument ARG, do this that many times."
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(org-agenda-files
    (quote
-    ("~/rsch/current_projects/projects" "~/Dropbox/org/todolist.org")))
+    ("~/rsch/current_projects/projects" "~/notes/org/todolist.org")))
  '(org-highlight-latex-and-related (quote (latex entities)))
  '(org-latex-classes
    (quote
@@ -438,7 +438,7 @@ With argument ARG, do this that many times."
   :ensure t
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"
-                           "~/Dropbox/org/snippets"))
+                           "~/notes/org/snippets"))
   (setq yas-triggers-in-field t)
   (yas-global-mode +1)
   (add-hook 'minibuffer-setup-hook 'yas-minor-mode)
@@ -653,6 +653,9 @@ With argument ARG, do this that many times."
 
 ;; add support for mutt
 (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
+
+;; set shell script-mode binds
+(add-hook 'sh-mode-hook (bind-key "C-c ;" 'comment-region))
 
 ;; Set the default mode of the scratch buffer to Org
 (setq initial-major-mode 'org-mode)

@@ -9,8 +9,11 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod3
-# set $mod Mod4
+# Hyper key (right Ctrl on my setup)
+set $mod mod3
+
+# Super/Windows key (Left Win)
+# set $mod mod4 
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -171,7 +174,7 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 # client.background       #ffffff
 
 # set background image
-exec feh --bg-scale ~/pics/all_work_and_no_play.png
+exec feh --bg-scale ~/pics/apt-get-install-life.jpg
 
 # keybindings for specific programs
 bindsym $mod+m exec emacsclient --create-frame
@@ -188,7 +191,7 @@ exec setxkbmap -model pc105 -layout us -option hyper:rctl -option caps:ctrl_modi
 
 # startup programs 
 exec emacs --daemon
-exec redshift
+exec redshift -m randr -O 2000
 exec xbindkeys --poll-rc # load up keymaps for volume control
 
 # set up external filesystems (not working right now)
