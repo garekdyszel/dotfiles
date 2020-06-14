@@ -10,3 +10,9 @@ alias visit='/usr/local/visit/bin/visit'
 
 # configuring dotfiles alias
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+# launching LTSpice alias
+alias ltspice="wine .wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe"
+
+# enable doing things to all files except one, e.g. mv !(some file you want left alone)
+shopt -s extglob

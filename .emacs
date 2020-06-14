@@ -195,7 +195,7 @@ With argument ARG, do this that many times."
      ("circuitikz")
      ("tikzpicture"))))
  '(Linum-format "%7i ")
- '(TeX-view-program-selection (quote ((output-html "Atril"))))
+ '(TeX-view-program-selection (quote ((output-html "xdg-open"))))
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
@@ -467,7 +467,7 @@ With argument ARG, do this that many times."
           ("%paragraph" 5)))
   (with-eval-after-load 'tex
     (add-to-list 'TeX-view-program-selection
-                 '(output-pdf "Evince")))
+                 '(output-pdf "xdg-open")))
   
   ;; add font locking to the headers
   (font-lock-add-keywords
@@ -480,8 +480,8 @@ With argument ARG, do this that many times."
      ("^%subsubsection{\\(.*\\)}" 1 'font-latex-sectioning-4-face t)
      ("^%paragraph{\\(.*\\)}"     1 'font-latex-sectioning-5-face t)))
 
-  ;; set default pdf viewer to Evince
-  (setq TeX-view-program-selection '((output-pdf "Evince")))
+  ;; set default pdf viewer to xdg-open
+  (setq TeX-view-program-selection '((output-pdf "xdg-open")))
 
   ;; set up correlation so we can find our spot
   (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
