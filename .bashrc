@@ -18,7 +18,11 @@ alias ltspice="wine .wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe"
 shopt -s extglob
 
 # set the install location for cmake in deal.ii programs
-DDEAL_II_DIR=/usr/include/deal.ii-9.2.0/
+export DDEAL_II_DIR=/usr/include/deal.ii-9.2.0/
 
 # set Qt 5 theme controller
-QT_QPA_PLATFORMTHEME=qt5ct
+export QT_QPA_PLATFORMTHEME=qt5ct
+
+# mount google drive on startup
+
+google-drive-ocamlfuse /mnt/gdrive
