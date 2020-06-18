@@ -81,6 +81,12 @@
 ;; .emacs shortcut
 (global-set-key (kbd "\C-cem") (lambda () (interactive) (find-file "~/.emacs")))
 
+;; espin-theory repo shortcut
+(global-set-key (kbd "\C-cet") (lambda () (interactive) (find-file "~/home/chips/rsch/current_projects/espin_theory_repo/espin_theory/")))
+
+;; circuit theory page shortcut
+(global-set-key (kbd "\C-cee") (lambda () (interactive) (find-file "~/home/chips/rsch/current_projects/circuit_page/circuit_page.org")))
+
 ;; enable parentheses checking
 (show-paren-mode 1)
 
@@ -230,7 +236,7 @@ With argument ARG, do this that many times."
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(org-agenda-files
    (quote
-    ("~/rsch/current_projects/projects" "~/notes/org/todolist.org")))
+    ("~/rsch/current_projects/.projects/projects" "~/rsch/current_projects/espin_theory_repo/espin_theory/deal-ii-simulator/TODO")))
  '(org-highlight-latex-and-related (quote (latex entities)))
  '(org-latex-classes
    (quote

@@ -1,5 +1,5 @@
 # add an alias for emacsclient so we don't have to remember how to connect to the Emacs daemon. 
-alias em='emacsclient --create-frame'
+alias em='nohup emacsclient --create-frame&'
 
 # set Vim as the default editor inside the terminal
 export VISUAL=vim
@@ -18,7 +18,7 @@ alias ltspice="wine .wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe"
 shopt -s extglob
 
 # set the install location for cmake in deal.ii programs
-export DDEAL_II_DIR=/usr/include/deal.ii-9.2.0/
+export DEAL_II_DIR=/usr/include/deal.ii-9.2.0/
 
 # set Qt 5 theme controller
 # export QT_QPA_PLATFORMTHEME=qt5ct
