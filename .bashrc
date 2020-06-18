@@ -21,8 +21,4 @@ shopt -s extglob
 export DDEAL_II_DIR=/usr/include/deal.ii-9.2.0/
 
 # set Qt 5 theme controller
-export QT_QPA_PLATFORMTHEME=qt5ct
-
-# mount google drive on startup
-
-google-drive-ocamlfuse /mnt/gdrive
+# export QT_QPA_PLATFORMTHEME=qt5ct
