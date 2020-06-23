@@ -1,5 +1,5 @@
 # add an alias for emacsclient so we don't have to remember how to connect to the Emacs daemon. 
-alias em='nohup emacsclient --create-frame&'
+alias em="emacsclient -c -a ''"
 
 # set Vim as the default editor inside the terminal
 export VISUAL=vim
@@ -24,4 +24,4 @@ export DEAL_II_DIR=/usr/include/deal.ii-9.2.0/
 alias configp='config push main master'
 
 # set Qt 5 theme controller
-# export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_QPA_PLATFORMTHEME=qt5ct

@@ -34,7 +34,7 @@ font pango:monospace 11
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt 
+bindsym $mod+Return exec terminator 
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -186,7 +186,7 @@ bindsym $mod+c exec $HOME/.emacs_everywhere/bin/run
 # bindsym $mod+o exec ~/i3-keyboard-layout cycle us pl
 
 # keyboard layout
-# exec setxkbmap -model pc105 -layout us -option hyper:rctl -option caps:ctrl_modifier -option ctrl:swap_lalt_lctl -option shift:both_capslock -option compose:ralt -option grp:alt_shift_toggle
+exec setxkbmap -model pc105 -layout us -option hyper:rctl -option caps:ctrl_modifier -option ctrl:swap_lalt_lctl -option shift:both_capslock -option compose:ralt -option grp:alt_shift_toggle
 # exec xmodmap -e "keycode 135 = dead_greek dead_greek dead_greek dead_greek"
 
 # startup programs 
