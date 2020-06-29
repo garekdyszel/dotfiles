@@ -43,6 +43,7 @@
 ;; set up keyboard shortcuts to jump to commonly-used files.
 (global-set-key (kbd "\C-ctd") (lambda () (interactive) (find-file "~/notes/org/todolist.org")))
 (global-set-key (kbd "\C-ctp") (lambda () (interactive) (find-file "~/rsch/current_projects/.projects/projects")))
+(global-set-key (kbd "\C-ctl") (lambda () (interactive) (find-file "~/notes/org/later")))
 (global-set-key (kbd "\C-cj") (lambda () (interactive) (find-file "~/notes/org/jot")))
 (global-set-key (kbd "\C-cd") (lambda () (interactive) (find-file "~/notes/org/done")))
 
@@ -236,7 +237,7 @@ With argument ARG, do this that many times."
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(org-agenda-files
    (quote
-    ("~/rsch/current_projects/.projects/projects" "~/rsch/current_projects/espin_theory_repo/espin_theory/deal-ii-simulator/TODO")))
+    ("~/notes/org/todolist.org" "~/rsch/current_projects/.projects/projects")))
  '(org-highlight-latex-and-related (quote (latex entities)))
  '(org-latex-classes
    (quote
@@ -651,6 +652,9 @@ With argument ARG, do this that many times."
                       :tag "gradschool_job")
                )))
            (org-agenda nil "a")))))
+;; display a whole month's worth of tasks by default
+(setq org-agenda-span 'month)
+
 
 ;; flyspell-mode: check spelling as you write. Like MS Word's spell checker.
 (use-package flyspell

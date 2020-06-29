@@ -3,13 +3,13 @@
 # This file backs up my home directory and my research folder separately.
 
 # back up home folder
-rsync --ignore-existing -r -P --exclude='.*' --include='.cfg' --include='.dotfilecfg' --include='.dotfilecfg~' --exclude='archive' --exclude='cores' --exclude='databases' --exclude='Dropbox' --exclude='rsch' --exclude='SageMath' --exclude='Documents' --exclude='snap' --exclude='tmp' --exclude='Zotero' --exclude='virt_machines' --exclude='Virtualbox VMs' --exclude='Desktop' /home/chips/ /media/chips/mtu-google-drive/backups/$(date +"%Y_%m_%d")
+rsync --ignore-existing -r -P --exclude='.*' --include='.cfg' --include='.dotfilecfg' --include='.dotfilecfg~' --exclude='archive' --exclude='cores' --exclude='databases' --exclude='Dropbox' --exclude='rsch' --exclude='SageMath' --exclude='Documents' --exclude='snap' --exclude='tmp' --exclude='Zotero' --exclude='virt_machines' --exclude='Virtualbox VMs' --exclude='Desktop' /home/chips/ /mnt/gdrive/backups/$(date +"%Y_%m_%d")
 
 # back up research folder
-rsync --ignore-existing -r -P /home/chips/rsch/ /media/chips/mtu-google-drive/Garek\ Dyszel/
+rsync --ignore-existing -r -P /home/chips/rsch/ /mnt/gdrive/Garek\ Dyszel/
 
 # pull any changes in research folder
-rsync --ignore-existing -r -P /media/chips/mtu-google-drive/Garek\ Dyszel/ /home/chips/rsch/
+rsync --ignore-existing -r -P /mnt/gdrive/Garek\ Dyszel/ /home/chips/rsch/
 
 # remove the lockfile for the next backup (for when you use flock)
 # rm -f ~/tmp/gdrive_backup_lock.lockfile
