@@ -237,7 +237,7 @@ With argument ARG, do this that many times."
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(org-agenda-files
    (quote
-    ("~/notes/org/todolist.org" "~/rsch/current_projects/.projects/projects")))
+    ("~/rsch/current_projects/espin_theory_repo/espin_theory/deal-ii-simulator/two_electrodes/TODO" "~/notes/org/todolist.org" "~/rsch/current_projects/.projects/projects")))
  '(org-highlight-latex-and-related (quote (latex entities)))
  '(org-latex-classes
    (quote

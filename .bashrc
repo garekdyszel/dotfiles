@@ -23,5 +23,8 @@ export DEAL_II_DIR=/usr/include/deal.ii-9.2.0/
 # shorten push command to send cfg files to remote server
 alias configp='config push main master'
 
+# don't forget to launch obs with zoom
+alias zoom='obs && zoom'
+
 # set Qt 5 theme controller
 export QT_QPA_PLATFORMTHEME=qt5ct
