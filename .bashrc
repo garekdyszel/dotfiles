@@ -21,7 +21,7 @@ shopt -s extglob
 export DEAL_II_DIR=/usr/include/deal.ii-9.2.0/
 
 # shorten push command to send cfg files to remote server
-alias configp='config push main master'
+alias configp='config push --no-thin main master'
 
 # don't forget to launch obs with zoom
 alias zoom='obs && zoom'

@@ -49,12 +49,12 @@
 
 ;; add keyboard macros for "{{{INDENT}}}" and "{{{NEWLINE}}}" blocks.
 ;; {{{INDENT}}}
-(global-set-key (kbd "\C-zi") (fset 'insert-indent-block
-                                    (lambda (&optional arg) "Insert indentation block for org-mode export to pdf." (interactive "p") (kmacro-exec-ring-item (quote ("{{{INDENT}}}" 0 "%d")) arg))))
+;; (global-set-key (kbd "\C-zi") (fset 'insert-indent-block
+;;                                     (lambda (&optional arg) "Insert indentation block for org-mode export to pdf." (interactive "p") (kmacro-exec-ring-item (quote ("{{{INDENT}}}" 0 "%d")) arg))))
 
 ;; {{{NEWLINE}}}
-(global-set-key (kbd "\C-zn") (fset 'insert-newline-block
-                                    (lambda (&optional arg) "Insert newline block for org-mode export to pdf." (interactive "p") (kmacro-exec-ring-item (quote ("{{{NEWLINE}}}" 0 "%d")) arg))))
+;; (global-set-key (kbd "\C-zn") (fset 'insert-newline-block
+;;                                     (lambda (&optional arg) "Insert newline block for org-mode export to pdf." (interactive "p") (kmacro-exec-ring-item (quote ("{{{NEWLINE}}}" 0 "%d")) arg))))
 
 ;; change indentation size for CC mode.
 (setq-default c-basic-offset 3)
@@ -83,10 +83,10 @@
 (global-set-key (kbd "\C-cem") (lambda () (interactive) (find-file "~/.emacs")))
 
 ;; espin-theory repo shortcut
-(global-set-key (kbd "\C-cet") (lambda () (interactive) (find-file "~/home/chips/rsch/current_projects/espin_theory_repo/espin_theory/")))
+(global-set-key (kbd "\C-cet") (lambda () (interactive) (dired "~/rsch/current_projects/espin_theory_repo/espin_theory/")))
 
 ;; circuit theory page shortcut
-(global-set-key (kbd "\C-cee") (lambda () (interactive) (find-file "~/home/chips/rsch/current_projects/circuit_page/circuit_page.org")))
+(global-set-key (kbd "\C-cee") (lambda () (interactive) (dired "~/rsch/current_projects/circuit_page/analog_syllabus.html")))
 
 ;; enable parentheses checking
 (show-paren-mode 1)
