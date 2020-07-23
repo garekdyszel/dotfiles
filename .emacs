@@ -26,17 +26,17 @@
 (require 'bind-key)
 
 ;; set up the outline mode key so we can fold any headings.
-(global-unset-key "\C-o")
-(setq outline-minor-mode-prefix "\C-o")
+;; (global-unset-key "\C-o")
+;; (setq outline-minor-mode-prefix "\C-o")
 
 ;; add key shortcut for turning on org-mode
-(global-set-key "\C-com" 'org-mode)
+;; (global-set-key "\C-com" 'org-mode)
 
 ;; add key shortcut for turning on text-mode
-(global-set-key "\C-ctm" 'text-mode)
+;; (global-set-key "\C-ctm" 'text-mode)
 
 ;; add key shortcut for turning on sage-shell-mode
-(global-set-key "\C-css" 'sage-shell-mode)
+;; (global-set-key "\C-css" 'sage-shell-mode)
 
 ;; turn off shortcuts that we fat-finger frequently.
 (dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o")) (global-unset-key key))
@@ -81,7 +81,7 @@
 ;;(bind-key "H-e H-b" #'eval-buffer)
 
 ;; calendar file shortcut
-(global-set-key (kbd "\C-zal") (lambda () (interactive) (find-file "~/notes/org/calendar.org")))
+;; (global-set-key (kbd "\C-zal") (lambda () (interactive) (find-file "~/notes/org/calendar.org")))
 
 ;; .emacs shortcut
 (global-set-key (kbd "\C-cem") (lambda () (interactive) (find-file "~/.emacs")))
@@ -301,8 +301,8 @@ With argument ARG, do this that many times."
   (require 'use-package))
 
 ;; grab the overlay package, so we can color Org-mode text in buffer and in export
-(use-package ov
-  :ensure t)
+;; (use-package ov
+;;   :ensure t)
 
 ;; Org-mode: The following lines are always needed.  Choose your own keys.
 (use-package org
@@ -328,7 +328,7 @@ With argument ARG, do this that many times."
   (setq org-babel-default-header-args:matlab
         '((:results . "output") (:session . "*MATLAB*")))
 
-  ;; load c++, python, gnuplot, and lilypond as languages we can use in source code blocks.
+  ;; load languages to use in source code blocks.
   (org-babel-do-load-languages
    'org-babel-load-languages '(
                                (C . t)
@@ -505,23 +505,23 @@ With argument ARG, do this that many times."
   (setq TeX-command-BibTeX 'Biber))
 
 ;; type latex symbols more quickly
-(use-package cdlatex
-  ;;:config
-  ;;(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
-  )
+;; (use-package cdlatex
+;;   ;;:config
+;;   ;;(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+;;   )
 
-;; creation of paired delimiters
+;; automatic creation of paired delimiters
 (electric-pair-mode 1)
 
 ;; make it easier to escape paired characters
-(use-package tab-jump-out
-  :ensure t
-  :config
-  (add-hook 'org-mode-hook 'tab-jump-out-mode)
-  (add-hook 'prog'-mode-hook 'tab-jump-out-mode)
-  (setq yas-fallback-behavior '(apply tab-jump-out 1))
-  ;;(bind-key "H-t" 'tab-jump-out-mode)
-  )
+;; (use-package tab-jump-out
+;;   :ensure t
+;;   :config
+;;   (add-hook 'org-mode-hook 'tab-jump-out-mode)
+;;   (add-hook 'prog'-mode-hook 'tab-jump-out-mode)
+;;   (setq yas-fallback-behavior '(apply tab-jump-out 1))
+;;   ;;(bind-key "H-t" 'tab-jump-out-mode)
+;;   )
 
 ;; replace the minibuffer with a better one
 (use-package helm
@@ -561,20 +561,20 @@ With argument ARG, do this that many times."
 ;; (setq matlab-shell-command "/usr/local/MATLAB/R2019b/bin/matlab")
 
 ;; make anki cards in org-mode
-(use-package anki-editor
-  :ensure t
-  :config
-  (global-unset-key (kbd "C-M-c"))
-  (bind-key "C-M-c" #'anki-editor-cloze-region))
+;; (use-package anki-editor
+;;   :ensure t
+;;   :config
+;;   (global-unset-key (kbd "C-M-c"))
+;;   (bind-key "C-M-c" #'anki-editor-cloze-region))
 
 ;; make it easier to switch windows
-(global-unset-key (kbd "C-,"))
-(global-set-key (kbd "C-,") #'prev-window)
-(global-set-key (kbd "C-.") #'other-window)
+;; (global-unset-key (kbd "C-,"))
+;; (global-set-key (kbd "C-,") #'prev-window)
+;; (global-set-key (kbd "C-.") #'other-window)
 
-(defun prev-window ()
-  (interactive)
-  (other-window -1))
+;; (defun prev-window ()
+;;   (interactive)
+;;   (other-window -1))
 
 ;; make sure shells pop up in the current buffer.
 (add-to-list 'display-buffer-alist
@@ -665,8 +665,10 @@ With argument ARG, do this that many times."
 
 
 ;; flyspell-mode: check spelling as you write. Like MS Word's spell checker.
-(use-package flyspell)
-(flyspell-mode 1)
+(use-package flyspell
+  :config
+  (flyspell-mode 1))
+
 
 ;; add support for mutt
 (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
