@@ -6,7 +6,7 @@ export VISUAL=vim
 export EDITOR="$VISUAL"
 
 # source the VisIt (scientific data visualization, typically FEM) program location.
-alias visit='/usr/local/visit/bin/visit'
+# alias visit='/usr/local/visit/bin/visit'
 
 # configuring dotfiles alias
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'

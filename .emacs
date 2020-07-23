@@ -16,6 +16,10 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+;; ensure all packages are installed, all the time
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+
 ;; set up use-package
 (eval-when-compile
   (require 'use-package))
@@ -37,7 +41,7 @@
 ;; turn off shortcuts that we fat-finger frequently.
 (dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o")) (global-unset-key key))
 
-;; set save and quit to something other than C-x C-c
+;; ensure save and quit remains the same as default Emacs binding
 (global-set-key (kbd "C-x C-c") 'save-buffers-kill-terminal)
 
 ;; set up keyboard shortcuts to jump to commonly-used files.
@@ -248,7 +252,7 @@ With argument ARG, do this that many times."
  '(org-ref-insert-cite-key "C-c 0")
  '(package-selected-packages
    (quote
-    (use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize)))
+    (emmet-mode emmet yasnippet-snippets use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -443,6 +447,7 @@ With argument ARG, do this that many times."
 ;; set yasnippet directories
 (use-package yasnippet
   :ensure t
+  :ensure yasnippet-snippets
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"
                            "~/notes/org/snippets"))
@@ -454,9 +459,12 @@ With argument ARG, do this that many times."
   ;;(bind-key "H-y H-a" #'yas-reload-all)
   )
 
+;; emmet is like yasnippet, but better. It's used for HTML-like code only.
+(use-package emmet-mode)
+
 ;; syntax highlighting for ledger files.
-(use-package ledger-mode
-  :ensure t)
+;; (use-package ledger-mode
+;;   :ensure t)
 
 ;; AucTex
 (use-package tex
@@ -487,8 +495,8 @@ With argument ARG, do this that many times."
      ("^%subsubsection{\\(.*\\)}" 1 'font-latex-sectioning-4-face t)
      ("^%paragraph{\\(.*\\)}"     1 'font-latex-sectioning-5-face t)))
 
-  ;; set default pdf viewer to xdg-open
-  (setq TeX-view-program-selection '((output-pdf "xdg-open")))
+  ;; set default pdf viewer to okular
+  (setq TeX-view-program-selection '((output-pdf "Okular")))
 
   ;; set up correlation so we can find our spot
   (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
@@ -624,10 +632,10 @@ With argument ARG, do this that many times."
   (global-undo-tree-mode 1))
 
 ;; use mermaid for diagramming in Org mode
-(use-package ob-mermaid
-  :ensure t
-  :config
-  (setq ob-mermaid-cli-path "~/node_modules/.bin/mmdc"))
+;; (use-package ob-mermaid
+;;   :ensure t
+;;   :config
+;;   (setq ob-mermaid-cli-path "~/node_modules/.bin/mmdc"))
 
 ;; use org-super-agenda for section headings in agenda views
 (use-package org-super-agenda
@@ -657,9 +665,8 @@ With argument ARG, do this that many times."
 
 
 ;; flyspell-mode: check spelling as you write. Like MS Word's spell checker.
-(use-package flyspell
-  :config
-  (flyspell-mode 1))
+(use-package flyspell)
+(flyspell-mode 1)
 
 ;; add support for mutt
 (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))

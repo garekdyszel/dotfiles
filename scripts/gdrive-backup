@@ -12,4 +12,4 @@ rsync --ignore-existing -r -P /home/chips/rsch/ /mnt/gdrive/Garek\ Dyszel/
 rsync --ignore-existing -r -P /mnt/gdrive/Garek\ Dyszel/ /home/chips/rsch/
 
 # remove the lockfile for the next backup (for when you use flock)
-# rm -f ~/tmp/gdrive_backup_lock.lockfile
+rm -f ~/tmp/gdrive_backup_lock.lockfile
