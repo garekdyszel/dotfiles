@@ -127,6 +127,10 @@ bindsym Escape mode "default"
 bindsym Ctrl+g mode "default"
 }       
 
+# just switch to the next workspace. don't care what its number is
+bindsym $mod+> workspace next
+bindsym $mod+< workspace prev
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number 1 terminal
 bindsym $mod+Shift+2 move container to workspace number 2 www
@@ -231,10 +235,5 @@ exec emacs --daemon
 exec redshift -m randr -O 2000
 exec xbindkeys --poll-rc # load up keymaps for volume control
 
-# open any current projects
-exec --no-startup-id i3-msg 'workspace 5 rsch-write; exec emacsclient --create-frame ~/rsch/funding/2020/2020_NSF_GRFP/2020_NSF_GRFP.tex'
-exec --no-startup-id i3-msg 'workspace 6 rsch-write; exec emacsclient --create-frame ~/rsch/current_projects/2020_05_xx_espin_modeling_review_paper/Predictive_Structure_Theory_for_Electrospun_Fibers/Predictive_Structure_Theory_for_Electrospun_Fibers.tex'
-exec --no-startup-id i3-msg 'workspace 9 other-write; emacsclient --create-frame ~/rsch/current_projects/circuit_page/analog_syllabus.html'
-exec --no-startup-id i3-msg 'workspace 10 other-write; emacsclient --create-frame ~/job/resume/GD_resume.tex'
-exec --no-startup-id i3-msg 'workspace 18 refs; JabRef'
-exec --no-startup-id i3-msg 'workspace 19 class-write; emacsclient --create-frame ~/classes/su2020/b_half/sciss/final_proj/GD_SS3801_Final_Project.tex'
+# run shell script
+exec .i3/layout

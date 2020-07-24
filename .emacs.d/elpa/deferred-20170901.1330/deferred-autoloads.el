@@ -1,9 +1,15 @@
 ;;; deferred-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil nil ("deferred.el") (24034 43182 98962 471000))
+;;;### (autoloads nil "deferred" "deferred.el" (0 0 0 0))
+;;; Generated autoloads from deferred.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "deferred" '("deferred:")))
 
 ;;;***
 
@@ -11,5 +17,6 @@
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; deferred-autoloads.el ends here

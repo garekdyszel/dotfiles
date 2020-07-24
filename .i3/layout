@@ -1,0 +1,11 @@
+# -*- sh -*-
+
+#!/bin/bash
+
+# open all my current projects
+i3-msg 'workspace 5 rsch-write; emacsclient --create-frame ~/rsch/funding/2020/2020_NSF_GRFP/2020_NSF_GRFP.tex'
+i3-msg 'workspace 6 rsch-write; emacsclient --create-frame ~/rsch/current_projects/2020_05_xx_espin_modeling_review_paper/Predictive_Structure_Theory_for_Electrospun_Fibers/Predictive_Structure_Theory_for_Electrospun_Fibers.tex'
+i3-msg 'workspace 9 other-write; emacsclient --create-frame ~/rsch/current_projects/circuit_page/analog_syllabus.html'
+i3-msg 'workspace 10 other-write; emacsclient --create-frame ~/job/resume/GD_resume.tex'
+i3-msg 'workspace 18 refs; JabRef'
+i3-msg 'workspace 19 class-write; emacsclient --create-frame ~/classes/su2020/b_half/sciss/final_proj/GD_SS3801_Final_Project.tex'
