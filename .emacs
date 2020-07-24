@@ -181,6 +181,9 @@ With argument ARG, do this that many times."
         (delq (current-buffer) 
               (remove-if-not 'buffer-file-name (buffer-list)))))
 
+;; change default cursor style to word-like bar instead of rectangle
+(setq-default cursor-type 'bar)
+
 ;; ---- custom-set-variables ----
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

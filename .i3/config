@@ -85,7 +85,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Ctrl+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -102,21 +102,30 @@ bindsym $mod+2 workspace number 2 www
 bindsym $mod+3 workspace number 3 emacs
 bindsym $mod+4 workspace number 4 rsch-www
 bindsym $mod+5 workspace number 5 rsch-write
-bindsym $mod+6 workspace number 6 rsch-code
-bindsym $mod+7 workspace number 7 rsch-viz
+bindsym $mod+6 workspace number 6 rsch-write
+bindsym $mod+7 workspace number 7 rsch-write
 bindsym $mod+8 workspace number 8 other-www
 bindsym $mod+9 workspace number 9 other-write
-bindsym $mod+0 workspace number 10 backburner
-bindsym $mod+Ctrl+1 workspace number 11 free1
-bindsym $mod+Ctrl+2 workspace number 12 free2
-bindsym $mod+Ctrl+3 workspace number 13 free3
-bindsym $mod+Ctrl+4 workspace number 14 free4
-bindsym $mod+Ctrl+5 workspace number 15 free5
-bindsym $mod+Ctrl+6 workspace number 16 free6
-bindsym $mod+Ctrl+7 workspace number 17 free7
-bindsym $mod+Ctrl+8 workspace number 18 free8
-bindsym $mod+Ctrl+9 workspace number 19 free9
-bindsym $mod+Ctrl+0 workspace number 20 free10
+bindsym $mod+0 workspace number 10 other-write
+
+set $wswitch switch workspace
+bindsym $mod+o mode "$wswitch"
+
+mode "$wswitch" {
+bindsym 1 workspace number 11 zoom; mode "default"
+bindsym 2 workspace number 12 obs; mode "default"
+bindsym 3 workspace number 13 rsch-viz; mode "default"
+bindsym 4 workspace number 14 rsch-viz; mode "default"
+bindsym 5 workspace number 15 rsch-code; mode "default"
+bindsym 6 workspace number 16 rsch-code; mode "default"
+bindsym 7 workspace number 17 rsch-code; mode "default"
+bindsym 8 workspace number 18 free8; mode "default"
+bindsym 9 workspace number 19 free9; mode "default"
+bindsym 0 workspace number 20 free10; mode "default"
+bindsym Return mode "default"
+bindsym Escape mode "default"
+bindsym Ctrl+g mode "default"
+}       
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number 1 terminal
@@ -124,22 +133,32 @@ bindsym $mod+Shift+2 move container to workspace number 2 www
 bindsym $mod+Shift+3 move container to workspace number 3 emacs
 bindsym $mod+Shift+4 move container to workspace number 4 rsch-www
 bindsym $mod+Shift+5 move container to workspace number 5 rsch-write
-bindsym $mod+Shift+6 move container to workspace number 6 rsch-code
-bindsym $mod+Shift+7 move container to workspace number 7 rsch-viz 
+bindsym $mod+Shift+6 move container to workspace number 6 rsch-write
+bindsym $mod+Shift+7 move container to workspace number 7 rsch-write
 bindsym $mod+Shift+8 move container to workspace number 8 other-www
 bindsym $mod+Shift+9 move container to workspace number 9 other-write
-bindsym $mod+Shift+0 move container to workspace number 10 backburner
-bindsym $mod+Ctrl+Shift+1 workspace number 11 free1
-bindsym $mod+Ctrl+Shift+2 workspace number 12 free2
-bindsym $mod+Ctrl+Shift+3 workspace number 13 free3 
-bindsym $mod+Ctrl+Shift+4 workspace number 14 free4
-bindsym $mod+Ctrl+Shift+5 workspace number 15 free5
-bindsym $mod+Ctrl+Shift+6 workspace number 16 free6
-bindsym $mod+Ctrl+Shift+7 workspace number 17 free7
-bindsym $mod+Ctrl+Shift+8 workspace number 18 free8
-bindsym $mod+Ctrl+Shift+9 workspace number 19 free9
-bindsym $mod+Ctrl+Shift+0 workspace number 20 free10
-        
+bindsym $mod+Shift+0 move container to workspace number 10 other-write
+
+set $wmove move windows
+bindsym $mod+Shift+o mode "$wmove"
+
+mode "$wmove" {
+bindsym 1 move container to workspace number 11 zoom; mode "default"
+bindsym 2 move container to workspace number 12 obs; mode "default"
+bindsym 3 move container to workspace number 13 rsch-viz; mode "default" 
+bindsym 4 move container to workspace number 14 rsch-viz; mode "default"
+bindsym 5 move container to workspace number 15 rsch-code; mode "default"
+bindsym 6 move container to workspace number 16 rsch-code; mode "default"
+bindsym 7 move container to workspace number 17 rsch-code; mode "default"
+bindsym 8 move container to workspace number 18 free8; mode "default"
+bindsym 9 move container to workspace number 19 free9; mode "default"
+bindsym 0 move container to workspace number 20 free10; mode "default"
+bindsym Return mode "default"
+bindsym Escape mode "default"
+bindsym Ctrl+g mode "default"
+}
+
+bindsym $mod+Shift+Space mode "wmove"
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -198,7 +217,7 @@ exec feh --bg-max ~/pics/apt-get-install-life.jpg
 
 # keybindings for specific programs
 bindsym $mod+m exec emacsclient --create-frame
-bindsym $mod+i exec tor-browser
+bindsym $mod+i exec firefox # can switch to "exec tor-browser" when classes are done
 bindsym $mod+z exec JabRef
 bindsym $mod+t exec firefox mail.google.com/mail/u/1
 bindsym $mod+p exec dolphin
