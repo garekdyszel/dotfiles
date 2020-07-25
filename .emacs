@@ -25,19 +25,6 @@
   (require 'use-package))
 (require 'bind-key)
 
-;; set up the outline mode key so we can fold any headings.
-;; (global-unset-key "\C-o")
-;; (setq outline-minor-mode-prefix "\C-o")
-
-;; add key shortcut for turning on org-mode
-;; (global-set-key "\C-com" 'org-mode)
-
-;; add key shortcut for turning on text-mode
-;; (global-set-key "\C-ctm" 'text-mode)
-
-;; add key shortcut for turning on sage-shell-mode
-;; (global-set-key "\C-css" 'sage-shell-mode)
-
 ;; turn off shortcuts that we fat-finger frequently.
 (dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o")) (global-unset-key key))
 
@@ -47,18 +34,8 @@
 ;; set up keyboard shortcuts to jump to commonly-used files.
 (global-set-key (kbd "\C-ctd") (lambda () (interactive) (find-file "~/notes/org/todolist.org")))
 (global-set-key (kbd "\C-ctp") (lambda () (interactive) (find-file "~/rsch/current_projects/.projects/projects")))
-(global-set-key (kbd "\C-ctl") (lambda () (interactive) (find-file "~/notes/org/later")))
 (global-set-key (kbd "\C-cj") (lambda () (interactive) (find-file "~/notes/org/jot")))
 (global-set-key (kbd "\C-cd") (lambda () (interactive) (find-file "~/notes/org/done")))
-
-;; add keyboard macros for "{{{INDENT}}}" and "{{{NEWLINE}}}" blocks.
-;; {{{INDENT}}}
-;; (global-set-key (kbd "\C-zi") (fset 'insert-indent-block
-;;                                     (lambda (&optional arg) "Insert indentation block for org-mode export to pdf." (interactive "p") (kmacro-exec-ring-item (quote ("{{{INDENT}}}" 0 "%d")) arg))))
-
-;; {{{NEWLINE}}}
-;; (global-set-key (kbd "\C-zn") (fset 'insert-newline-block
-;;                                     (lambda (&optional arg) "Insert newline block for org-mode export to pdf." (interactive "p") (kmacro-exec-ring-item (quote ("{{{NEWLINE}}}" 0 "%d")) arg))))
 
 ;; change indentation size for CC mode.
 (setq-default c-basic-offset 3)
@@ -77,20 +54,8 @@
 ;; ask 'y or n' instead of 'yes or no'.
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; key shortcut to evaluate buffer
-;;(bind-key "H-e H-b" #'eval-buffer)
-
-;; calendar file shortcut
-;; (global-set-key (kbd "\C-zal") (lambda () (interactive) (find-file "~/notes/org/calendar.org")))
-
 ;; .emacs shortcut
 (global-set-key (kbd "\C-cem") (lambda () (interactive) (find-file "~/.emacs")))
-
-;; espin-theory repo shortcut
-(global-set-key (kbd "\C-cet") (lambda () (interactive) (dired "~/rsch/current_projects/espin_theory_repo/espin_theory/")))
-
-;; circuit theory page shortcut
-(global-set-key (kbd "\C-cee") (lambda () (interactive) (dired "~/rsch/current_projects/circuit_page/analog_syllabus.html")))
 
 ;; enable parentheses checking
 (show-paren-mode 1)
@@ -181,8 +146,18 @@ With argument ARG, do this that many times."
         (delq (current-buffer) 
               (remove-if-not 'buffer-file-name (buffer-list)))))
 
-;; change default cursor style to word-like bar instead of rectangle
+;; change default cursor style to bar instead of rectangle
 (setq-default cursor-type 'bar)
+
+;; vim-like keybindings for movement
+(bind-key "s-j" 'backward-char)
+(bind-key "s-k" 'next-line)
+(bind-key "s-i" 'previous-line)
+(bind-key "s-l" 'forward-char)
+(bind-key "M-s-j" 'left-word)
+(bind-key "M-s-k" 'forward-paragraph)
+(bind-key "M-s-l" 'right-word)
+(bind-key "M-s-i" 'backward-paragraph)
 
 ;; ---- custom-set-variables ----
 (custom-set-variables
@@ -255,7 +230,7 @@ With argument ARG, do this that many times."
  '(org-ref-insert-cite-key "C-c 0")
  '(package-selected-packages
    (quote
-    (srcery multiple-cursors emmet-mode emmet yasnippet-snippets use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize)))
+    (srcery emmet-mode emmet yasnippet-snippets use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -445,12 +420,6 @@ With argument ARG, do this that many times."
   :config
   (ox-extras-activate '(ignore-headlines)))
 
-;; allow org-mind-map.el to be loaded
-;;(use-package ox-org)
-
-;;(use-package org-mind-map
-;;  :load-path "~/.emacs.d/lisp/org-mind-map.el")
-
 ;; enable yasnippet (for latex snippets), set its dirs, and have it run as a minor mode in all major modes.
 ;; set yasnippet directories
 (use-package yasnippet
@@ -469,10 +438,6 @@ With argument ARG, do this that many times."
 
 ;; emmet is like yasnippet, but better. It's used for HTML-like code only.
 (use-package emmet-mode)
-
-;; syntax highlighting for ledger files.
-;; (use-package ledger-mode
-;;   :ensure t)
 
 ;; AucTex
 (use-package tex
@@ -512,24 +477,8 @@ With argument ARG, do this that many times."
 
   (setq TeX-command-BibTeX 'Biber))
 
-;; type latex symbols more quickly
-;; (use-package cdlatex
-;;   ;;:config
-;;   ;;(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
-;;   )
-
 ;; automatic creation of paired delimiters
 (electric-pair-mode 1)
-
-;; make it easier to escape paired characters
-;; (use-package tab-jump-out
-;;   :ensure t
-;;   :config
-;;   (add-hook 'org-mode-hook 'tab-jump-out-mode)
-;;   (add-hook 'prog'-mode-hook 'tab-jump-out-mode)
-;;   (setq yas-fallback-behavior '(apply tab-jump-out 1))
-;;   ;;(bind-key "H-t" 'tab-jump-out-mode)
-;;   )
 
 ;; replace the minibuffer with a better one
 (use-package helm
@@ -548,10 +497,13 @@ With argument ARG, do this that many times."
   (global-set-key (kbd "C-x C-b") 'helm-mini)
   (global-set-key (kbd "C-x b") 'helm-mini)
   (global-set-key (kbd "C-y") 'helm-show-kill-ring)
+
+  (define-key helm-map (kbd "<right>") 'forward-char)
   
   
   (setq helm-buffers-fuzzy-matching t
         helm-recentf-fuzzy-match t)
+  (setq helm-ff-lynx-style-map t)
 
   ;; bibliography config
   (setq helm-bibtex-bibliography "~/refs/rsch-refs.bib"
@@ -559,30 +511,6 @@ With argument ARG, do this that many times."
         helm-bibtex-notes-path "~/refs/refnotes.org")
   ;; run helm-mode everywhere
   (helm-mode 1))
-
-;; edit matlab files in emacs
-;; (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
-;; (add-to-list
-;;  'auto-mode-alist
-;;  '("\\.m$" . matlab-mode))
-;; (setq matlab-indent-function t)
-;; (setq matlab-shell-command "/usr/local/MATLAB/R2019b/bin/matlab")
-
-;; make anki cards in org-mode
-;; (use-package anki-editor
-;;   :ensure t
-;;   :config
-;;   (global-unset-key (kbd "C-M-c"))
-;;   (bind-key "C-M-c" #'anki-editor-cloze-region))
-
-;; make it easier to switch windows
-;; (global-unset-key (kbd "C-,"))
-;; (global-set-key (kbd "C-,") #'prev-window)
-;; (global-set-key (kbd "C-.") #'other-window)
-
-;; (defun prev-window ()
-;;   (interactive)
-;;   (other-window -1))
 
 ;; make sure shells pop up in the current buffer.
 (add-to-list 'display-buffer-alist
@@ -683,9 +611,6 @@ With argument ARG, do this that many times."
 
 ;; set shell script-mode binds
 ;(add-hook 'sh-mode-hook (bind-key "C-c ;" 'comment-region))
-
-;; multiple cursors for editing multiple spots simultaenously (with the same text)
-(use-package multiple-cursors)
 
 ;; Set the default mode of the scratch buffer to Org
 (setq initial-major-mode 'org-mode)
