@@ -228,6 +228,3 @@ exec setxkbmap -model pc105 -layout pl -option kpdl:dot -option hyper:rctl -opti
 exec emacs --daemon
 exec redshift -m randr -O 2000
 exec xbindkeys --poll-rc # load up keymaps for volume control
-
-# run shell script
-exec .i3/layout
