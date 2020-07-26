@@ -1,8 +1,10 @@
+# -*- sh -*-
 # Gmail account
 IMAPAccount gmail
 # Address to connect to
 Host imap.gmail.com
 User garekdyszel@gmail.com
+PassCmd "pass mail/gmail"
 # To store the password in an encrypted file use PassCmd instead of Pass
 # PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.mailpass.gpg"
 #
@@ -39,6 +41,7 @@ IMAPAccount mtu
 # Address to connect to
 Host imap.gmail.com
 User gjdyszel@mtu.edu
+PassCmd "pass mail/mtu"
 # To store the password in an encrypted file use PassCmd instead of Pass
 # PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.mailpass.gpg"
 #
