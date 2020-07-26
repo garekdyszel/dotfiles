@@ -1,0 +1,9 @@
+# -*- sh -*-
+
+#!/bin/bash
+
+# fetch mail from all accounts
+mbsync -a
+
+# index it with notmuch
+notmuch new

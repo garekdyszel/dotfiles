@@ -1,0 +1,5 @@
+# -*- sh-*-
+#!/bin/bash
+
+GIT = 'which git'
+HOME_REPO = '/home/chips/'
