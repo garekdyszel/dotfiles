@@ -26,7 +26,7 @@
 (require 'bind-key)
 
 ;; turn off shortcuts that we fat-finger frequently.
-(dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o")) (global-unset-key key))
+(dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o" "\C-n")) (global-unset-key key))
 
 ;; ensure save and quit remains the same as default Emacs binding
 (global-set-key (kbd "C-x C-c") 'save-buffers-kill-terminal)
@@ -150,14 +150,14 @@ With argument ARG, do this that many times."
 (setq-default cursor-type 'bar)
 
 ;; vim-like keybindings for movement
-(bind-key "s-j" 'backward-char)
-(bind-key "s-k" 'next-line)
-(bind-key "s-i" 'previous-line)
-(bind-key "s-l" 'forward-char)
-(bind-key "M-s-j" 'left-word)
-(bind-key "M-s-k" 'forward-paragraph)
-(bind-key "M-s-l" 'right-word)
-(bind-key "M-s-i" 'backward-paragraph)
+;; (bind-key "s-j" 'backward-char)
+;; (bind-key "s-k" 'next-line)
+;; (bind-key "s-i" 'previous-line)
+;; (bind-key "s-l" 'forward-char)
+;; (bind-key "M-s-j" 'left-word)
+;; (bind-key "M-s-k" 'forward-paragraph)
+;; (bind-key "M-s-l" 'right-word)
+;; (bind-key "M-s-i" 'backward-paragraph)
 
 ;; ---- custom-set-variables ----
 (custom-set-variables
@@ -214,6 +214,7 @@ With argument ARG, do this that many times."
  '(main-line-color2 "#111111")
  '(main-line-separator-style (quote chamfer))
  '(major-mode (quote org-mode))
+ '(message-send-mail-function (quote sendmail-query-once))
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
@@ -236,6 +237,7 @@ With argument ARG, do this that many times."
  '(powerline-color2 "#111111")
  '(python-shell-interpreter "/usr/bin/python3")
  '(python-shell-virtualenv-root "/usr/bin/python3")
+ '(send-mail-function (quote mailclient-send-it))
  '(tab-width 3)
  '(tool-bar-mode nil)
  '(truncate-partial-width-windows 0)
@@ -497,8 +499,8 @@ With argument ARG, do this that many times."
   (global-set-key (kbd "C-x C-b") 'helm-mini)
   (global-set-key (kbd "C-x b") 'helm-mini)
   (global-set-key (kbd "C-y") 'helm-show-kill-ring)
-
-  (define-key helm-map (kbd "<right>") 'forward-char)
+  
+  ;(define-key helm-map (kbd "<right>") 'forward-char)
   
   
   (setq helm-buffers-fuzzy-matching t
@@ -605,12 +607,16 @@ With argument ARG, do this that many times."
   :config
   (flyspell-mode 1))
 
+;; add support for notmuch
+(autoload 'notmuch "notmuch" "notmuch mail" t)
+(bind-key "C-n" 'notmuch)
 
-;; add support for mutt
-(setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
-
-;; set shell script-mode binds
-;(add-hook 'sh-mode-hook (bind-key "C-c ;" 'comment-region))
+;; Outgoing email (msmtp + msmtpq)
+(setq send-mail-function 'sendmail-send-it
+      sendmail-program "/usr/bin/msmtp"
+      mail-specify-envelope-from t
+      message-sendmail-envelope-from 'header
+      mail-envelope-from 'header)
 
 ;; Set the default mode of the scratch buffer to Org
 (setq initial-major-mode 'org-mode)

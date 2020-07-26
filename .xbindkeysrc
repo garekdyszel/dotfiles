@@ -1,11 +1,11 @@
 # -*- shell-script -*-
-"amixer -c 2 set Master 5%+"
+"amixer -c 1 set Master 5%+"
   Pause  
 
-"amixer -c 2 set Master 5%-"
+"amixer -c 1 set Master 5%-"
   Scroll_Lock  
 
-"amixer -c 2 set Front toggle && amixer -c 2 set Headphone toggle && amixer -c 2 set Master toggle"
+"amixer -c 1 set Front toggle && amixer -c 2 set Headphone toggle && amixer -c 2 set Master toggle"
   Print
 
 ########################
