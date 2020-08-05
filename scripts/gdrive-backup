@@ -9,7 +9,7 @@ rsync --ignore-existing -r -P --exclude='.*' --include='.cfg' --include='.dotfil
 rsync --ignore-existing -r -P /home/chips/rsch/ /mnt/gdrive/Garek\ Dyszel/
 
 # pull any changes in research folder
-rsync --ignore-existing -r -P /mnt/gdrive/Garek\ Dyszel/ /home/chips/rsch/
+# rsync --ignore-existing -r -P /mnt/gdrive/Garek\ Dyszel/ /home/chips/rsch/
 
 # remove the lockfile for the next backup (for when you use flock)
 rm -f ~/tmp/gdrive_backup_lock.lockfile

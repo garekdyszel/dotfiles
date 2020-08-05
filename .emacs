@@ -239,7 +239,7 @@ With argument ARG, do this that many times."
  '(org-ref-insert-cite-key "C-c 0")
  '(package-selected-packages
    (quote
-    (srcery emmet-mode emmet yasnippet-snippets use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize)))
+    (ox-reveal srcery emmet-mode emmet yasnippet-snippets use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -479,7 +479,7 @@ With argument ARG, do this that many times."
      ("^%paragraph{\\(.*\\)}"     1 'font-latex-sectioning-5-face t)))
 
   ;; set default pdf viewer to okular
-  (setq TeX-view-program-selection '((output-pdf "Okular")))
+  (setq TeX-view-program-selection '((output-pdf "Zathura")))
 
   ;; set up correlation so we can find our spot
   (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
@@ -615,7 +615,7 @@ With argument ARG, do this that many times."
   :config
   (flyspell-mode 1))
 
-;; add support for notmuch
+;; add support for notmuch: email client
 (autoload 'notmuch "notmuch" "notmuch mail" t)
 (bind-key "C-n" 'notmuch)
 
@@ -625,6 +625,16 @@ With argument ARG, do this that many times."
       mail-specify-envelope-from t
       message-sendmail-envelope-from 'header
       mail-envelope-from 'header)
+
+;; turn off automatic buffer narrowing in message-mode
+;; so you can edit the whole file without that gross column of text
+(add-hook 'message-mode-hook 'widen)
+
+;; org-reveal for reveal.js presentations
+(use-package ox-reveal)
+
+;; add matlab mode for reading Chebfun files
+;;(use-package matlab)
 
 ;; Set the default mode of the scratch buffer to Org
 (setq initial-major-mode 'org-mode)

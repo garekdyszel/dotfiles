@@ -26,5 +26,8 @@ alias configp='config push --no-thin main master'
 # don't forget to launch obs with zoom
 alias zoom='obs && zoom'
 
+# grab mail
+alias mail='mbsync -a && notmuch new'
+
 # set Qt 5 theme controller
 export QT_QPA_PLATFORMTHEME=qt5ct

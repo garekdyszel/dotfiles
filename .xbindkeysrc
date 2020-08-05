@@ -5,8 +5,8 @@
 "amixer -c 1 set Master 5%-"
   Scroll_Lock  
 
-"amixer -c 1 set Front toggle && amixer -c 2 set Headphone toggle && amixer -c 2 set Master toggle"
-  Print
+# "amixer -c 1 set Front toggle && amixer -c 2 set Headphone toggle && amixer -c 2 set Master toggle"
+#   Print
 
 ########################
 # End xbindkeys config #

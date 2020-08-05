@@ -217,7 +217,7 @@ exec feh --bg-max ~/pics/apt-get-install-life.jpg
 bindsym $mod+m exec emacsclient --create-frame
 bindsym $mod+i exec firefox
 bindsym $mod+z exec JabRef
-bindsym $mod+t exec tor-browser
+bindsym $mod+t exec torbrowser-launcher
 bindsym $mod+p exec dolphin
 
 # keyboard layout
