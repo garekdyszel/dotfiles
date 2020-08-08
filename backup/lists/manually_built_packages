@@ -1,3 +1,4 @@
 deal.ii 9.2.0 -- located in /usr/include -- dealii.org
 multi-git-status -- installed itself somewhere -- https://github.com/fboender/multi-git-status/
 LTSpice -- not manually built, but manually installed -- https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html#
+FriCAS -- through yay

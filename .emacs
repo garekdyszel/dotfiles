@@ -79,16 +79,16 @@
             (set (make-local-variable 'compile-command)
                  (format "g++ %s -o %s -g" (buffer-file-name) (file-name-sans-extension)))))
 
-; from enberg on #emacs for compilation window killing
+                                        ; from enberg on #emacs for compilation window killing
 (add-hook 'compilation-finish-functions
-  (lambda (buf str)
-    (if (null (string-match ".*exited abnormally.*" str))
-        ;;no errors, make the compilation window go away in a few seconds
-        (progn
-          (run-at-time
-           "2 sec" nil 'delete-windows-on
-           (get-buffer-create "*compilation*"))
-          (message "No Compilation Errors!")))))
+          (lambda (buf str)
+            (if (null (string-match ".*exited abnormally.*" str))
+                ;;no errors, make the compilation window go away in a few seconds
+                (progn
+                  (run-at-time
+                   "2 sec" nil 'delete-windows-on
+                   (get-buffer-create "*compilation*"))
+                  (message "No Compilation Errors!")))))
 
 ;; replace kill-word and backward-kill-word with commands that are easier to predict
 ;; also make the kill-whole-line command delete the line instead.
@@ -184,6 +184,73 @@ With argument ARG, do this that many times."
      ("circuitikz")
      ("tikzpicture"))))
  '(Linum-format "%7i ")
+ '(TeX-command-list
+   (quote
+    (("TeX" "%(PDF)%(tex) %(file-line-error) %`%(extraopts) %S%(PDFout)%(mode)%' %t" TeX-run-TeX nil
+      (plain-tex-mode texinfo-mode ams-tex-mode)
+      :help "Run plain TeX")
+     ("LaTeX" "%`%l%(mode)%' %T" TeX-run-TeX nil
+      (latex-mode doctex-mode)
+      :help "Run LaTeX")
+     ("Makeinfo" "makeinfo %(extraopts) %t" TeX-run-compile nil
+      (texinfo-mode)
+      :help "Run Makeinfo with Info output")
+     ("Makeinfo HTML" "makeinfo %(extraopts) --html %t" TeX-run-compile nil
+      (texinfo-mode)
+      :help "Run Makeinfo with HTML output")
+     ("AmSTeX" "amstex %(PDFout) %`%(extraopts) %S%(mode)%' %t" TeX-run-TeX nil
+      (ams-tex-mode)
+      :help "Run AMSTeX")
+     ("ConTeXt" "%(cntxcom) --once --texutil %(extraopts) %(execopts)%t" TeX-run-TeX nil
+      (context-mode)
+      :help "Run ConTeXt once")
+     ("ConTeXt Full" "%(cntxcom) %(extraopts) %(execopts)%t" TeX-run-TeX nil
+      (context-mode)
+      :help "Run ConTeXt until completion")
+     ("BibTeX" "bibtex %s" TeX-run-BibTeX nil
+      (plain-tex-mode latex-mode doctex-mode context-mode texinfo-mode ams-tex-mode)
+      :help "Run BibTeX")
+     ("Biber" "biber %s" TeX-run-Biber nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Run Biber")
+     ("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer")
+     ("Print" "%p" TeX-run-command t t :help "Print the file")
+     ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command)
+     ("File" "%(o?)dvips %d -o %f " TeX-run-dvips t
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Generate PostScript file")
+     ("Dvips" "%(o?)dvips %d -o %f " TeX-run-dvips nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Convert DVI file to PostScript")
+     ("Dvipdfmx" "dvipdfmx %d" TeX-run-dvipdfmx nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Convert DVI file to PDF with dvipdfmx")
+     ("Ps2pdf" "ps2pdf %f" TeX-run-ps2pdf nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Convert PostScript file to PDF")
+     ("Glossaries" "makeglossaries %s" TeX-run-command nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Run makeglossaries to create glossary
+     file")
+     ("Index" "makeindex %s" TeX-run-index nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Run makeindex to create index file")
+     ("upMendex" "upmendex %s" TeX-run-index t
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Run upmendex to create index file")
+     ("Xindy" "texindy %s" TeX-run-command nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Run xindy to create index file")
+     ("Check" "lacheck %s" TeX-run-compile nil
+      (latex-mode)
+      :help "Check LaTeX file for correctness")
+     ("ChkTeX" "chktex -v6 %s" TeX-run-compile nil
+      (latex-mode)
+      :help "Check LaTeX file for common mistakes")
+     ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document")
+     ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files")
+     ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files")
+     ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
  '(TeX-view-program-selection (quote ((output-html "xdg-open"))))
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
@@ -208,7 +275,9 @@ With argument ARG, do this that many times."
  '(frame-background-mode (quote dark))
  '(frame-title-format "%b" t)
  '(fringe-mode 4 nil (fringe))
+ '(global-pretty-mode t)
  '(global-visual-line-mode t)
+ '(gnus-delay-default-hour 7)
  '(inhibit-startup-screen t)
  '(main-line-color1 "#1E1E1E")
  '(main-line-color2 "#111111")
@@ -239,13 +308,14 @@ With argument ARG, do this that many times."
  '(org-ref-insert-cite-key "C-c 0")
  '(package-selected-packages
    (quote
-    (ox-reveal srcery emmet-mode emmet yasnippet-snippets use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize)))
+    (magic-latex-buffer auctex-latexmk pretty-mode cdlatex ox-reveal srcery emmet-mode emmet yasnippet-snippets use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
  '(python-shell-interpreter "/usr/bin/python3")
  '(python-shell-virtualenv-root "/usr/bin/python3")
  '(send-mail-function (quote mailclient-send-it))
+ '(show-paren-mode t)
  '(tab-width 3)
  '(tool-bar-mode nil)
  '(truncate-partial-width-windows 0)
@@ -277,7 +347,7 @@ With argument ARG, do this that many times."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 120 :width normal)))))
 
 
 ;; ----- PACKAGE CONFIG STARTS HERE -----
@@ -434,26 +504,35 @@ With argument ARG, do this that many times."
 ;; set yasnippet directories
 (use-package yasnippet
   :ensure t
-  :ensure yasnippet-snippets
   :config
-  (setq yas-snippet-dirs '("~/.emacs.d/snippets"
-                           "~/notes/org/snippets"))
-  (setq yas-triggers-in-field t)
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+                                        ;"~/notes/org/snippets"))
+  ;; (setq yas-triggers-in-field t)
   (yas-global-mode +1)
-  (add-hook 'minibuffer-setup-hook 'yas-minor-mode)
-  (yas--define-parents 'minibuffer-inactive-mode '(org-mode latex-mode))
-  (add-hook 'calc-mode-hook 'yas-minor-mode)
-  ;;(bind-key "H-y H-a" #'yas-reload-all)
+  ;; (add-hook 'minibuffer-setup-hook 'yas-minor-mode)
+  ;; (yas--define-parents 'minibuffer-inactive-mode '(org-mode latex-mode))
+  ;; (add-hook 'calc-mode-hook 'yas-minor-mode)
+  ;; (bind-key "H-y H-a" #'yas-reload-all)
   )
+
+;; snippets for yasnippet, especially LaTeX
+;; (use-package yasnippet-snippets)
 
 ;; emmet is like yasnippet, but better. It's used for HTML-like code only.
 (use-package emmet-mode)
+
+;; cdlatex-mode for lightning-fast latex editing
+(use-package cdlatex)
 
 ;; AucTex
 (use-package tex
   :ensure auctex
   :config
+  ;; expansion and contraction of outlines
+  ;; TODO: redefine keybindings so they don't suck the life out of your hands
   (add-hook 'LaTeX-mode-hook #'outline-minor-mode)
+
+  ;; display line numbers in all latex buffers
   (add-hook 'LaTeX-mode-hook 'linum-mode)
   
   ;; extra outline headers 
@@ -485,7 +564,36 @@ With argument ARG, do this that many times."
   (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
   (setq TeX-source-correlate-start-server t)
 
-  (setq TeX-command-BibTeX 'Biber))
+  ;; attempt to execute biber, but doesn't work
+  ;; (setq TeX-command-BibTeX 'Biber)
+
+  ;; always turn on cdlatex-mode when we enter latex-mode
+  (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
+  
+  ;; make the preview font size MUCH bigger, so we can read our equations
+  (set-default 'preview-scale-function 1.2)
+
+  ;; make sure we can build using our makefiles
+  (eval-after-load "tex" '(add-to-list 'TeX-command-list '("Make" "make" TeX-run-compile nil t)))
+  ;; set the Make command to default
+  (setq TeX-command-default "Make")
+  
+  )
+
+;; don't hit C-c C-c six million times to compile latex to pdf
+;; (use-package auctex-latexmk
+;;   :config
+;;   (auctex-latexmk-setup))
+
+;; (use-package magic-latex-buffer)
+
+;; ;; turn on prettify-symbols-mode,
+;; ;; so we don't waste time dealing with pdf compilation while taking notes
+;; (use-package pretty-mode
+;;   :config
+;;   (pretty-activate-groups
+;;  '(:sub-and-superscripts :greek :arithmetic-nary)))
+;; (global-pretty-mode t)
 
 ;; automatic creation of paired delimiters
 (electric-pair-mode 1)
@@ -508,7 +616,7 @@ With argument ARG, do this that many times."
   (global-set-key (kbd "C-x b") 'helm-mini)
   (global-set-key (kbd "C-y") 'helm-show-kill-ring)
   
-  ;(define-key helm-map (kbd "<right>") 'forward-char)
+                                        ;(define-key helm-map (kbd "<right>") 'forward-char)
   
   
   (setq helm-buffers-fuzzy-matching t
@@ -638,12 +746,6 @@ With argument ARG, do this that many times."
 
 ;; Set the default mode of the scratch buffer to Org
 (setq initial-major-mode 'org-mode)
-;; and change the message accordingly
-(setq initial-scratch-message "\
-# This buffer is for notes you don't want to save. You can use
-# org-mode markup (and all Org's goodness) to organise the notes.
-# If you want to create a file, visit that file with C-x C-f,
-# then enter the text in that file's own buffer.
-
-")
+;; and change the message accordingly. No scratch message
+(setq initial-scratch-message " ")
 
