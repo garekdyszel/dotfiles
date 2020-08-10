@@ -64,8 +64,8 @@
 (global-unset-key (kbd "<insert>"))
 
 ;; make the compilation show up in a new window (not one of the ones we already have open)
-(setq special-display-buffer-names
-      '("*compilation*"))
+;(setq display-buffer-alist
+;      '("*compilation*"))
 
 (setq special-display-function
       (lambda (buffer &optional args)
@@ -74,10 +74,10 @@
         (get-buffer-window buffer 0)))
 
 ;; change the default compile command for C files
-(add-hook 'c-mode-hook
-          (lambda ()
-            (set (make-local-variable 'compile-command)
-                 (format "g++ %s -o %s -g" (buffer-file-name) (file-name-sans-extension)))))
+;; (add-hook 'c-mode-hook
+;;           (lambda ()
+;;             (set (make-local-variable 'compile-command)
+;;                  (format "g++ %s -o %s -g" (buffer-file-name) (file-name-sans-extension)))))
 
                                         ; from enberg on #emacs for compilation window killing
 (add-hook 'compilation-finish-functions
@@ -132,7 +132,7 @@ With argument ARG, do this that many times."
   (kill-line)
   (yank)
   (open-line 1)
-  (next-line 1)
+  (forward-line 1)
   (yank))
 (global-set-key (kbd "C-p") nil)
 (global-set-key (kbd "C-p") 'duplicate-line)
@@ -256,6 +256,7 @@ With argument ARG, do this that many times."
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(auth-source-save-behavior nil)
  '(auto-fill-mode t)
  '(beacon-color "#cc6666")
  '(cdlatex-math-modify-alist nil)
@@ -308,7 +309,7 @@ With argument ARG, do this that many times."
  '(org-ref-insert-cite-key "C-c 0")
  '(package-selected-packages
    (quote
-    (magic-latex-buffer auctex-latexmk pretty-mode cdlatex ox-reveal srcery emmet-mode emmet yasnippet-snippets use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize)))
+    (mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet yasnippet-snippets use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -446,13 +447,13 @@ With argument ARG, do this that many times."
   (setq org-confirm-babel-evaluate nil)
 
   ;; Use imagemagick to preview in buffer.
-  (setq org-latex-create-formula-image-program 'imagemagick)
+  (setq org-preview-latex-default-process 'imagemagick)
 
   (add-to-list 'org-latex-packages-alist
                '("" "tikz" t))
 
-  (eval-after-load "preview"
-    '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
+  ;; (eval-after-load "preview"
+  ;;   '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
 
   ;; set the default image size to 200 px x 200 px
   (setq org-default-image-size 200)
@@ -576,7 +577,15 @@ With argument ARG, do this that many times."
   ;; make sure we can build using our makefiles
   (eval-after-load "tex" '(add-to-list 'TeX-command-list '("Make" "make" TeX-run-compile nil t)))
   ;; set the Make command to default
-  (setq TeX-command-default "Make")
+  ;; (setq TeX-command-default "Make")
+
+    (add-hook 'TeX-mode-hook 
+            (lambda () 
+              (setq TeX-command-default "Make")))
+  
+  (add-hook 'LaTeX-mode-hook 
+            (lambda () 
+              (setq TeX-command-default "Make")))
   
   )
 
@@ -586,14 +595,6 @@ With argument ARG, do this that many times."
 ;;   (auctex-latexmk-setup))
 
 ;; (use-package magic-latex-buffer)
-
-;; ;; turn on prettify-symbols-mode,
-;; ;; so we don't waste time dealing with pdf compilation while taking notes
-;; (use-package pretty-mode
-;;   :config
-;;   (pretty-activate-groups
-;;  '(:sub-and-superscripts :greek :arithmetic-nary)))
-;; (global-pretty-mode t)
 
 ;; automatic creation of paired delimiters
 (electric-pair-mode 1)
@@ -624,9 +625,9 @@ With argument ARG, do this that many times."
   (setq helm-ff-lynx-style-map t)
 
   ;; bibliography config
-  (setq helm-bibtex-bibliography "~/refs/rsch-refs.bib"
-        helm-bibtex-library-path "~/refs/"
-        helm-bibtex-notes-path "~/refs/refnotes.org")
+  ;; (setq bibtex-completion "~/refs/rsch-refs.bib"
+  ;;       helm-bibtex-library-path "~/refs/"
+  ;;       helm-bibtex-notes-path "~/refs/refnotes.org")
   ;; run helm-mode everywhere
   (helm-mode 1))
 
@@ -724,15 +725,190 @@ With argument ARG, do this that many times."
   (flyspell-mode 1))
 
 ;; add support for notmuch: email client
-(autoload 'notmuch "notmuch" "notmuch mail" t)
-(bind-key "C-n" 'notmuch)
+;; (autoload 'notmuch "notmuch" "notmuch mail" t)
+;; (bind-key "C-n" 'notmuch)
+
+;; --- mu4e mail client ---
+;; all config copied mostly from
+;; https://www.reddit.com/r/emacs/comments/bfsck6/mu4e_for_dummies/
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/")
+(require 'mu4e)
+
+(setq mu4e-root-maildir (expand-file-name "~/mail"))
+
+; get mail
+(setq mu4e-get-mail-command "mbsync -a"
+  ;; mu4e-html2text-command "w3m -T text/html" ;;using the default mu4e-shr2text
+  mu4e-view-prefer-html t
+  mu4e-update-interval 180
+  mu4e-headers-auto-update t
+  mu4e-compose-signature-auto-include nil
+  mu4e-compose-format-flowed t)
+
+;; to view selected message in the browser, no signin, just html mail
+(add-to-list 'mu4e-view-actions
+             '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+
+;; enable inline images
+(setq mu4e-view-show-images t)
+;; use imagemagick, if available
+(when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
+
+;; every new email composition gets its own frame!
+;;(setq mu4e-compose-in-new-frame t)
+
+;; don't save message to Sent Messages, IMAP takes care of this
+(setq mu4e-sent-messages-behavior 'delete)
+
+(add-hook 'mu4e-view-mode-hook #'visual-line-mode)
+
+;; <tab> to navigate to links, <RET> to open them in browser
+(add-hook 'mu4e-view-mode-hook
+  (lambda()
+;; try to emulate some of the eww key-bindings
+(local-set-key (kbd "<RET>") 'mu4e~view-browse-url-from-binding)
+(local-set-key (kbd "<tab>") 'shr-next-link)
+(local-set-key (kbd "<backtab>") 'shr-previous-link)))
+
+;; from https://www.reddit.com/r/emacs/comments/bfsck6/mu4e_for_dummies/elgoumx
+(add-hook 'mu4e-headers-mode-hook
+      (defun my/mu4e-change-headers ()
+	(interactive)
+	(setq mu4e-headers-fields
+	      `((:human-date . 25) ;; alternatively, use :date
+		(:flags . 6)
+		(:from . 22)
+		;;(:thread-subject . ,(- (window-body-width) 70)) ;; alternatively, use :subject
+		(:size . 7)))))
+
+;; if you use date instead of human-date in the above, use this setting
+;; give me ISO(ish) format date-time stamps in the header list
+;(setq mu4e-headers-date-format "%Y-%m-%d %H:%M")
+
+;; spell check
+;; (add-hook 'mu4e-compose-mode-hook
+;;     (defun my-do-compose-stuff ()
+;;        "My settings for message composition."
+;;        (visual-line-mode)
+;;        ;;(org-mu4e-compose-org-mode)
+;;            (use-hard-newlines -1)
+;;            ;;(flyspell-mode)
+;;            ))
+
+(require 'smtpmail)
+
+;;rename files when moving
+;;NEEDED FOR MBSYNC
+(setq mu4e-change-filenames-when-moving t)
+
+;;set up queue for offline email
+;;use mu mkdir  ~/mail/acc/queue to set up first
+(setq smtpmail-queue-mail nil)  ;; start in normal mode
+
+;;from the info manual
+(setq mu4e-attachment-dir  "~/dls")
+
+(setq message-kill-buffer-on-exit t)
+(setq mu4e-compose-dont-reply-to-self t)
+
+(require 'org-mu4e)
+
+;; convert org mode to HTML automatically
+(setq org-mu4e-convert-to-html t)
+
+;;from vxlabs config
+;; show full addresses in view message (instead of just names)
+;; toggle per name with M-RET
+(setq mu4e-view-show-addresses 't)
+
+;; don't ask when quitting
+(setq mu4e-confirm-quit nil)
+
+;; mu4e-context
+(setq mu4e-context-policy 'pick-first)
+(setq mu4e-compose-context-policy 'always-ask)
+(setq mu4e-contexts
+  (list
+   (make-mu4e-context
+    :name "gmail" ;;for gmail
+    :enter-func (lambda () (mu4e-message "Entering context gmail"))
+    :leave-func (lambda () (mu4e-message "Leaving context gmail"))
+    :match-func (lambda (msg)
+		  (when msg
+		(mu4e-message-contact-field-matches
+		 msg '(:from :to :cc :bcc) "garekdyszel@gmail.com")))
+    :vars '((user-mail-address . "garekdyszel@gmail.com")
+	    (user-full-name . "Garek Dyszel")
+	    (mu4e-sent-folder . "/gmail/[Gmail]/Sent Mail")
+	    (mu4e-drafts-folder . "/gmail/[Gmail]/drafts")
+	    (mu4e-trash-folder . "/gmail/[Gmail]/Bin")
+	    (mu4e-compose-signature . (concat "Formal Signature\n" "Emacs 25, org-mode 9, mu4e 1.0\n"))
+	    (mu4e-compose-format-flowed . t)
+	    (smtpmail-queue-dir . "~/mail/gmail/queue/cur")
+	    (message-send-mail-function . smtpmail-send-it)
+	    (smtpmail-smtp-user . "garekdyszel@gmail.com")
+	    (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
+	    (smtpmail-auth-credentials . (expand-file-name "~/.authinfo.gpg"))
+	    (smtpmail-default-smtp-server . "smtp.gmail.com")
+	    (smtpmail-smtp-server . "smtp.gmail.com")
+	    (smtpmail-smtp-service . 587)
+	    (smtpmail-debug-info . t)
+	    (smtpmail-debug-verbose . t)
+       (setq mu4e~get-mail-password-regexp "^Enter password for account 'gmail': $")
+	    (mu4e-maildir-shortcuts . ( ("/gmail/inbox"            . ?i)
+					("/gmail/[Gmail]/Sent Mail" . ?s)
+					("/gmail/[Gmail]/Bin"       . ?t)
+					("/gmail/[Gmail]/All Mail"  . ?a)
+					("/gmail/[Gmail]/Starred"   . ?r)
+					("/gmail/[Gmail]/drafts"    . ?d)
+					))))
+  
+   (make-mu4e-context
+    :name "mtu" ;;for mtu
+    :enter-func (lambda () (mu4e-message "Entering context mtu"))
+    :leave-func (lambda () (mu4e-message "Leaving context mtu"))
+    :match-func (lambda (msg)
+		  (when msg
+		(mu4e-message-contact-field-matches
+		 msg '(:from :to :cc :bcc) "gjdyszel@mtu.edu")))
+    :vars '((user-mail-address . "gjdyszel@mtu.edu")
+	    (user-full-name . "Garek Dyszel")
+	    (mu4e-sent-folder . "/mtu/[Gmail]/Sent Mail")
+	    (mu4e-drafts-folder . "/mtu/[Gmail]/drafts")
+	    (mu4e-trash-folder . "/mtu/[Gmail]/Trash")
+	    (mu4e-compose-signature . (concat "Informal Signature\n" "Emacs is awesome!\n"))
+	    (mu4e-compose-format-flowed . t)
+	    (smtpmail-queue-dir . "~/mail/mtu/queue/cur")
+	    (message-send-mail-function . smtpmail-send-it)
+	    (smtpmail-smtp-user . "gjdyszel@mtu.edu")
+	    (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
+	    (smtpmail-auth-credentials . (expand-file-name "~/.authinfo.gpg"))
+	    (smtpmail-default-smtp-server . "smtp.gmail.com")
+	    (smtpmail-smtp-server . "smtp.gmail.com")
+	    (smtpmail-smtp-service . 587)
+	    (smtpmail-debug-info . t)
+	    (smtpmail-debug-verbose . t)
+       (setq mu4e~get-mail-password-regexp "^Enter password for account 'mtu': $")
+	    (mu4e-maildir-shortcuts . ( ("/mtu/inbox"            . ?i)
+					("/mtu/[Gmail]/Sent Mail" . ?s)
+					("/mtu/[Gmail]/Trash"     . ?t)
+					("/mtu/[Gmail]/All Mail"  . ?a)
+					("/mtu/[Gmail]/Starred"   . ?r)
+					("/mtu/[Gmail]/drafts"    . ?d)
+					))))))
+
+
+(bind-key "C-n" 'mu4e)
+
+;; --- end mu4e config ---
 
 ;; Outgoing email (msmtp + msmtpq)
-(setq send-mail-function 'sendmail-send-it
-      sendmail-program "/usr/bin/msmtp"
-      mail-specify-envelope-from t
-      message-sendmail-envelope-from 'header
-      mail-envelope-from 'header)
+;; (setq send-mail-function 'sendmail-send-it
+;;       sendmail-program "/usr/bin/msmtp"
+;;       mail-specify-envelope-from t
+;;       message-sendmail-envelope-from 'header
+;;       mail-envelope-from 'header)
 
 ;; turn off automatic buffer narrowing in message-mode
 ;; so you can edit the whole file without that gross column of text

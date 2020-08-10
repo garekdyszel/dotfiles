@@ -2,3 +2,4 @@ deal.ii 9.2.0 -- located in /usr/include -- dealii.org
 multi-git-status -- installed itself somewhere -- https://github.com/fboender/multi-git-status/
 LTSpice -- not manually built, but manually installed -- https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html#
 FriCAS -- through yay
+mu -- git://github.com/djcb/mu.git -- instructions: git clone this repo, run autogen.sh in there and then make it. Then run sudo make install
