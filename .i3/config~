@@ -128,6 +128,7 @@ bindsym $mod+< workspace prev
 # make window focus independent of mouse position
 focus_follows_mouse no
 
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number 1 terminal
 bindsym $mod+Shift+2 move container to workspace number 2 www

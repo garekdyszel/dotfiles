@@ -309,7 +309,7 @@ With argument ARG, do this that many times."
  '(org-ref-insert-cite-key "C-c 0")
  '(package-selected-packages
    (quote
-    (mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet yasnippet-snippets use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize)))
+    (php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -508,16 +508,11 @@ With argument ARG, do this that many times."
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
                                         ;"~/notes/org/snippets"))
-  ;; (setq yas-triggers-in-field t)
   (yas-global-mode +1)
-  ;; (add-hook 'minibuffer-setup-hook 'yas-minor-mode)
-  ;; (yas--define-parents 'minibuffer-inactive-mode '(org-mode latex-mode))
-  ;; (add-hook 'calc-mode-hook 'yas-minor-mode)
-  ;; (bind-key "H-y H-a" #'yas-reload-all)
   )
 
 ;; snippets for yasnippet, especially LaTeX
-;; (use-package yasnippet-snippets)
+(use-package yasnippet-snippets)
 
 ;; emmet is like yasnippet, but better. It's used for HTML-like code only.
 (use-package emmet-mode)
@@ -584,9 +579,9 @@ With argument ARG, do this that many times."
               (setq TeX-command-default "Make")))
   
   (add-hook 'LaTeX-mode-hook 
-            (lambda () 
+            (lambda () eva
               (setq TeX-command-default "Make")))
-  
+ 
   )
 
 ;; don't hit C-c C-c six million times to compile latex to pdf
@@ -919,6 +914,9 @@ With argument ARG, do this that many times."
 
 ;; add matlab mode for reading Chebfun files
 ;;(use-package matlab)
+
+;; add php mode for editing dynamic webpages
+(use-package php-mode)
 
 ;; Set the default mode of the scratch buffer to Org
 (setq initial-major-mode 'org-mode)

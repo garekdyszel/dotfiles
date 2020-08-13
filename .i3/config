@@ -126,7 +126,7 @@ bindsym $mod+> workspace next
 bindsym $mod+< workspace prev
 
 # make window focus independent of mouse position
-focus_follows_mouse no
+# focus_follows_mouse no
 
 
 # move focused container to workspace
