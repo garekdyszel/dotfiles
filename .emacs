@@ -36,14 +36,15 @@
 (global-set-key (kbd "\C-ctp") (lambda () (interactive) (find-file "~/rsch/current_projects/.projects/projects")))
 (global-set-key (kbd "\C-cj") (lambda () (interactive) (find-file "~/notes/org/jot")))
 (global-set-key (kbd "\C-cd") (lambda () (interactive) (find-file "~/notes/org/done")))
+(global-set-key (kbd "\C-cs") (lambda () (interactive) (find-file "~/tmp/latextmp.tex")))
 
 ;; change indentation size for CC mode.
 (setq-default c-basic-offset 3)
 
 ;; add line numbers in programming modes
-(add-hook 'prog-mode-hook 'linum-mode)
-(add-hook 'latex-mode-hook 'linum-mode)
-(add-hook 'org-mode-hook 'linum-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'latex-mode-hook 'display-line-numbers-mode)
+(add-hook 'org-mode-hook 'display-line-numbers-mode)
 
 ;; stop auto-removal of first-level tabs in latex export.
 (setq TeX-auto-untabify 't)
@@ -518,7 +519,9 @@ With argument ARG, do this that many times."
 (use-package emmet-mode)
 
 ;; cdlatex-mode for lightning-fast latex editing
-(use-package cdlatex)
+(use-package cdlatex
+  :config
+  (setq cdlatex-simplify-sub-super-scripts nil))
 
 ;; AucTex
 (use-package tex
@@ -529,7 +532,7 @@ With argument ARG, do this that many times."
   (add-hook 'LaTeX-mode-hook #'outline-minor-mode)
 
   ;; display line numbers in all latex buffers
-  (add-hook 'LaTeX-mode-hook 'linum-mode)
+  (add-hook 'LaTeX-mode-hook 'display-line-numbers-mode)
   
   ;; extra outline headers 
   (setq TeX-outline-extra
@@ -579,7 +582,7 @@ With argument ARG, do this that many times."
               (setq TeX-command-default "Make")))
   
   (add-hook 'LaTeX-mode-hook 
-            (lambda () eva
+            (lambda () 
               (setq TeX-command-default "Make")))
  
   )
@@ -723,13 +726,19 @@ With argument ARG, do this that many times."
 ;; (autoload 'notmuch "notmuch" "notmuch mail" t)
 ;; (bind-key "C-n" 'notmuch)
 
-;; --- mu4e mail client ---
+;; --- begin mu4e config (mail client) ---
 ;; all config copied mostly from
 ;; https://www.reddit.com/r/emacs/comments/bfsck6/mu4e_for_dummies/
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/")
 (require 'mu4e)
 
 (setq mu4e-root-maildir (expand-file-name "~/mail"))
+
+;; auto line wrap
+;;(add-hook 'message-mode-hook 'auto-fill-mode)
+
+;; better text flow on other mail readers
+(setq mu4e-compose-format-flowed t)
 
 ; get mail
 (setq mu4e-get-mail-command "mbsync -a"
@@ -756,7 +765,7 @@ With argument ARG, do this that many times."
 ;; don't save message to Sent Messages, IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
 
-(add-hook 'mu4e-view-mode-hook #'visual-line-mode)
+(add-hook 'mu4e-view-mode-hook 'visual-line-mode)
 
 ;; <tab> to navigate to links, <RET> to open them in browser
 (add-hook 'mu4e-view-mode-hook
@@ -774,7 +783,7 @@ With argument ARG, do this that many times."
 	      `((:human-date . 25) ;; alternatively, use :date
 		(:flags . 6)
 		(:from . 22)
-		;;(:thread-subject . ,(- (window-body-width) 70)) ;; alternatively, use :subject
+		(:thread-subject . ,(- (window-body-width) 70)) ;; alternatively, use :subject
 		(:size . 7)))))
 
 ;; if you use date instead of human-date in the above, use this setting
@@ -836,7 +845,7 @@ With argument ARG, do this that many times."
     :vars '((user-mail-address . "garekdyszel@gmail.com")
 	    (user-full-name . "Garek Dyszel")
 	    (mu4e-sent-folder . "/gmail/[Gmail]/Sent Mail")
-	    (mu4e-drafts-folder . "/gmail/[Gmail]/drafts")
+	    (mu4e-drafts-folder . "/gmail/[Gmail]/Drafts")
 	    (mu4e-trash-folder . "/gmail/[Gmail]/Bin")
 	    (mu4e-compose-signature . (concat "Formal Signature\n" "Emacs 25, org-mode 9, mu4e 1.0\n"))
 	    (mu4e-compose-format-flowed . t)
@@ -856,7 +865,7 @@ With argument ARG, do this that many times."
 					("/gmail/[Gmail]/Bin"       . ?t)
 					("/gmail/[Gmail]/All Mail"  . ?a)
 					("/gmail/[Gmail]/Starred"   . ?r)
-					("/gmail/[Gmail]/drafts"    . ?d)
+					("/gmail/[Gmail]/Drafts"    . ?d)
 					))))
   
    (make-mu4e-context
@@ -870,7 +879,7 @@ With argument ARG, do this that many times."
     :vars '((user-mail-address . "gjdyszel@mtu.edu")
 	    (user-full-name . "Garek Dyszel")
 	    (mu4e-sent-folder . "/mtu/[Gmail]/Sent Mail")
-	    (mu4e-drafts-folder . "/mtu/[Gmail]/drafts")
+	    (mu4e-drafts-folder . "/mtu/[Gmail]/Drafts")
 	    (mu4e-trash-folder . "/mtu/[Gmail]/Trash")
 	    (mu4e-compose-signature . (concat "Informal Signature\n" "Emacs is awesome!\n"))
 	    (mu4e-compose-format-flowed . t)
@@ -890,7 +899,7 @@ With argument ARG, do this that many times."
 					("/mtu/[Gmail]/Trash"     . ?t)
 					("/mtu/[Gmail]/All Mail"  . ?a)
 					("/mtu/[Gmail]/Starred"   . ?r)
-					("/mtu/[Gmail]/drafts"    . ?d)
+					("/mtu/[Gmail]/Drafts"    . ?d)
 					))))))
 
 
