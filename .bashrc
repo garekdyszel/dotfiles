@@ -29,5 +29,16 @@ alias zoom='obs && zoom'
 # grab mail
 alias mail='mbsync -a && notmuch new'
 
-# set Qt 5 theme controller
-export QT_QPA_PLATFORMTHEME=qt5ct
+# set environment variables
+export QT_QPA_PLATFORMTHEME=qt5ct # Qt theme controller
+export TERM=screen-24bit
+
+# color output
+alias diff='diff --color=auto'
+alias grep='grep --color=auto'
+alias ls='ls --color=auto'
+alias ip='ip --color=auto'
+
+# make sure the TTY starts in unicode mode
+# unicode_start
+
