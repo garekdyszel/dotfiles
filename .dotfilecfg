@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # Setup config repository
+# if config file doesn't already exist, do this
 git init --bare $HOME/.cfg
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 config config --local status.showUntrackedFiles no
 echo "alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" >> $HOME/.bashrc
 
-# --- Setup hyper key config ---
+# --- hyper key config ---
 # create configs for hyper keys
 cd /usr/share/X11/xkb/symbols/
 touch hyper
@@ -18,3 +19,17 @@ cd /usr/share/X11/xkb/rules/
 sudo sed -i.bkp '/lv5:rwin_switch_lock_cancel/a \ \ hyper:ralt = +hyper(ralt)\n \ hyper:rwin = +hyper(rwin)\n \ hyper:rctl = +hyper(rctl)' evdev
 sudo sed -i.bkp '/terminate:ctrl_alt_bksp/a \ \ hyper\t Position of the Hyper key\n \ hyper:ralt\t Right Alt as Hyper\n \ hyper:rwin\t Right Windows key as Hyper\n \ hyper:rctl\t Right Ctrl as Hyper\n' evdev.lst
 sudo sed -i.bkp '/xkbConfigRegistry/e cat $HOME/.hyper_optionlist' evdev.xml
+
+# --- end hyper key config ---
+
+# set up our personal keymap for tty sessions
+KEYMAP_DIR=/usr/local/share/kbd/keymaps/
+sudo mkdir -p $KEYMAP_DIR
+sudo rsync -P /usr/share/kbd/keymaps/i386/qwerty/pl.map.gz $KEYMAP_DIR/
+cd $KEYMAP_DIR
+sudo gunzip pl.map.gz
+sudo rsync pl.map personal.map
+printf "Created personal.map keymap file in $KEYMAP_DIR.\n"
+sudo sed "s/keycode  29 = Control/keycode 29  = Alt/g" personal.map
+sudo sed "s/keycode  58 = Caps_Lock/keycode 58  = Control/g " personal.map
+sudo sed "s/keycode  97 = Control/keycode 97  = Caps_Lock/g" personal.map

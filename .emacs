@@ -167,8 +167,7 @@ With argument ARG, do this that many times."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(LaTeX-indent-environment-list
-   (quote
-    (("verbatim" current-indentation)
+   '(("verbatim" current-indentation)
      ("verbatim*" current-indentation)
      ("tabular" LaTeX-indent-tabular)
      ("tabular*" LaTeX-indent-tabular)
@@ -183,11 +182,10 @@ With argument ARG, do this that many times."
      ("picture")
      ("tabbing")
      ("circuitikz")
-     ("tikzpicture"))))
+     ("tikzpicture")))
  '(Linum-format "%7i ")
  '(TeX-command-list
-   (quote
-    (("TeX" "%(PDF)%(tex) %(file-line-error) %`%(extraopts) %S%(PDFout)%(mode)%' %t" TeX-run-TeX nil
+   '(("TeX" "%(PDF)%(tex) %(file-line-error) %`%(extraopts) %S%(PDFout)%(mode)%' %t" TeX-run-TeX nil
       (plain-tex-mode texinfo-mode ams-tex-mode)
       :help "Run plain TeX")
      ("LaTeX" "%`%l%(mode)%' %T" TeX-run-TeX nil
@@ -251,8 +249,8 @@ With argument ARG, do this that many times."
      ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document")
      ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files")
      ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files")
-     ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
- '(TeX-view-program-selection (quote ((output-html "xdg-open"))))
+     ("Other" "" TeX-run-command t t :help "Run an arbitrary command")))
+ '(TeX-view-program-selection '((output-html "xdg-open")))
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
@@ -266,65 +264,57 @@ With argument ARG, do this that many times."
  '(cua-enable-cua-keys nil)
  '(cua-mode t nil (cua-base))
  '(cua-normal-cursor-color "black")
- '(custom-enabled-themes (quote (srcery)))
+ '(custom-enabled-themes '(srcery))
  '(custom-safe-themes
-   (quote
-    ("efbd20364f292a1199d291dfaff28cc1fd89fff5b38e314bd7e40121f5c465b4" "bbbd58d82a60c4913b00db1ecab1938ddcb0378225a1a3e54d840f36370d86c6" "2d835b43e2614762893dc40cbf220482d617d3d4e2c35f7100ca697f1a388a0e" "a77ced882e25028e994d168a612c763a4feb8c4ab67c5ff48688654d0264370c" "0dd2666921bd4c651c7f8a724b3416e95228a13fca1aa27dc0022f4e023bf197" "b73a23e836b3122637563ad37ae8c7533121c2ac2c8f7c87b381dd7322714cd0" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "d707aeee54d91b181a267a473862ebf0e20502c9bca8bef078b0a226b9581dd2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" default)))
+   '("efbd20364f292a1199d291dfaff28cc1fd89fff5b38e314bd7e40121f5c465b4" "bbbd58d82a60c4913b00db1ecab1938ddcb0378225a1a3e54d840f36370d86c6" "2d835b43e2614762893dc40cbf220482d617d3d4e2c35f7100ca697f1a388a0e" "a77ced882e25028e994d168a612c763a4feb8c4ab67c5ff48688654d0264370c" "0dd2666921bd4c651c7f8a724b3416e95228a13fca1aa27dc0022f4e023bf197" "b73a23e836b3122637563ad37ae8c7533121c2ac2c8f7c87b381dd7322714cd0" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "d707aeee54d91b181a267a473862ebf0e20502c9bca8bef078b0a226b9581dd2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" default))
  '(doc-view-continuous t)
  '(fci-rule-character-color "#202020")
  '(fci-rule-color "#383838")
- '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
- '(frame-background-mode (quote dark))
+ '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
+ '(frame-background-mode 'dark)
  '(frame-title-format "%b" t)
  '(fringe-mode 4 nil (fringe))
  '(global-pretty-mode t)
  '(global-visual-line-mode t)
  '(gnus-delay-default-hour 7)
+ '(helm-completion-style 'emacs)
  '(inhibit-startup-screen t)
  '(main-line-color1 "#1E1E1E")
  '(main-line-color2 "#111111")
- '(main-line-separator-style (quote chamfer))
- '(major-mode (quote org-mode))
- '(message-send-mail-function (quote sendmail-query-once))
+ '(main-line-separator-style 'chamfer)
+ '(major-mode 'org-mode)
+ '(message-send-mail-function 'sendmail-query-once)
  '(notmuch-saved-searches
-   (quote
-    ((:name "inbox" :query "tag:inbox" :key "i")
+   '((:name "inbox" :query "tag:inbox" :key "i")
      (:name "flagged" :query "tag:flagged" :key "f")
      (:name "sent" :query "tag:sent" :key "t")
      (:name "drafts" :query "tag:draft" :key "d")
      (:name "all mail" :query "*" :key "a")
-     (:name "unread" :query "tag:unread"))))
+     (:name "unread" :query "tag:unread")))
  '(nrepl-message-colors
-   (quote
-    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(org-agenda-files
-   (quote
-    ("~/rsch/current_projects/espin_theory_repo/espin_theory/deal-ii-simulator/two_electrodes/TODO" "~/notes/org/todolist.org" "~/rsch/current_projects/.projects/projects")))
- '(org-highlight-latex-and-related (quote (latex entities)))
- '(org-latex-classes
-   (quote
-    (("article" "\\documentclass[12pt]{article}"
-      ("" . "")))))
- '(org-preview-latex-default-process (quote dvipng))
+   '("~/rsch/current_projects/espin_theory_repo/espin_theory/deal-ii-simulator/two_electrodes/TODO" "~/notes/org/todolist.org" "~/rsch/current_projects/.projects/projects"))
+ '(org-highlight-latex-and-related '(latex entities))
+ '(org-latex-classes '(("article" "\\documentclass[12pt]{article}" ("" . ""))))
+ '(org-preview-latex-default-process 'dvipng)
  '(org-ref-default-citation-link "cite")
  '(org-ref-insert-cite-key "C-c 0")
  '(package-selected-packages
-   (quote
-    (php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize)))
- '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+   '(php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+ '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
  '(python-shell-interpreter "/usr/bin/python3")
  '(python-shell-virtualenv-root "/usr/bin/python3")
- '(send-mail-function (quote mailclient-send-it))
+ '(send-mail-function 'mailclient-send-it)
  '(show-paren-mode t)
  '(tab-width 3)
  '(tool-bar-mode nil)
  '(truncate-partial-width-windows 0)
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
-   (quote
-    ((20 . "#BC8383")
+   '((20 . "#BC8383")
      (40 . "#CC9393")
      (60 . "#DFAF8F")
      (80 . "#D0BF8F")
@@ -341,7 +331,7 @@ With argument ARG, do this that many times."
      (300 . "#7CB8BB")
      (320 . "#8CD0D3")
      (340 . "#94BFF3")
-     (360 . "#DC8CC3"))))
+     (360 . "#DC8CC3")))
  '(vc-annotate-very-old-color "#DC8CC3")
  '(window-divider-mode nil))
 (custom-set-faces
