@@ -1,11 +1,11 @@
 # -*- shell-script -*-
-"amixer -c 1 set PCM playback 5%+"
+"pactl set-sink-volume @DEFAULT_SINK@ +5%"
   Pause  
 
-"amixer -c 1 set PCM playback 5%-"
+"pactl set-sink-volume @DEFAULT_SINK@ -5%"
   Scroll_Lock  
 
-"amixer -c 1 set PCM playback 0%"
+"pactl set-sink-mute @DEFAULT_SINK@ toggle"
   Print  
   
 ########################

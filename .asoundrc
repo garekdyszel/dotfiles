@@ -1,6 +1,6 @@
 pcm.!default {
     type plug
-    slave { pcm "pulse" }
+    slave { pcm "hw:1,0" }
 }
 
 pcm.pulse {
@@ -9,5 +9,5 @@ pcm.pulse {
 
 ctl.mixer0 {
     type hw
-    card 0
+    card 1
 }
