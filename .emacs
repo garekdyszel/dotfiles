@@ -29,7 +29,7 @@
 (dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o" "\C-n")) (global-unset-key key))
 
 ;; ensure save and quit remains the same as default Emacs binding
-(global-set-key (kbd "C-x C-c") 'save-buffers-kill-terminal)
+;; (global-set-key (kbd "C-x C-c") 'save-buffers-kill-terminal)
 
 ;; set up keyboard shortcuts to jump to commonly-used files.
 (global-set-key (kbd "\C-ctd") (lambda () (interactive) (find-file "~/notes/org/todolist.org")))
@@ -65,8 +65,8 @@
 (global-unset-key (kbd "<insert>"))
 
 ;; make the compilation show up in a new window (not one of the ones we already have open)
-;(setq display-buffer-alist
-;      '("*compilation*"))
+                                        ;(setq display-buffer-alist
+                                        ;      '("*compilation*"))
 
 (setq special-display-function
       (lambda (buffer &optional args)
@@ -310,6 +310,7 @@ With argument ARG, do this that many times."
  '(send-mail-function 'mailclient-send-it)
  '(show-paren-mode t)
  '(tab-width 3)
+ '(texmathp-tex-commands '(("align" env-on)))
  '(tool-bar-mode nil)
  '(truncate-partial-width-windows 0)
  '(vc-annotate-background "#2B2B2B")
@@ -567,14 +568,24 @@ With argument ARG, do this that many times."
   ;; set the Make command to default
   ;; (setq TeX-command-default "Make")
 
-    (add-hook 'TeX-mode-hook 
+  (add-hook 'TeX-mode-hook 
             (lambda () 
               (setq TeX-command-default "Make")))
   
   (add-hook 'LaTeX-mode-hook 
             (lambda () 
               (setq TeX-command-default "Make")))
- 
+
+  ;; add align as an equation environment
+  (add-hook 'LaTeX-mode-hook 'add-my-latex-environments)
+  (defun add-my-latex-environments ()
+    (LaTeX-add-environments
+     '("align" LaTeX-env-label)))
+  
+  ;; reftex code to recognize align as an equation
+  (setq reftex-label-alist
+        '(("align" ?e nil nil t)))
+  
   )
 
 ;; don't hit C-c C-c six million times to compile latex to pdf
@@ -730,14 +741,14 @@ With argument ARG, do this that many times."
 ;; better text flow on other mail readers
 (setq mu4e-compose-format-flowed t)
 
-; get mail
+                                        ; get mail
 (setq mu4e-get-mail-command "mbsync -a"
-  ;; mu4e-html2text-command "w3m -T text/html" ;;using the default mu4e-shr2text
-  mu4e-view-prefer-html t
-  mu4e-update-interval 180
-  mu4e-headers-auto-update t
-  mu4e-compose-signature-auto-include nil
-  mu4e-compose-format-flowed t)
+      ;; mu4e-html2text-command "w3m -T text/html" ;;using the default mu4e-shr2text
+      mu4e-view-prefer-html t
+      mu4e-update-interval 180
+      mu4e-headers-auto-update t
+      mu4e-compose-signature-auto-include nil
+      mu4e-compose-format-flowed t)
 
 ;; to view selected message in the browser, no signin, just html mail
 (add-to-list 'mu4e-view-actions
@@ -759,26 +770,26 @@ With argument ARG, do this that many times."
 
 ;; <tab> to navigate to links, <RET> to open them in browser
 (add-hook 'mu4e-view-mode-hook
-  (lambda()
-;; try to emulate some of the eww key-bindings
-(local-set-key (kbd "<RET>") 'mu4e~view-browse-url-from-binding)
-(local-set-key (kbd "<tab>") 'shr-next-link)
-(local-set-key (kbd "<backtab>") 'shr-previous-link)))
+          (lambda()
+            ;; try to emulate some of the eww key-bindings
+            (local-set-key (kbd "<RET>") 'mu4e~view-browse-url-from-binding)
+            (local-set-key (kbd "<tab>") 'shr-next-link)
+            (local-set-key (kbd "<backtab>") 'shr-previous-link)))
 
 ;; from https://www.reddit.com/r/emacs/comments/bfsck6/mu4e_for_dummies/elgoumx
 (add-hook 'mu4e-headers-mode-hook
-      (defun my/mu4e-change-headers ()
-	(interactive)
-	(setq mu4e-headers-fields
-	      `((:human-date . 25) ;; alternatively, use :date
-		(:flags . 6)
-		(:from . 22)
-		(:thread-subject . ,(- (window-body-width) 70)) ;; alternatively, use :subject
-		(:size . 7)))))
+          (defun my/mu4e-change-headers ()
+	         (interactive)
+	         (setq mu4e-headers-fields
+	               `((:human-date . 25) ;; alternatively, use :date
+		              (:flags . 6)
+		              (:from . 22)
+		              (:thread-subject . ,(- (window-body-width) 70)) ;; alternatively, use :subject
+		              (:size . 7)))))
 
 ;; if you use date instead of human-date in the above, use this setting
 ;; give me ISO(ish) format date-time stamps in the header list
-;(setq mu4e-headers-date-format "%Y-%m-%d %H:%M")
+                                        ;(setq mu4e-headers-date-format "%Y-%m-%d %H:%M")
 
 ;; spell check
 ;; (add-hook 'mu4e-compose-mode-hook
@@ -823,74 +834,74 @@ With argument ARG, do this that many times."
 (setq mu4e-context-policy 'pick-first)
 (setq mu4e-compose-context-policy 'always-ask)
 (setq mu4e-contexts
-  (list
-   (make-mu4e-context
-    :name "gmail" ;;for gmail
-    :enter-func (lambda () (mu4e-message "Entering context gmail"))
-    :leave-func (lambda () (mu4e-message "Leaving context gmail"))
-    :match-func (lambda (msg)
-		  (when msg
-		(mu4e-message-contact-field-matches
-		 msg '(:from :to :cc :bcc) "garekdyszel@gmail.com")))
-    :vars '((user-mail-address . "garekdyszel@gmail.com")
-	    (user-full-name . "Garek Dyszel")
-	    (mu4e-sent-folder . "/gmail/[Gmail]/Sent Mail")
-	    (mu4e-drafts-folder . "/gmail/[Gmail]/Drafts")
-	    (mu4e-trash-folder . "/gmail/[Gmail]/Bin")
-	    (mu4e-compose-signature . (concat "Formal Signature\n" "Emacs 25, org-mode 9, mu4e 1.0\n"))
-	    (mu4e-compose-format-flowed . t)
-	    (smtpmail-queue-dir . "~/mail/gmail/queue/cur")
-	    (message-send-mail-function . smtpmail-send-it)
-	    (smtpmail-smtp-user . "garekdyszel@gmail.com")
-	    (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
-	    (smtpmail-auth-credentials . (expand-file-name "~/.authinfo.gpg"))
-	    (smtpmail-default-smtp-server . "smtp.gmail.com")
-	    (smtpmail-smtp-server . "smtp.gmail.com")
-	    (smtpmail-smtp-service . 587)
-	    (smtpmail-debug-info . t)
-	    (smtpmail-debug-verbose . t)
-       (setq mu4e~get-mail-password-regexp "^Enter password for account 'gmail': $")
-	    (mu4e-maildir-shortcuts . ( ("/gmail/inbox"            . ?i)
-					("/gmail/[Gmail]/Sent Mail" . ?s)
-					("/gmail/[Gmail]/Bin"       . ?t)
-					("/gmail/[Gmail]/All Mail"  . ?a)
-					("/gmail/[Gmail]/Starred"   . ?r)
-					("/gmail/[Gmail]/Drafts"    . ?d)
-					))))
-  
-   (make-mu4e-context
-    :name "mtu" ;;for mtu
-    :enter-func (lambda () (mu4e-message "Entering context mtu"))
-    :leave-func (lambda () (mu4e-message "Leaving context mtu"))
-    :match-func (lambda (msg)
-		  (when msg
-		(mu4e-message-contact-field-matches
-		 msg '(:from :to :cc :bcc) "gjdyszel@mtu.edu")))
-    :vars '((user-mail-address . "gjdyszel@mtu.edu")
-	    (user-full-name . "Garek Dyszel")
-	    (mu4e-sent-folder . "/mtu/[Gmail]/Sent Mail")
-	    (mu4e-drafts-folder . "/mtu/[Gmail]/Drafts")
-	    (mu4e-trash-folder . "/mtu/[Gmail]/Trash")
-	    (mu4e-compose-signature . (concat "Informal Signature\n" "Emacs is awesome!\n"))
-	    (mu4e-compose-format-flowed . t)
-	    (smtpmail-queue-dir . "~/mail/mtu/queue/cur")
-	    (message-send-mail-function . smtpmail-send-it)
-	    (smtpmail-smtp-user . "gjdyszel@mtu.edu")
-	    (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
-	    (smtpmail-auth-credentials . (expand-file-name "~/.authinfo.gpg"))
-	    (smtpmail-default-smtp-server . "smtp.gmail.com")
-	    (smtpmail-smtp-server . "smtp.gmail.com")
-	    (smtpmail-smtp-service . 587)
-	    (smtpmail-debug-info . t)
-	    (smtpmail-debug-verbose . t)
-       (setq mu4e~get-mail-password-regexp "^Enter password for account 'mtu': $")
-	    (mu4e-maildir-shortcuts . ( ("/mtu/inbox"            . ?i)
-					("/mtu/[Gmail]/Sent Mail" . ?s)
-					("/mtu/[Gmail]/Trash"     . ?t)
-					("/mtu/[Gmail]/All Mail"  . ?a)
-					("/mtu/[Gmail]/Starred"   . ?r)
-					("/mtu/[Gmail]/Drafts"    . ?d)
-					))))))
+      (list
+       (make-mu4e-context
+        :name "gmail" ;;for gmail
+        :enter-func (lambda () (mu4e-message "Entering context gmail"))
+        :leave-func (lambda () (mu4e-message "Leaving context gmail"))
+        :match-func (lambda (msg)
+		                (when msg
+		                  (mu4e-message-contact-field-matches
+		                   msg '(:from :to :cc :bcc) "garekdyszel@gmail.com")))
+        :vars '((user-mail-address . "garekdyszel@gmail.com")
+	             (user-full-name . "Garek Dyszel")
+	             (mu4e-sent-folder . "/gmail/[Gmail]/Sent Mail")
+	             (mu4e-drafts-folder . "/gmail/[Gmail]/Drafts")
+	             (mu4e-trash-folder . "/gmail/[Gmail]/Bin")
+	             (mu4e-compose-signature . (concat "Formal Signature\n" "Emacs 25, org-mode 9, mu4e 1.0\n"))
+	             (mu4e-compose-format-flowed . t)
+	             (smtpmail-queue-dir . "~/mail/gmail/queue/cur")
+	             (message-send-mail-function . smtpmail-send-it)
+	             (smtpmail-smtp-user . "garekdyszel@gmail.com")
+	             (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
+	             (smtpmail-auth-credentials . (expand-file-name "~/.authinfo.gpg"))
+	             (smtpmail-default-smtp-server . "smtp.gmail.com")
+	             (smtpmail-smtp-server . "smtp.gmail.com")
+	             (smtpmail-smtp-service . 587)
+	             (smtpmail-debug-info . t)
+	             (smtpmail-debug-verbose . t)
+                (setq mu4e~get-mail-password-regexp "^Enter password for account 'gmail': $")
+	             (mu4e-maildir-shortcuts . ( ("/gmail/inbox"            . ?i)
+					                             ("/gmail/[Gmail]/Sent Mail" . ?s)
+					                             ("/gmail/[Gmail]/Bin"       . ?t)
+					                             ("/gmail/[Gmail]/All Mail"  . ?a)
+					                             ("/gmail/[Gmail]/Starred"   . ?r)
+					                             ("/gmail/[Gmail]/Drafts"    . ?d)
+					                             ))))
+       
+       (make-mu4e-context
+        :name "mtu" ;;for mtu
+        :enter-func (lambda () (mu4e-message "Entering context mtu"))
+        :leave-func (lambda () (mu4e-message "Leaving context mtu"))
+        :match-func (lambda (msg)
+		                (when msg
+		                  (mu4e-message-contact-field-matches
+		                   msg '(:from :to :cc :bcc) "gjdyszel@mtu.edu")))
+        :vars '((user-mail-address . "gjdyszel@mtu.edu")
+	             (user-full-name . "Garek Dyszel")
+	             (mu4e-sent-folder . "/mtu/[Gmail]/Sent Mail")
+	             (mu4e-drafts-folder . "/mtu/[Gmail]/Drafts")
+	             (mu4e-trash-folder . "/mtu/[Gmail]/Trash")
+	             (mu4e-compose-signature . (concat "Informal Signature\n" "Emacs is awesome!\n"))
+	             (mu4e-compose-format-flowed . t)
+	             (smtpmail-queue-dir . "~/mail/mtu/queue/cur")
+	             (message-send-mail-function . smtpmail-send-it)
+	             (smtpmail-smtp-user . "gjdyszel@mtu.edu")
+	             (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
+	             (smtpmail-auth-credentials . (expand-file-name "~/.authinfo.gpg"))
+	             (smtpmail-default-smtp-server . "smtp.gmail.com")
+	             (smtpmail-smtp-server . "smtp.gmail.com")
+	             (smtpmail-smtp-service . 587)
+	             (smtpmail-debug-info . t)
+	             (smtpmail-debug-verbose . t)
+                (setq mu4e~get-mail-password-regexp "^Enter password for account 'mtu': $")
+	             (mu4e-maildir-shortcuts . ( ("/mtu/inbox"            . ?i)
+					                             ("/mtu/[Gmail]/Sent Mail" . ?s)
+					                             ("/mtu/[Gmail]/Trash"     . ?t)
+					                             ("/mtu/[Gmail]/All Mail"  . ?a)
+					                             ("/mtu/[Gmail]/Starred"   . ?r)
+					                             ("/mtu/[Gmail]/Drafts"    . ?d)
+					                             ))))))
 
 
 (bind-key "C-n" 'mu4e)
