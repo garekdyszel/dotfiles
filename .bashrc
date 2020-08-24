@@ -36,6 +36,5 @@ alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias ip='ip --color=auto'
 
-# make sure the TTY starts in unicode mode
-# unicode_start
-
+# add kitty completion commands
+source <(kitty + complete setup bash)
