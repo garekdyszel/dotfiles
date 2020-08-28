@@ -13,4 +13,6 @@ i3-msg 'exec lighttpd -D -f ~/rsch/current_projects/learnElectricalEngineering/l
 sleep 1
 # i3-msg 'workspace 10 other-write; exec emacsclient --create-frame ~/job/resume/GD_resume.tex'
 # sleep 1
+i3-msg 'workspace 10 other-write; exec emacsclient --create-frame ~/uni/huge_notepack/analogcircuits.tex'
+sleep 1
 i3-msg 'workspace 6 class-write; exec firefox mtu.instructure.com; exec emacsclient --create-frame ~/uni/bachelor_4/'
