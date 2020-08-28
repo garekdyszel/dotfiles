@@ -17,11 +17,9 @@ set $mod mod3
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font dejavu:mono 16
-
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+font pango:DejaVu Sans Mono 16
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -234,7 +232,7 @@ exec feh --bg-max ~/pics/unix.jpg
 # keybindings for specific programs
 bindsym $mod+m exec emacsclient --create-frame
 bindsym $mod+i exec firefox
-bindsym $mod+z exec JabRef
+bindsym $mod+z exec zathura
 bindsym $mod+t exec torbrowser-launcher
 bindsym $mod+p exec dolphin
 

@@ -259,6 +259,7 @@ With argument ARG, do this that many times."
  '(auto-fill-mode t)
  '(beacon-color "#cc6666")
  '(cdlatex-math-modify-alist nil)
+ '(cdlatex-math-modify-prefix "/")
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")
  '(cua-enable-cua-keys nil)
@@ -501,10 +502,23 @@ With argument ARG, do this that many times."
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
                                         ;"~/notes/org/snippets"))
   (yas-global-mode +1)
+
+  ;; snippets for inconvenient stuff to type
+  (yas-define-snippets 'latex-mode '(
+                                     ("si" "\\SI{$1}{$2}" "si-units")
+                                     ("cl" "\\documentclass[12pt]{report}
+\\include{../preamble}
+\\usepackage{cleveref}
+\\begin{document}
+$0
+
+\\end{document}" "notes-class")
+                                     ("se" "\\section{$1}" "section")
+                                     ("su" "\\subsection{$1}" "subsection")))
   )
 
 ;; snippets for yasnippet, especially LaTeX
-(use-package yasnippet-snippets)
+;;(use-package yasnippet-snippets)
 
 ;; emmet is like yasnippet, but better. It's used for HTML-like code only.
 (use-package emmet-mode)
@@ -585,8 +599,9 @@ With argument ARG, do this that many times."
   ;; reftex code to recognize align as an equation
   (setq reftex-label-alist
         '(("align" ?e nil nil t)))
-  
+
   )
+
 
 ;; don't hit C-c C-c six million times to compile latex to pdf
 ;; (use-package auctex-latexmk
@@ -972,7 +987,7 @@ With argument ARG, do this that many times."
 ;; (turn-on-typing-speed-mode)
 
 (define-minor-mode typing-speed-mode
-    "Displays your typing speed in the status bar."
+  "Displays your typing speed in the status bar."
   :lighter typing-speed-mode-text
   :group 'typing-speed
   (if typing-speed-mode
@@ -980,9 +995,9 @@ With argument ARG, do this that many times."
         (add-hook 'post-command-hook 'typing-speed-post-command-hook)
         (setq typing-speed-event-queue '())
         (setq typing-speed-update-timer (run-with-timer 0 typing-speed-update-interval 'typing-speed-update)))
-      (progn
-        (remove-hook 'post-command-hook 'typing-speed-post-command-hook)
-        (cancel-timer typing-speed-update-timer))))
+    (progn
+      (remove-hook 'post-command-hook 'typing-speed-post-command-hook)
+      (cancel-timer typing-speed-update-timer))))
 
 (defcustom typing-speed-window 5
   "The window (in seconds) over which typing speed should be evaluated."
@@ -1016,8 +1031,8 @@ command is self-insert-command, log it as a keystroke and update the
 typing speed."
   (cond ((eq this-command 'self-insert-command)
          (let ((current-time (float-time)))
-          (push current-time typing-speed-event-queue)
-          (typing-speed-update)))
+           (push current-time typing-speed-event-queue)
+           (typing-speed-update)))
         ((member this-command '(delete-backward-char backward-delete-char-untabify))
          (progn
            (pop typing-speed-event-queue)
@@ -1041,7 +1056,7 @@ typing speed."
     (setq typing-speed-mode-text
           (if (minibufferp (current-buffer))
               ""
-              (format typing-speed-mode-text-format (floor words-per-min) (floor typing-speed-peak-speed))))
+            (format typing-speed-mode-text-format (floor words-per-min) (floor typing-speed-peak-speed))))
     ;; Attempt to prevent unnecessary flicker in the menu bar. Doesn't seem to help, though.
     (if (not (string-equal typing-speed-mode-text typing-speed-previous-mode-text))
         (progn
@@ -1054,8 +1069,8 @@ typing speed."
   (if (or (null queue)
           (> threshold (car queue)))
       nil
-      (cons (car queue)
-            (typing-speed-remove-old-events threshold (cdr queue)))))
+    (cons (car queue)
+          (typing-speed-remove-old-events threshold (cdr queue)))))
 
 (defun turn-on-typing-speed ()
   "Turns on typing-speed-mode"

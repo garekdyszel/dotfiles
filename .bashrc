@@ -38,3 +38,9 @@ alias ip='ip --color=auto'
 
 # add kitty completion commands
 source <(kitty + complete setup bash)
+
+# fix rendering issue with anki
+alias anki="ANKI_NOHIGHDPI=1 anki"
+
+# add path for MEEP
+PATH=/home/chips/.local/bin:$PATH
