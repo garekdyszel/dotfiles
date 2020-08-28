@@ -9,10 +9,10 @@
 # sleep 1
 i3-msg 'workspace 9 other-write; exec emacsclient --create-frame ~/rsch/current_projects/learnElectricalEngineering/analog_circuits/analog_syllabus.php'
 sleep 1
-i3-msg 'exec lighttpd -D -f ~/rsch/current_projects/learnElectricalEngineering/lighttpd.conf; exec firefox ~/rsch/current_projects/learnElectricalEngineering/analog_circuits/analog_syllabus.php'
+i3-msg 'exec lighttpd -D -f ~/rsch/current_projects/learnElectricalEngineering/lighttpd.conf; exec firefox --new-window localhost:9999'
 sleep 1
 # i3-msg 'workspace 10 other-write; exec emacsclient --create-frame ~/job/resume/GD_resume.tex'
 # sleep 1
-i3-msg 'workspace 10 other-write; exec emacsclient --create-frame ~/uni/huge_notepack/analogcircuits.tex'
+i3-msg 'workspace 10 other-write; exec emacsclient --create-frame ~/uni/huge_notepack/analogcircuits.tex; exec zathura ~/uni/huge_notepack/master.pdf '
 sleep 1
-i3-msg 'workspace 6 class-write; exec firefox mtu.instructure.com; exec emacsclient --create-frame ~/uni/bachelor_4/'
+i3-msg 'workspace 6 class-write; exec firefox --new-window mtu.instructure.com; exec emacsclient --create-frame'

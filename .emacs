@@ -35,8 +35,15 @@
 (global-set-key (kbd "\C-ctd") (lambda () (interactive) (find-file "~/notes/org/todolist.org")))
 (global-set-key (kbd "\C-ctp") (lambda () (interactive) (find-file "~/rsch/current_projects/.projects/projects")))
 (global-set-key (kbd "\C-cj") (lambda () (interactive) (find-file "~/notes/org/jot")))
-(global-set-key (kbd "\C-cd") (lambda () (interactive) (find-file "~/notes/org/done")))
-(global-set-key (kbd "\C-cs") (lambda () (interactive) (find-file "~/tmp/latextmp.tex")))
+;; (global-set-key (kbd "\C-cd") (lambda () (interactive) (find-file "~/notes/org/done")))
+;; (global-set-key (kbd "\C-cs") (lambda () (interactive) (find-file "~/tmp/latextmp.tex")))
+
+;; class keybindings for Fall 2020
+(global-set-key (kbd "\C-cbe") (lambda () (interactive) (find-file "~/uni/bachelor_4/electronic_materials/")))
+(global-set-key (kbd "\C-cbm") (lambda () (interactive) (find-file "~/uni/bachelor_4/microcontrollers/")))
+(global-set-key (kbd "\C-cbo") (lambda () (interactive) (find-file "~/uni/bachelor_4/optics/")))
+(global-set-key (kbd "\C-cbp") (lambda () (interactive) (find-file "~/uni/bachelor_4/probability/")))
+(global-set-key (kbd "\C-cbs") (lambda () (interactive) (find-file "~/uni/bachelor_4/senior_design/")))
 
 ;; change indentation size for CC mode.
 (setq-default c-basic-offset 3)
@@ -367,7 +374,8 @@ With argument ARG, do this that many times."
   :bind (("\C-cl" . org-store-link)
          ("\C-ca" . org-agenda)
          ("\C-cc" . org-capture)
-         ("\C-cb" . org-switchb))
+         ;;("\C-cb" . org-switchb)
+         )
   :config
   (add-hook 'org-mode-hook 'visual-line-mode)
   (define-key org-mode-map (kbd "C-,") nil)
