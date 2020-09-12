@@ -1,8 +1,8 @@
 # -*- shell-script -*-
-"pactl set-sink-volume @DEFAULT_SINK@ +5%"
+"pactl set-sink-volume @DEFAULT_SINK@ +10%"
   Pause  
 
-"pactl set-sink-volume @DEFAULT_SINK@ -5%"
+"pactl set-sink-volume @DEFAULT_SINK@ -10%"
   Scroll_Lock  
 
 "pactl set-sink-mute @DEFAULT_SINK@ toggle"

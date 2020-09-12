@@ -72,3 +72,40 @@ Patterns * ![MTU]* "[MTU]/Sent Mail" "[MTU]/Starred" "[MTU]/All Mail"
 Create Both
 # Save the synchronization state files in the relevant directory
 SyncState *
+
+# # Bay account
+# IMAPAccount bay
+# # Address to connect to
+# Host eas.baycollege.edu
+# User garek.dyszel@baycollege.edu
+# # PassCmd "pass mail/mtu"
+# # To store the password in an encrypted file use PassCmd instead of Pass
+# # PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.mailpass.gpg"
+# #
+# # Use SSL
+# SSLType IMAPS
+# # The following line should work. If get certificate errors, uncomment the two following lines and read the "Troubleshooting" section.
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
+# #CertificateFile ~/.cert/imap.gmail.com.pem
+# #CertificateFile ~/.cert/Equifax_Secure_CA.pem
+
+# IMAPStore bay-remote
+# Account bay
+
+# MaildirStore bay-local
+# Subfolders Verbatim
+# # The trailing "/" is important
+# Path ~/mail/bay/
+# Inbox ~/mail/bay/inbox
+
+# Channel bay
+# Master :bay-remote:
+# Slave :bay-local:
+# # Exclude everything under the internal [Gmail] folder, except the interesting folders
+# Patterns * ![BAY]* "[BAY]/Sent Mail" "[BAY]/Starred" "[BAY]/All Mail"
+# # Or include everything
+# #Patterns *
+# # Automatically create missing mailboxes, both locally and on the server
+# Create Both
+# # Save the synchronization state files in the relevant directory
+# SyncState *

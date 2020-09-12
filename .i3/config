@@ -234,7 +234,7 @@ bindsym $mod+m exec emacsclient --create-frame
 bindsym $mod+i exec firefox
 bindsym $mod+z exec zathura
 bindsym $mod+t exec torbrowser-launcher
-bindsym $mod+p exec dolphin
+bindsym $mod+p exec thunar
 
 # keyboard layout
 exec setxkbmap -model pc105 -layout pl -option kpdl:dot -option hyper:rctl -option caps:ctrl_modifier -option ctrl:swap_lalt_lctl -option shift:both_capslock -option compose:menu -option grp:alt_shift_toggle

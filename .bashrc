@@ -20,11 +20,8 @@ shopt -s extglob
 # set the install location for cmake in deal.ii programs
 export DEAL_II_DIR=/usr/include/deal.ii-9.2.0/
 
-# shorten push command to send cfg files to remote server
-alias configp='config push --no-thin main master'
-
 # grab mail
-alias mail='mbsync -a && notmuch new'
+alias mail='killall mu; mbsync -a && mu index'
 
 # set environment variables
 export QT_QPA_PLATFORMTHEME=qt5ct # Qt theme controller
@@ -43,4 +40,7 @@ source <(kitty + complete setup bash)
 alias anki="ANKI_NOHIGHDPI=1 anki"
 
 # add path for MEEP
-PATH=/home/chips/.local/bin:$PATH
+# PATH=/home/chips/.local/bin:$PATH
+
+# add alias for scholar (a command line reference manager)
+alias scholar="~/go/bin/scholar"

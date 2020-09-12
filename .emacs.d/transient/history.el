@@ -2,6 +2,7 @@
   ("--3way"))
  (magit-branch nil)
  (magit-commit nil)
+ (magit-diff nil)
  (magit-dispatch nil)
  (magit-log
   (("--" "research_record/record.tex")))
