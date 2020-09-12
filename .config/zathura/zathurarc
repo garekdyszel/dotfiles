@@ -1,1 +1,5 @@
+# copy all selections to the C-v clipboard
 set selection-clipboard clipboard
+
+# invert colors by default
+set recolor true
