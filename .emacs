@@ -26,24 +26,17 @@
 (require 'bind-key)
 
 ;; turn off shortcuts that we fat-finger frequently.
-(dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o" "\C-n")) (global-unset-key key))
+(dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o" "\C-n" "\C-x\C-q")) (global-unset-key key))
 
 ;; ensure save and quit remains the same as default Emacs binding
-;; (global-set-key (kbd "C-x C-c") 'save-buffers-kill-terminal)
+;; (global-set-key (kbd "C-x C-c") 'save-buffers-kill-emacs)
+;; OR set save and quit to be C-x C-q
+(global-set-key (kbd "C-x C-q") 'save-buffers-kill-emacs)
 
 ;; set up keyboard shortcuts to jump to commonly-used files.
 (global-set-key (kbd "\C-ctd") (lambda () (interactive) (find-file "~/notes/org/todolist.org")))
 (global-set-key (kbd "\C-ctp") (lambda () (interactive) (find-file "~/rsch/current_projects/.projects/projects")))
 (global-set-key (kbd "\C-cj") (lambda () (interactive) (find-file "~/notes/org/jot")))
-;; (global-set-key (kbd "\C-cd") (lambda () (interactive) (find-file "~/notes/org/done")))
-;; (global-set-key (kbd "\C-cs") (lambda () (interactive) (find-file "~/tmp/latextmp.tex")))
-
-;; class keybindings for Fall 2020
-(global-set-key (kbd "\C-cbe") (lambda () (interactive) (find-file "~/uni/bachelor_4/electronic_materials/")))
-(global-set-key (kbd "\C-cbm") (lambda () (interactive) (find-file "~/uni/bachelor_4/microcontrollers/")))
-(global-set-key (kbd "\C-cbo") (lambda () (interactive) (find-file "~/uni/bachelor_4/optics/")))
-(global-set-key (kbd "\C-cbp") (lambda () (interactive) (find-file "~/uni/bachelor_4/probability/")))
-(global-set-key (kbd "\C-cbs") (lambda () (interactive) (find-file "~/uni/bachelor_4/senior_design/")))
 
 ;; change indentation size for CC mode.
 (setq-default c-basic-offset 3)
@@ -381,6 +374,16 @@ With argument ARG, do this that many times."
   (define-key org-mode-map (kbd "C-,") nil)
   (setq org-log-done t)
 
+  (defun my/org-mode-hook ()
+    "Stop the org-level headers from increasing in height relative to the other text."
+    (dolist (face '(org-level-1
+                    org-level-2
+                    org-level-3
+                    org-level-4
+                    org-level-5))
+      (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
+
+  (add-hook 'org-mode-hook #'my/org-mode-hook)
 
   ;; fix org-babel!
   (defun org-babel-get-header (params key &optional others)
@@ -418,40 +421,34 @@ With argument ARG, do this that many times."
         '((sequence "TODO" "NEXT" "INPROGRESS" "WAITING" "CHECK" "|" "DONE")))
 
   ;; take screenshot and insert into org file.
-  (defun my-org-screenshot ()
-    "Take a screenshot into a time stamped unique-named file in the
-  same directory as the org-buffer and insert a link to this file."
-    (interactive)
-    (let ((filename
-           (concat
-            (make-temp-name
-             (concat
-              "./"
-              (format-time-string "%Y%m%d_%H%M%S_")) ) ".png")))
-      (call-process "scrot" nil nil nil "-s" filename)
-      (insert (concat "[[" filename "]]"))
-      (org-display-inline-images)))
+  ;; (defun my-org-screenshot ()
+  ;;   "Take a screenshot into a time stamped unique-named file in the
+  ;; same directory as the org-buffer and insert a link to this file."
+  ;;   (interactive)
+  ;;   (let ((filename
+  ;;          (concat
+  ;;           (make-temp-name
+  ;;            (concat
+  ;;             "./"
+  ;;             (format-time-string "%Y%m%d_%H%M%S_")) ) ".png")))
+  ;;     (call-process "scrot" nil nil nil "-s" filename)
+  ;;     (insert (concat "[[" filename "]]"))
+  ;;     (org-display-inline-images)))
   ;; key shortcut to use my-org-screenshot
   ;; (global-set-key (kbd "\C-cs") 'my-org-screenshot)
   
-  ;; make sure citations compile correctly.
+  ;; use makefiles to compile all pdfs
   (setq org-latex-pdf-process
-        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "bibtex %b"
-          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+        '("make"))
 
   ;; remove temporary latex files on pdf export
-  (setq org-latex-logfiles-extensions (quote ("lof" "lot" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg" "brf" "fls" "entoc" "ps" "spl" "bbl" "pygtex" "pygstyle")))
+  ;; (setq org-latex-logfiles-extensions (quote ("lof" "lot" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg" "brf" "fls" "entoc" "ps" "spl" "bbl" "pygtex" "pygstyle")))
 
   ;; don't ask to evaluate source code blocks on export: just do it.
   (setq org-confirm-babel-evaluate nil)
 
   ;; Use imagemagick to preview in buffer.
   (setq org-preview-latex-default-process 'imagemagick)
-
-  (add-to-list 'org-latex-packages-alist
-               '("" "tikz" t))
 
   ;; (eval-after-load "preview"
   ;;   '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
@@ -469,38 +466,38 @@ With argument ARG, do this that many times."
   (plist-put org-format-latex-options :scale 1.25))
 
 ;; set up org-ref & keybindings
-(use-package org-ref
-  :after org
-  :ensure t
-  :config
-  ;;(global-set-key (kbd "\C-cd") 'doi-add-bibtex-entry)
-  ;; set default directories for org-ref
-  (setq org-ref-default-citation-link "cite")
-  (setq org-ref-notes-directory "~/rsch/general_notes"
-        org-ref-bibliography-notes "~/refs/general_notes"
-        org-ref-default-bibliography '("~/rsch/refs/rsch-refs.bib")
-        org-ref-pdf-directory "~/rsch/refs/"))
+;; (use-package org-ref
+;;   :after org
+;;   :ensure t
+;;   :config
+;;   ;;(global-set-key (kbd "\C-cd") 'doi-add-bibtex-entry)
+;;   ;; set default directories for org-ref
+;;   (setq org-ref-default-citation-link "cite")
+;;   (setq org-ref-notes-directory "~/rsch/general_notes"
+;;         org-ref-bibliography-notes "~/refs/general_notes"
+;;         org-ref-default-bibliography '("~/rsch/refs/rsch-refs.bib")
+;;         org-ref-pdf-directory "~/rsch/refs/"))
 
 ;; set up org-noter & keybindings
-(use-package org-noter
-  :after org
-  :ensure t
-  :config
-  (global-set-key (kbd "\C-cn") 'org-noter)
-  ;; set pdf viewing mode to pdf-tools at any time docview is called (uncomment if you want to do that)
-  (defvar tv/prefer-pdf-tools (fboundp 'pdf-view-mode))
-  (defun tv/start-pdf-tools-if-pdf ()
-    (when (and tv/prefer-pdf-tools
-               (eq doc-view-doc-type 'pdf))
-      (pdf-view-mode)))
-  (add-hook 'doc-view-mode-hook 'tv/start-pdf-tools-if-pdf))
+;; (use-package org-noter
+;;   :after org
+;;   :ensure t
+;;   :config
+;;   (global-set-key (kbd "\C-cn") 'org-noter)
+;;   ;; set pdf viewing mode to pdf-tools at any time docview is called (uncomment if you want to do that)
+;;   (defvar tv/prefer-pdf-tools (fboundp 'pdf-view-mode))
+;;   (defun tv/start-pdf-tools-if-pdf ()
+;;     (when (and tv/prefer-pdf-tools
+;;                (eq doc-view-doc-type 'pdf))
+;;       (pdf-view-mode)))
+;;   (add-hook 'doc-view-mode-hook 'tv/start-pdf-tools-if-pdf))
 
 
 ;; allow us to prevent export of org headings with tag ":IGNORE:"
-(use-package ox-extra
-  :load-path "~/.emacs.d/lisp"
-  :config
-  (ox-extras-activate '(ignore-headlines)))
+;; (use-package ox-extra
+;;   :load-path "~/.emacs.d/lisp"
+;;   :config
+;;   (ox-extras-activate '(ignore-headlines)))
 
 ;; enable yasnippet (for latex snippets), set its dirs, and have it run as a minor mode in all major modes.
 ;; set yasnippet directories
@@ -966,7 +963,7 @@ $0
 					                             ))))
 
        
-        
+       
        ))
 
 
@@ -1004,6 +1001,9 @@ $0
 
 ;; visual construction of regular expressions, mostly for searching
 (use-package visual-regexp)
+
+;; get rid of change-log-mode and replace it with markdown mode for changelog files
+(fset 'change-log-mode (symbol-function 'org-mode))
 
 ;; ------ .el files I didn't want to remember to back up -----
 
