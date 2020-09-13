@@ -38,7 +38,7 @@
 (global-set-key (kbd "\C-ctp") (lambda () (interactive) (find-file "~/rsch/current_projects/.projects/projects")))
 (global-set-key (kbd "\C-cj") (lambda () (interactive) (find-file "~/notes/org/jot")))
 
-;; change indentation size for CC mode.
+;; change indentation size for CC mode (C and C++).
 (setq-default c-basic-offset 3)
 
 ;; add line numbers in programming modes
@@ -80,7 +80,7 @@
 ;;             (set (make-local-variable 'compile-command)
 ;;                  (format "g++ %s -o %s -g" (buffer-file-name) (file-name-sans-extension)))))
 
-                                        ; from enberg on #emacs for compilation window killing
+;; from enberg on #emacs for compilation window killing
 (add-hook 'compilation-finish-functions
           (lambda (buf str)
             (if (null (string-match ".*exited abnormally.*" str))
@@ -357,17 +357,12 @@ With argument ARG, do this that many times."
   :config
   (load-theme 'srcery))
 
-;; grab the overlay package, so we can color Org-mode text in buffer and in export
-;; (use-package ov
-;;   :ensure t)
-
-;; Org-mode: The following lines are always needed.  Choose your own keys.
+;; org-mode config
 (use-package org
   :ensure org-plus-contrib
   :bind (("\C-cl" . org-store-link)
          ("\C-ca" . org-agenda)
          ("\C-cc" . org-capture)
-         ;;("\C-cb" . org-switchb)
          )
   :config
   (add-hook 'org-mode-hook 'visual-line-mode)
@@ -401,14 +396,10 @@ With argument ARG, do this that many times."
    'org-babel-load-languages '(
                                (C . t)
                                (org . t)
-                               (ledger . t)
-                               (octave . t)
-                               (asymptote . t)
-                               (matlab . t)
-                               (python . t)
+                               (julia . t)
                                (latex . t)))
 
-  (setq org-babel-python-command "python3")
+  ;;(setq org-babel-python-command "python3")
 
   ;; redisplay images after running source code blocks.
   (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
@@ -419,30 +410,10 @@ With argument ARG, do this that many times."
   ;; create other TODO categories
   (setq org-todo-keywords
         '((sequence "TODO" "NEXT" "INPROGRESS" "WAITING" "CHECK" "|" "DONE")))
-
-  ;; take screenshot and insert into org file.
-  ;; (defun my-org-screenshot ()
-  ;;   "Take a screenshot into a time stamped unique-named file in the
-  ;; same directory as the org-buffer and insert a link to this file."
-  ;;   (interactive)
-  ;;   (let ((filename
-  ;;          (concat
-  ;;           (make-temp-name
-  ;;            (concat
-  ;;             "./"
-  ;;             (format-time-string "%Y%m%d_%H%M%S_")) ) ".png")))
-  ;;     (call-process "scrot" nil nil nil "-s" filename)
-  ;;     (insert (concat "[[" filename "]]"))
-  ;;     (org-display-inline-images)))
-  ;; key shortcut to use my-org-screenshot
-  ;; (global-set-key (kbd "\C-cs") 'my-org-screenshot)
-  
+   
   ;; use makefiles to compile all pdfs
   (setq org-latex-pdf-process
         '("make"))
-
-  ;; remove temporary latex files on pdf export
-  ;; (setq org-latex-logfiles-extensions (quote ("lof" "lot" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg" "brf" "fls" "entoc" "ps" "spl" "bbl" "pygtex" "pygstyle")))
 
   ;; don't ask to evaluate source code blocks on export: just do it.
   (setq org-confirm-babel-evaluate nil)
@@ -450,55 +421,7 @@ With argument ARG, do this that many times."
   ;; Use imagemagick to preview in buffer.
   (setq org-preview-latex-default-process 'imagemagick)
 
-  ;; (eval-after-load "preview"
-  ;;   '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
-
-  ;; set the default image size to 200 px x 200 px
-  (setq org-default-image-size 200)
-
-  ;; disable eldoc errors for when we try to use lilypond source code blocks in org-mode
-  (global-eldoc-mode 1)
-
-  ;; don't make the inline latex images so big.
-  (setq org-image-actual-width nil)
-
-  ;; make latex inline images larger
-  (plist-put org-format-latex-options :scale 1.25))
-
-;; set up org-ref & keybindings
-;; (use-package org-ref
-;;   :after org
-;;   :ensure t
-;;   :config
-;;   ;;(global-set-key (kbd "\C-cd") 'doi-add-bibtex-entry)
-;;   ;; set default directories for org-ref
-;;   (setq org-ref-default-citation-link "cite")
-;;   (setq org-ref-notes-directory "~/rsch/general_notes"
-;;         org-ref-bibliography-notes "~/refs/general_notes"
-;;         org-ref-default-bibliography '("~/rsch/refs/rsch-refs.bib")
-;;         org-ref-pdf-directory "~/rsch/refs/"))
-
-;; set up org-noter & keybindings
-;; (use-package org-noter
-;;   :after org
-;;   :ensure t
-;;   :config
-;;   (global-set-key (kbd "\C-cn") 'org-noter)
-;;   ;; set pdf viewing mode to pdf-tools at any time docview is called (uncomment if you want to do that)
-;;   (defvar tv/prefer-pdf-tools (fboundp 'pdf-view-mode))
-;;   (defun tv/start-pdf-tools-if-pdf ()
-;;     (when (and tv/prefer-pdf-tools
-;;                (eq doc-view-doc-type 'pdf))
-;;       (pdf-view-mode)))
-;;   (add-hook 'doc-view-mode-hook 'tv/start-pdf-tools-if-pdf))
-
-
-;; allow us to prevent export of org headings with tag ":IGNORE:"
-;; (use-package ox-extra
-;;   :load-path "~/.emacs.d/lisp"
-;;   :config
-;;   (ox-extras-activate '(ignore-headlines)))
-
+  )
 ;; enable yasnippet (for latex snippets), set its dirs, and have it run as a minor mode in all major modes.
 ;; set yasnippet directories
 (use-package yasnippet
@@ -522,10 +445,10 @@ $0
                                      ("su" "\\subsection{$1}" "subsection")))
   )
 
-;; snippets for yasnippet, especially LaTeX
+;; pre-packaged snippets for yasnippet
 ;;(use-package yasnippet-snippets)
 
-;; emmet is like yasnippet, but better. It's used for HTML-like code only.
+;; emmet is like yasnippet, but for HTML.
 (use-package emmet-mode)
 
 ;; cdlatex-mode for lightning-fast latex editing
