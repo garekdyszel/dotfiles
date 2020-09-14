@@ -399,7 +399,6 @@ With argument ARG, do this that many times."
    'org-babel-load-languages '(
                                (C . t)
                                (org . t)
-                               (julia . t)
                                (latex . t)))
 
   ;;(setq org-babel-python-command "python3")
@@ -893,8 +892,12 @@ $0
        ))
 
 
-(bind-key "C-n" 'mu4e)
+;; customize the reply-quote-string
+(setq message-citation-line-format "At %R %Y-%m-%d, %f wrote:\n")
+;; choose to use the formatted string
+(setq message-citation-line-function 'message-insert-formatted-citation-line)
 
+(bind-key "C-n" 'mu4e)
 ;; --- end mu4e config ---
 
 ;; Outgoing email (msmtp + msmtpq)

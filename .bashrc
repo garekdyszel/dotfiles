@@ -44,3 +44,6 @@ alias anki="ANKI_NOHIGHDPI=1 anki"
 
 # add alias for scholar (a command line reference manager)
 alias scholar="~/go/bin/scholar"
+
+# make libreoffice have our favorite dark theme
+alias libreoffice="GTK_THEME=Breeze:dark libreoffice"
