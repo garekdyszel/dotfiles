@@ -305,7 +305,7 @@ With argument ARG, do this that many times."
  '(org-ref-default-citation-link "cite")
  '(org-ref-insert-cite-key "C-c 0")
  '(package-selected-packages
-   '(julia-mode ob-rust visual-regexp csound-mode php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -344,7 +344,7 @@ With argument ARG, do this that many times."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 165 :width normal)))))
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#1C1B19" :foreground "#FCE8C3" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 165 :width normal :foundry "GOOG" :family "Noto Sans Mono")))))
 
 
 ;; ----- PACKAGE CONFIG STARTS HERE -----
@@ -422,6 +422,11 @@ With argument ARG, do this that many times."
 
   ;; Use imagemagick to preview in buffer.
   (setq org-preview-latex-default-process 'imagemagick)
+
+  ;; org capture templates
+  (setq org-capture-templates
+      '(("t" "todo" entry (file+headline "~/notes/org/todolist.org" "Tasks")
+         "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
 
   )
 ;; enable yasnippet (for latex snippets), set its dirs, and have it run as a minor mode in all major modes.
@@ -897,6 +902,9 @@ $0
 ;; choose to use the formatted string
 (setq message-citation-line-function 'message-insert-formatted-citation-line)
 
+;; store link to message in header view only
+(setq org-mu4e-link-query-in-headers-mode nil)
+
 (bind-key "C-n" 'mu4e)
 ;; --- end mu4e config ---
 
@@ -933,6 +941,10 @@ $0
 
 ;; get rid of change-log-mode and replace it with markdown mode for changelog files
 (fset 'change-log-mode (symbol-function 'org-mode))
+
+;; change tab stop locations for assembly mode
+(add-hook 'asm-mode-hook
+          (setq tab-stop-list '(1 1 3 4 5 6)))
 
 ;; ------ .el files I didn't want to remember to back up -----
 
