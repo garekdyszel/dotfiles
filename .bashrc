@@ -47,3 +47,6 @@ alias scholar="~/go/bin/scholar"
 
 # make libreoffice have our favorite dark theme
 alias libreoffice="GTK_THEME=Breeze:dark libreoffice"
+
+# backup files shell script
+alias backup="/home/chips/.backup"

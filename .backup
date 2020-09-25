@@ -1,0 +1,24 @@
+# -*- sh -*-
+#!/bin/bash
+
+# back up everything I care about on my computer.
+
+# save a list of installed packages
+printf "Creating list of installed packages...\n"
+printf "Listing packages from official repos...\n"
+pacman -Qenq > .native_pkgs
+printf "Listing official packages from the AUR...\n"
+pacman -Qmq > .foreign_pkgs
+printf "Done.\n"
+
+# just push config files to github
+printf "Committing config files and package lists...\n"
+config add -u
+config commit -m "Routine backup for $(date +"%Y-%m-%d")"
+config push github master
+printf "Done.\n"
+
+# save my personal data
+printf "Backing up personal data...\n"
+borg create ./borg-backup::$(date +"%Y-%m-%d") /home/chips --dry-run --list --exclude '/home/chips/.?*' --list
+printf "Done.\n"

@@ -423,10 +423,20 @@ With argument ARG, do this that many times."
   ;; Use imagemagick to preview in buffer.
   (setq org-preview-latex-default-process 'imagemagick)
 
-  ;; org capture templates
+  ;; org capture templates for mu4e emails
   (setq org-capture-templates
       '(("t" "todo" entry (file+headline "~/notes/org/todolist.org" "Tasks")
-         "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
+         "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
+
+  ;; remove default LaTeX packages so I can load my own
+  (setq org-latex-default-packages nil)
+
+  ;; set the org latex compiler
+  ;; (setq org-latex-compiler "make")
+
+  ;; remove the default latex header for org
+  (setq org-format-latex-header nil)
+  
 
   )
 ;; enable yasnippet (for latex snippets), set its dirs, and have it run as a minor mode in all major modes.
@@ -662,14 +672,14 @@ $0
                       :priority "A")
                (:name "Classes"
                       :tag "classes")
-               (:name "Lab work"
-                      :tag "labwork")
-               (:name "Grad school and career stuff"
-                      :tag "gradschool_job")
+               (:name "Research"
+                      :tag "rsch")
+               (:name "Polish"
+                      :tag "polski")
                )))
            (org-agenda nil "a")))))
 ;; display a whole month's worth of tasks by default
-(setq org-agenda-span 'month)
+(setq org-agenda-span 'week)
 
 
 ;; flyspell-mode: check spelling as you write. Like MS Word's spell checker.
@@ -943,8 +953,8 @@ $0
 (fset 'change-log-mode (symbol-function 'org-mode))
 
 ;; change tab stop locations for assembly mode
-(add-hook 'asm-mode-hook
-          (setq tab-stop-list '(1 1 3 4 5 6)))
+;; (add-hook 'asm-mode-hook
+;;          (setq tab-stop-list '(1 1 3 4 5 6)))
 
 ;; ------ .el files I didn't want to remember to back up -----
 
