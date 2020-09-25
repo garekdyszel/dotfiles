@@ -13,12 +13,12 @@ printf "Done.\n"
 
 # just push config files to github
 printf "Committing config files and package lists...\n"
-config add -u
-config commit -m "Routine backup for $(date +"%Y-%m-%d")"
-config push github master
+/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME add -u
+/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME commit -m "Routine backup for $(date +"%Y-%m-%d")"
+/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME push github master
 printf "Done.\n"
 
 # save my personal data
 printf "Backing up personal data...\n"
-borg create ./borg-backup::$(date +"%Y-%m-%d") /home/chips --dry-run --list --exclude '/home/chips/.?*' --list
+borg create ./borg-backup::$(date +"%Y-%m-%d") /home/chips --dry-run --exclude '/home/chips/.?*'
 printf "Done.\n"
