@@ -20,5 +20,5 @@ printf "Done.\n"
 
 # save my personal data
 printf "Backing up personal data...\n"
-borg create ./borg-backup::$(date +"%Y-%m-%d") /home/chips --dry-run --exclude '/home/chips/.?*'
+borg create ./borg-backup::$(date +"%Y-%m-%d") /home/chips --exclude '/home/chips/.?*'
 printf "Done.\n"
