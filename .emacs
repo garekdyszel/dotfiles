@@ -412,10 +412,22 @@ With argument ARG, do this that many times."
   ;; create other TODO categories
   (setq org-todo-keywords
         '((sequence "TODO" "NEXT" "INPROGRESS" "WAITING" "CHECK" "|" "DONE")))
-   
+  
   ;; use makefiles to compile all pdfs
   (setq org-latex-pdf-process
         '("make"))
+
+  ;; remove the whole default latex preamble
+  (add-to-list 'org-latex-classes
+             '("empty"
+               "\\documentclass{article}
+               [NO-DEFAULT-PACKAGES]
+               [NO-PACKAGES]"
+               ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
   ;; don't ask to evaluate source code blocks on export: just do it.
   (setq org-confirm-babel-evaluate nil)
@@ -425,17 +437,36 @@ With argument ARG, do this that many times."
 
   ;; org capture templates for mu4e emails
   (setq org-capture-templates
-      '(("t" "todo" entry (file+headline "~/notes/org/todolist.org" "Tasks")
-         "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
+        '(("t" "todo" entry (file+headline "~/notes/org/todolist.org" "Tasks")
+           "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
 
   ;; remove default LaTeX packages so I can load my own
   (setq org-latex-default-packages nil)
 
-  ;; set the org latex compiler
-  ;; (setq org-latex-compiler "make")
-
   ;; remove the default latex header for org
   (setq org-format-latex-header nil)
+
+  ;; make minted the default code renderer for org --> latex export 
+  (setq org-latex-listings 'minted)
+  (setq org-latex-minted-options
+        '(("frame" "lines") ("linenos=true")))
+
+  (defun org-export-all (backend)
+    "Export all subtrees that are *not* tagged with :noexport: to
+separate files.
+
+Note that subtrees must have the :EXPORT_FILE_NAME: property set
+to a unique value for this to work properly."
+    (interactive "sEnter backend: ")
+    (let ((fn (cond ((equal backend "html") 'org-html-export-to-html)
+                    ((equal backend "latex") 'org-latex-export-to-latex)
+                    ((equal backend "pdf") 'org-latex-export-to-pdf)
+                    ((equal backend "org") 'org-org-export-to-org))))
+      (save-excursion
+        (set-mark (point-min))
+        (goto-char (point-max))
+        (org-map-entries (lambda () (funcall fn nil t)) "-noexport" 'region-start-level))))
+
   
 
   )

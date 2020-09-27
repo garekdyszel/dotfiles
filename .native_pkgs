@@ -108,6 +108,8 @@ opencascade
 openmpi
 otf-fantasque-sans-mono
 p7zip
+pandoc
+pandoc-citeproc
 parted
 patch
 pavucontrol
@@ -122,6 +124,7 @@ portmidi
 pulseaudio
 pulseaudio-jack
 pwgen
+python-llfuse
 python-pip
 python2
 qjackctl
