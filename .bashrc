@@ -50,3 +50,6 @@ alias libreoffice="GTK_THEME=Breeze:dark libreoffice"
 
 # backup files shell script
 alias backup="/home/chips/.backup"
+
+# printer
+PRINTER="EPSON-WF-4720-Series"

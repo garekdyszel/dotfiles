@@ -263,6 +263,7 @@ With argument ARG, do this that many times."
  '(beacon-color "#cc6666")
  '(cdlatex-math-modify-alist nil)
  '(cdlatex-math-modify-prefix "/")
+ '(org-cdlatex-math-modify-prefix "/")
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")
  '(cua-enable-cua-keys nil)
@@ -272,6 +273,7 @@ With argument ARG, do this that many times."
  '(custom-safe-themes
    '("efbd20364f292a1199d291dfaff28cc1fd89fff5b38e314bd7e40121f5c465b4" "bbbd58d82a60c4913b00db1ecab1938ddcb0378225a1a3e54d840f36370d86c6" "2d835b43e2614762893dc40cbf220482d617d3d4e2c35f7100ca697f1a388a0e" "a77ced882e25028e994d168a612c763a4feb8c4ab67c5ff48688654d0264370c" "0dd2666921bd4c651c7f8a724b3416e95228a13fca1aa27dc0022f4e023bf197" "b73a23e836b3122637563ad37ae8c7533121c2ac2c8f7c87b381dd7322714cd0" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "d707aeee54d91b181a267a473862ebf0e20502c9bca8bef078b0a226b9581dd2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" default))
  '(doc-view-continuous t)
+ '(electric-indent-mode nil)
  '(fci-rule-character-color "#202020")
  '(fci-rule-color "#383838")
  '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
@@ -415,19 +417,26 @@ With argument ARG, do this that many times."
   
   ;; use makefiles to compile all pdfs
   (setq org-latex-pdf-process
-        '("make"))
+        '("pdflatex -interaction nonstopmode -output-directory %o %f"
+          "bibtex %b"
+          "pdflatex -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -interaction nonstopmode -output-directory %o %f"))
 
   ;; remove the whole default latex preamble
   (add-to-list 'org-latex-classes
-             '("empty"
-               "\\documentclass{article}
+               '("article"
+                 "\\documentclass{article}
                [NO-DEFAULT-PACKAGES]
                [NO-PACKAGES]"
-               ("\\section{%s}" . "\\section*{%s}")
+                 ;;("\\chapter{%s}" . "\\chapter*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+  ;; always prefer my ref:x labels over something else
+  (setq org-latex-prefer-user-labels t)
 
   ;; don't ask to evaluate source code blocks on export: just do it.
   (setq org-confirm-babel-evaluate nil)
@@ -467,9 +476,15 @@ to a unique value for this to work properly."
         (goto-char (point-max))
         (org-map-entries (lambda () (funcall fn nil t)) "-noexport" 'region-start-level))))
 
-  
 
   )
+
+;; org-ref, for referencing things
+(use-package org-ref
+  :config
+                                        ;(setq org-ref-default-ref-type "cref")
+  )
+
 ;; enable yasnippet (for latex snippets), set its dirs, and have it run as a minor mode in all major modes.
 ;; set yasnippet directories
 (use-package yasnippet
