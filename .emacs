@@ -263,7 +263,6 @@ With argument ARG, do this that many times."
  '(beacon-color "#cc6666")
  '(cdlatex-math-modify-alist nil)
  '(cdlatex-math-modify-prefix "/")
- '(org-cdlatex-math-modify-prefix "/")
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")
  '(cua-enable-cua-keys nil)
@@ -301,13 +300,13 @@ With argument ARG, do this that many times."
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(org-agenda-files
    '("~/notes/org/todolist.org" "~/uni/rsch/current_projects/.projects/projects"))
+ '(org-cdlatex-math-modify-prefix "/")
  '(org-highlight-latex-and-related '(latex entities))
- '(org-latex-classes '(("article" "\\documentclass[12pt]{article}" ("" . ""))))
  '(org-preview-latex-default-process 'dvipng)
  '(org-ref-default-citation-link "cite")
  '(org-ref-insert-cite-key "C-c 0")
  '(package-selected-packages
-   '(org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -423,17 +422,17 @@ With argument ARG, do this that many times."
           "pdflatex -interaction nonstopmode -output-directory %o %f"))
 
   ;; remove the whole default latex preamble
-  (add-to-list 'org-latex-classes
-               '("article"
-                 "\\documentclass{article}
-               [NO-DEFAULT-PACKAGES]
-               [NO-PACKAGES]"
-                 ;;("\\chapter{%s}" . "\\chapter*{%s}")
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  ;; (add-to-list 'org-latex-classes
+  ;;              '("article"
+  ;;                "\\documentclass{article}
+  ;;              [NO-DEFAULT-PACKAGES]
+  ;;              [NO-PACKAGES]"
+  ;;                ;;("\\chapter{%s}" . "\\chapter*{%s}")
+  ;;                ("\\section{%s}" . "\\section*{%s}")
+  ;;                ("\\subsection{%s}" . "\\subsection*{%s}")
+  ;;                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+  ;;                ("\\paragraph{%s}" . "\\paragraph*{%s}")
+  ;;                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
   ;; always prefer my ref:x labels over something else
   (setq org-latex-prefer-user-labels t)
@@ -515,9 +514,9 @@ $0
 (use-package emmet-mode)
 
 ;; cdlatex-mode for lightning-fast latex editing
-(use-package cdlatex
-  :config
-  (setq cdlatex-simplify-sub-super-scripts nil))
+;; (use-package cdlatex
+;;   :config
+;;   (setq cdlatex-simplify-sub-super-scripts nil))
 
 ;; AucTex
 (use-package tex
@@ -563,7 +562,7 @@ $0
   ;; (setq TeX-command-BibTeX 'Biber)
 
   ;; always turn on cdlatex-mode when we enter latex-mode
-  (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
+  ;; (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
   
   ;; make the preview font size MUCH bigger, so we can read our equations
   (set-default 'preview-scale-function 1.2)
@@ -593,6 +592,50 @@ $0
 
   )
 
+(use-package auto-activating-snippets
+  :load-path "lisp/auto-activating-snippets.el"
+  :hook (LaTeX-mode . auto-activating-snippets-mode)
+  :hook (org-mode . auto-activating-snippets-mode)
+  :config
+  (aas-set-snippets 'text-mode
+                    ;; expand unconditionally
+                    "o-" "ō"
+                    "i-" "ī"
+                    "a-" "ā"
+                    "u-" "ū"
+                    "e-" "ē")
+  (aas-set-snippets 'latex-mode
+                    ;; set condition!
+                    :cond #'texmathp ; expand only while in math
+                    "supp" "\\supp"
+                    "On" "O(n)"
+                    "O1" "O(1)"
+                    "Olog" "O(\\log n)"
+                    "Olon" "O(n \\log n)"
+                    ;; bind to functions!
+                    "//" (lambda () (interactive)
+                           (yas-expand-snippet "\\frac{$1}{$2}$0"))
+                    "Span" (lambda () (interactive)
+                             (yas-expand-snippet "\\Span($1)$0")))
+  )
+
+(use-package latex-auto-activating-snippets
+  :load-path "lisp/latex-auto-activating-snippets.el"
+  :after latex ; auctex's LaTeX package
+  :config ; do whatever here
+  (aas-set-snippets 'latex-mode
+                    ;; set condition!
+                    :cond #'texmathp ; expand only while in math
+                    "supp" "\\supp"
+                    "On" "O(n)"
+                    "O1" "O(1)"
+                    "Olog" "O(\\log n)"
+                    "Olon" "O(n \\log n)"
+                    ;; bind to functions!
+                    "//" (lambda () (interactive)
+                           (yas-expand-snippet "\\frac{$1}{$2}$0"))
+                    "Span" (lambda () (interactive)
+                             (yas-expand-snippet "\\Span($1)$0"))))
 
 ;; don't hit C-c C-c six million times to compile latex to pdf
 ;; (use-package auctex-latexmk
