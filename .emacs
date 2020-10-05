@@ -592,50 +592,35 @@ $0
 
   )
 
+;; (use-package auto-activating-snippets
+;;   :load-path "lisp/auto-activating-snippets.el"
+;;   :hook (LaTeX-mode . auto-activating-snippets-mode)
+;;   :hook (org-mode . auto-activating-snippets-mode)
+;;   ;; :config
+  ;; (aas-set-snippets 'text-mode
+  ;;                   ;; expand unconditionally
+  ;;                   "o-" "ō"
+  ;;                   "i-" "ī"
+  ;;                   "a-" "ā"
+  ;;                   "u-" "ū"
+  ;;                   "e-" "ē")
+  ;; )
+
 (use-package auto-activating-snippets
   :load-path "lisp/auto-activating-snippets.el"
   :hook (LaTeX-mode . auto-activating-snippets-mode)
-  :hook (org-mode . auto-activating-snippets-mode)
-  :config
-  (aas-set-snippets 'text-mode
-                    ;; expand unconditionally
-                    "o-" "ō"
-                    "i-" "ī"
-                    "a-" "ā"
-                    "u-" "ū"
-                    "e-" "ē")
-  (aas-set-snippets 'latex-mode
-                    ;; set condition!
-                    :cond #'texmathp ; expand only while in math
-                    "supp" "\\supp"
-                    "On" "O(n)"
-                    "O1" "O(1)"
-                    "Olog" "O(\\log n)"
-                    "Olon" "O(n \\log n)"
-                    ;; bind to functions!
-                    "//" (lambda () (interactive)
-                           (yas-expand-snippet "\\frac{$1}{$2}$0"))
-                    "Span" (lambda () (interactive)
-                             (yas-expand-snippet "\\Span($1)$0")))
-  )
+  ; ... any other hooks
+  :config (require 'latex-auto-activating-snippets))
 
 (use-package latex-auto-activating-snippets
-  :load-path "lisp/latex-auto-activating-snippets.el"
-  :after latex ; auctex's LaTeX package
-  :config ; do whatever here
-  (aas-set-snippets 'latex-mode
-                    ;; set condition!
-                    :cond #'texmathp ; expand only while in math
-                    "supp" "\\supp"
-                    "On" "O(n)"
-                    "O1" "O(1)"
-                    "Olog" "O(\\log n)"
-                    "Olon" "O(n \\log n)"
-                    ;; bind to functions!
-                    "//" (lambda () (interactive)
-                           (yas-expand-snippet "\\frac{$1}{$2}$0"))
-                    "Span" (lambda () (interactive)
-                             (yas-expand-snippet "\\Span($1)$0"))))
+  :load-path "lisp/latex-auto-activating-snippets.el")
+
+;; (use-package latex-auto-activating-snippets
+;;   :load-path "lisp/latex-auto-activating-snippets.el"
+;;   :after latex ; auctex's LaTeX package
+;;   :config ; do whatever here
+;;   ;;(add-to-list 'load-path "~/.emacs.d/lisp")
+;;  )
 
 ;; don't hit C-c C-c six million times to compile latex to pdf
 ;; (use-package auctex-latexmk

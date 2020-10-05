@@ -5,7 +5,7 @@
     (org "9.0")
     (ht "2.2")
     (ts "0.2"))
-  :commit "dd0d104c269fab9ebe5af7009bc1dd2a3a8f3c12" :keywords
+  :commit "3264255989021b8563ea42b5d26acbc2a024f14d" :keywords
   '("hypermedia" "outlines" "org" "agenda")
   :authors
   '(("Adam Porter" . "adam@alphapapa.net"))
