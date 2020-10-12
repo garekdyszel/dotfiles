@@ -38,7 +38,7 @@
 
 ;; set up keyboard shortcuts to jump to commonly-used files.
 (global-set-key (kbd "\C-ctd") (lambda () (interactive) (find-file "~/notes/org/todolist.org")))
-(global-set-key (kbd "\C-ctp") (lambda () (interactive) (find-file "~/rsch/current_projects/.projects/projects")))
+(global-set-key (kbd "\C-cn") (lambda () (interactive) (find-file "~/uni/rsch/notes.org")))
 (global-set-key (kbd "\C-cj") (lambda () (interactive) (find-file "~/notes/org/jot")))
 
 ;; change indentation size for CC mode (C and C++).
@@ -262,7 +262,7 @@ With argument ARG, do this that many times."
  '(auto-fill-mode t)
  '(beacon-color "#cc6666")
  '(cdlatex-math-modify-alist nil)
- '(cdlatex-math-modify-prefix "/")
+ '(cdlatex-math-modify-prefix "'")
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")
  '(cua-enable-cua-keys nil)
@@ -299,14 +299,14 @@ With argument ARG, do this that many times."
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(org-agenda-files
-   '("~/notes/org/todolist.org" "~/uni/rsch/current_projects/.projects/projects"))
+   '("~/uni/rsch/notes.org" "~/notes/org/todolist.org" "~/uni/rsch/current_projects/.projects/projects"))
  '(org-cdlatex-math-modify-prefix "/")
  '(org-highlight-latex-and-related '(latex entities))
  '(org-preview-latex-default-process 'dvipng)
  '(org-ref-default-citation-link "cite")
  '(org-ref-insert-cite-key "C-c 0")
  '(package-selected-packages
-   '(latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -369,18 +369,19 @@ With argument ARG, do this that many times."
          ("\C-cc" . org-capture)
          )
   :config
+  (require 'org-inlinetask) ;; inline todos
   (add-hook 'org-mode-hook 'visual-line-mode)
   (define-key org-mode-map (kbd "C-,") nil)
   (setq org-log-done t)
 
-  (defun my/org-mode-hook ()
-    "Stop the org-level headers from increasing in height relative to the other text."
-    (dolist (face '(org-level-1
-                    org-level-2
-                    org-level-3
-                    org-level-4
-                    org-level-5))
-      (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
+  ;; (defun my/org-mode-hook ()
+  ;;   "Stop the org-level headers from increasing in height relative to the other text."
+  ;;   (dolist (face '(org-level-1
+  ;;                   org-level-2
+  ;;                   org-level-3
+  ;;                   org-level-4
+  ;;                   org-level-5))
+  ;;     (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
 
   (add-hook 'org-mode-hook #'my/org-mode-hook)
 
@@ -480,9 +481,15 @@ to a unique value for this to work properly."
 
 ;; org-ref, for referencing things
 (use-package org-ref
-  :config
-                                        ;(setq org-ref-default-ref-type "cref")
+;;  :config
+;;  (setq org-ref-default-ref-type "cref")
   )
+
+;; org export to restructured text
+(use-package ox-rst)
+
+;; markdown
+(use-package markdown-mode)
 
 ;; enable yasnippet (for latex snippets), set its dirs, and have it run as a minor mode in all major modes.
 ;; set yasnippet directories
@@ -740,20 +747,23 @@ $0
            (org-super-agenda-mode)
            ((org-super-agenda-groups
              '(
-               (:name "Waiting"
-                      :todo "WAITING")
+               (:name "Next task"
+                      :todo "NEXT")
+               (:name "Research"
+                      :tag "rsch")
                (:name "Important"
                       :priority "A")
                (:name "Classes"
                       :tag "classes")
-               (:name "Research"
-                      :tag "rsch")
+
                (:name "Polish"
                       :tag "polski")
+               (:name "Waiting"
+                      :todo "WAITING")
                )))
            (org-agenda nil "a")))))
 ;; display a whole month's worth of tasks by default
-(setq org-agenda-span 'week)
+(setq org-agenda-span 'day)
 
 
 ;; flyspell-mode: check spelling as you write. Like MS Word's spell checker.
