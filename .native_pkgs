@@ -58,11 +58,12 @@ grub
 gst-plugins-good
 helm
 htop
-i3-wm
+i3-gaps
 i3blocks
 i3lock
 i3status
 imagescan
+inkscape
 intel-ucode
 ir.lv2
 ispell
@@ -82,6 +83,7 @@ linux-firmware
 linux-headers
 linux-lts-headers
 lsp-plugins
+luit
 lxappearance
 lynx
 m4
@@ -179,7 +181,6 @@ xorg-fonts-100dpi
 xorg-fonts-75dpi
 xorg-fonts-encodings
 xorg-iceauth
-xorg-luit
 xorg-mkfontscale
 xorg-server
 xorg-server-common
@@ -218,6 +219,7 @@ xorg-xvinfo
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
+xournalpp
 xterm
 youtube-dl
 zam-plugins

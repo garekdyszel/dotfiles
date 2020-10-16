@@ -13,7 +13,6 @@ invada-studio-plugins-lv2
 jabref
 libselinux
 libsepol
-med
 mmg
 mu
 obs-v4l2sink
@@ -49,6 +48,7 @@ texlive-local-cancel
 texlive-local-capt-of
 texlive-local-catchfile
 texlive-local-changepage
+texlive-local-circuitikz
 texlive-local-cleveref
 texlive-local-commath
 texlive-local-dashrule

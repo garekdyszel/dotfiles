@@ -10,7 +10,7 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 # Hyper key (right Ctrl on my setup)
-set $mod mod3
+set $mod Mod3
 
 # Super/Windows key (Left Win)
 # set $mod mod4 
@@ -239,7 +239,7 @@ bindsym $mod+p exec thunar
 # keyboard layout
 exec setxkbmap -model pc105 -layout pl -option kpdl:dot -option hyper:rctl -option caps:ctrl_modifier -option ctrl:swap_lalt_lctl -option shift:both_capslock -option compose:menu 
 # -option grp:alt_shift_toggle
-exec xmodmap -e "keycode 75 = dead_greek dead_greek dead_greek dead_greek"
+# exec xmodmap -e "keycode 75 = dead_greek dead_greek dead_greek dead_greek"
 
 # startup programs 
 exec emacs --daemon
@@ -257,3 +257,7 @@ exec xbindkeys --poll-rc # load up keymaps for volume control
 }
 
 bindsym $mod+Shift+e mode "exit: [l]ogout, [r]eboot, [s]hutdown"
+
+# run kitty right away, in case anything breaks
+# i3-msg 'workspace 1 terminal: exec kitty'
+exec kitty

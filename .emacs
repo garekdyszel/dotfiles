@@ -153,6 +153,8 @@ With argument ARG, do this that many times."
 ;; change default cursor style to bar instead of rectangle
 (setq-default cursor-type 'bar)
 
+;; stop yelling at me about package cl being deprecated
+
 ;; vim-like keybindings for movement
 ;; (bind-key "s-j" 'backward-char)
 ;; (bind-key "s-k" 'next-line)
@@ -374,6 +376,9 @@ With argument ARG, do this that many times."
   (define-key org-mode-map (kbd "C-,") nil)
   (setq org-log-done t)
 
+                                        ; enable cdlatex mode by default
+  ;;(add-hook 'org-mode-hook 'org-cdlatex-mode)
+
   ;; (defun my/org-mode-hook ()
   ;;   "Stop the org-level headers from increasing in height relative to the other text."
   ;;   (dolist (face '(org-level-1
@@ -383,7 +388,7 @@ With argument ARG, do this that many times."
   ;;                   org-level-5))
   ;;     (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
 
-  (add-hook 'org-mode-hook #'my/org-mode-hook)
+  ;; (add-hook 'org-mode-hook #'my/org-mode-hook)
 
   ;; fix org-babel!
   (defun org-babel-get-header (params key &optional others)
@@ -417,10 +422,10 @@ With argument ARG, do this that many times."
   
   ;; use makefiles to compile all pdfs
   (setq org-latex-pdf-process
-        '("pdflatex -interaction nonstopmode -output-directory %o %f"
+        '("xelatex -interaction nonstopmode -output-directory %o %f"
           "bibtex %b"
-          "pdflatex -interaction nonstopmode -output-directory %o %f"
-          "pdflatex -interaction nonstopmode -output-directory %o %f"))
+          "xelatex -interaction nonstopmode -output-directory %o %f"
+          "xelatex -interaction nonstopmode -output-directory %o %f"))
 
   ;; remove the whole default latex preamble
   ;; (add-to-list 'org-latex-classes
@@ -479,11 +484,11 @@ to a unique value for this to work properly."
 
   )
 
-;; org-ref, for referencing things
-(use-package org-ref
-;;  :config
-;;  (setq org-ref-default-ref-type "cref")
-  )
+;; ;; org-ref, for referencing things
+;; (use-package org-ref
+;; ;;  :config
+;; ;;  (setq org-ref-default-ref-type "cref")
+;;   )
 
 ;; org export to restructured text
 (use-package ox-rst)
@@ -604,23 +609,23 @@ $0
 ;;   :hook (LaTeX-mode . auto-activating-snippets-mode)
 ;;   :hook (org-mode . auto-activating-snippets-mode)
 ;;   ;; :config
-  ;; (aas-set-snippets 'text-mode
-  ;;                   ;; expand unconditionally
-  ;;                   "o-" "ō"
-  ;;                   "i-" "ī"
-  ;;                   "a-" "ā"
-  ;;                   "u-" "ū"
-  ;;                   "e-" "ē")
-  ;; )
+;; (aas-set-snippets 'text-mode
+;;                   ;; expand unconditionally
+;;                   "o-" "ō"
+;;                   "i-" "ī"
+;;                   "a-" "ā"
+;;                   "u-" "ū"
+;;                   "e-" "ē")
+;; )
 
-(use-package auto-activating-snippets
-  :load-path "lisp/auto-activating-snippets.el"
-  :hook (LaTeX-mode . auto-activating-snippets-mode)
-  ; ... any other hooks
-  :config (require 'latex-auto-activating-snippets))
+;; (use-package auto-activating-snippets
+;;   :load-path "lisp/auto-activating-snippets.el"
+;;   :hook (LaTeX-mode . auto-activating-snippets-mode)
+;;   ; ... any other hooks
+;;   :config (require 'latex-auto-activating-snippets))
 
-(use-package latex-auto-activating-snippets
-  :load-path "lisp/latex-auto-activating-snippets.el")
+;; (use-package latex-auto-activating-snippets
+;;   :load-path "lisp/latex-auto-activating-snippets.el")
 
 ;; (use-package latex-auto-activating-snippets
 ;;   :load-path "lisp/latex-auto-activating-snippets.el"
@@ -749,17 +754,16 @@ $0
              '(
                (:name "Next task"
                       :todo "NEXT")
+               (:name "Waiting"
+                      :todo "WAITING")
                (:name "Research"
                       :tag "rsch")
                (:name "Important"
                       :priority "A")
                (:name "Classes"
                       :tag "classes")
-
                (:name "Polish"
                       :tag "polski")
-               (:name "Waiting"
-                      :todo "WAITING")
                )))
            (org-agenda nil "a")))))
 ;; display a whole month's worth of tasks by default
@@ -820,7 +824,7 @@ $0
 ;; <tab> to navigate to links, <RET> to open them in browser
 (add-hook 'mu4e-view-mode-hook
           (lambda()
-            ;; try to emulate some of the eww key-bindings
+            ;; try to emulate some of the eww key-kbindings
             (local-set-key (kbd "<RET>") 'mu4e~view-browse-url-from-binding)
             (local-set-key (kbd "<tab>") 'shr-next-link)
             (local-set-key (kbd "<backtab>") 'shr-previous-link)))
