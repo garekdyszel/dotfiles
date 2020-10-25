@@ -42,15 +42,18 @@ texlive-local-biblatex
 texlive-local-biblatex-apa
 texlive-local-biblatex-ieee
 texlive-local-biblatex-science
+texlive-local-bigfoot
 texlive-local-blindtext
 texlive-local-braket
 texlive-local-cancel
 texlive-local-capt-of
 texlive-local-catchfile
 texlive-local-changepage
+texlive-local-cheatsheet
 texlive-local-circuitikz
 texlive-local-cleveref
 texlive-local-commath
+texlive-local-csquotes
 texlive-local-dashrule
 texlive-local-dejavu
 texlive-local-easylist
@@ -64,6 +67,7 @@ texlive-local-fvextra
 texlive-local-hyphenat
 texlive-local-ifmtarg
 texlive-local-lastpage
+texlive-local-libertine
 texlive-local-logreq
 texlive-local-marginnote
 texlive-local-mdframed

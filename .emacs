@@ -376,6 +376,11 @@ With argument ARG, do this that many times."
   (define-key org-mode-map (kbd "C-,") nil)
   (setq org-log-done t)
 
+                                        ; make org ignore some headlines on latex export
+  (require 'ox-extra)
+  (ox-extras-activate '(ignore-headlines))
+
+
                                         ; enable cdlatex mode by default
   ;;(add-hook 'org-mode-hook 'org-cdlatex-mode)
 
@@ -422,10 +427,12 @@ With argument ARG, do this that many times."
   
   ;; use makefiles to compile all pdfs
   (setq org-latex-pdf-process
-        '("xelatex -interaction nonstopmode -output-directory %o %f"
+        '("mkdir -p build"
+          "xelatex -interaction nonstopmode --shell-escape -output-directory=build %f"
           "bibtex %b"
-          "xelatex -interaction nonstopmode -output-directory %o %f"
-          "xelatex -interaction nonstopmode -output-directory %o %f"))
+          "xelatex -interaction nonstopmode --shell-escape -output-directory=build %f"
+          "xelatex -interaction nonstopmode --shell-escape -output-directory=build %f"
+          "mv ./build/*.pdf ./"))
 
   ;; remove the whole default latex preamble
   ;; (add-to-list 'org-latex-classes
