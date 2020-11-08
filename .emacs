@@ -9,6 +9,8 @@
              '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives 
              '("org" . "https://orgmode.org/elpa/") t)
+(add-to-list 'package-archives 
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 
 ;; make sure use-package is always installed, even if it's not right away.
@@ -25,6 +27,9 @@
   (require 'use-package))
 (require 'bind-key)
 
+;; external packages NOT from use-package. Add them to the load path
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+
 ;; create a backup directory
 (setq backup-directory-alist `(("." . "~/.saves")))
 
@@ -38,7 +43,7 @@
 
 ;; set up keyboard shortcuts to jump to commonly-used files.
 (global-set-key (kbd "\C-ctd") (lambda () (interactive) (find-file "~/notes/org/todolist.org")))
-(global-set-key (kbd "\C-cn") (lambda () (interactive) (find-file "~/uni/rsch/notes.org")))
+(global-set-key (kbd "\C-cn") (lambda () (interactive) (find-file "~/uni/rsch/record/notes.org")))
 (global-set-key (kbd "\C-cj") (lambda () (interactive) (find-file "~/notes/org/jot")))
 
 ;; change indentation size for CC mode (C and C++).
@@ -301,14 +306,15 @@ With argument ARG, do this that many times."
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(org-agenda-files
-   '("~/uni/rsch/notes.org" "~/notes/org/todolist.org" "~/uni/rsch/current_projects/.projects/projects"))
+   '("~/uni/rsch/record/notes.org" "~/notes/org/todolist.org" "~/uni/rsch/current_projects/.projects/projects"))
  '(org-cdlatex-math-modify-prefix "/")
  '(org-highlight-latex-and-related '(latex entities))
+ '(org-latex-prefer-user-labels t)
  '(org-preview-latex-default-process 'dvipng)
  '(org-ref-default-citation-link "cite")
  '(org-ref-insert-cite-key "C-c 0")
  '(package-selected-packages
-   '(markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -411,9 +417,10 @@ With argument ARG, do this that many times."
    'org-babel-load-languages '(
                                (C . t)
                                (org . t)
-                               (latex . t)))
+                               (latex . t)
+                               (python . t)))
 
-  ;;(setq org-babel-python-command "python3")
+  (setq org-babel-python-command "python3")
 
   ;; redisplay images after running source code blocks.
   (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
@@ -427,25 +434,7 @@ With argument ARG, do this that many times."
   
   ;; use makefiles to compile all pdfs
   (setq org-latex-pdf-process
-        '("mkdir -p build"
-          "xelatex -interaction nonstopmode --shell-escape -output-directory=build %f"
-          "bibtex %b"
-          "xelatex -interaction nonstopmode --shell-escape -output-directory=build %f"
-          "xelatex -interaction nonstopmode --shell-escape -output-directory=build %f"
-          "mv ./build/*.pdf ./"))
-
-  ;; remove the whole default latex preamble
-  ;; (add-to-list 'org-latex-classes
-  ;;              '("article"
-  ;;                "\\documentclass{article}
-  ;;              [NO-DEFAULT-PACKAGES]
-  ;;              [NO-PACKAGES]"
-  ;;                ;;("\\chapter{%s}" . "\\chapter*{%s}")
-  ;;                ("\\section{%s}" . "\\section*{%s}")
-  ;;                ("\\subsection{%s}" . "\\subsection*{%s}")
-  ;;                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-  ;;                ("\\paragraph{%s}" . "\\paragraph*{%s}")
-  ;;                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+        '("make "))
 
   ;; always prefer my ref:x labels over something else
   (setq org-latex-prefer-user-labels t)
@@ -487,6 +476,23 @@ to a unique value for this to work properly."
         (set-mark (point-min))
         (goto-char (point-max))
         (org-map-entries (lambda () (funcall fn nil t)) "-noexport" 'region-start-level))))
+
+  ;; per-file-class with minimal packages. from: https://stackoverflow.com/questions/8853312/how-can-i-make-org-mode-export-to-latex-with-a-specific-preamble
+                                        ; added a variable fix: org-export-latex-classes should be org-latex-classes
+  ;; (unless (find "nodefaults" org-latex-classes :key 'car
+  ;;               :test 'equal)
+  (add-to-list 'org-latex-classes
+               '("nodefaults"
+                 "\\documentclass{report}
+                [NO-DEFAULT-PACKAGES]
+                [NO-PACKAGES]"
+                 ("\\part{%s}" . "\\part*{%s}")
+                 ("\\chapter{%s}" . "\\chapter*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 
   )
@@ -611,42 +617,16 @@ $0
 
   )
 
-;; (use-package auto-activating-snippets
-;;   :load-path "lisp/auto-activating-snippets.el"
-;;   :hook (LaTeX-mode . auto-activating-snippets-mode)
-;;   :hook (org-mode . auto-activating-snippets-mode)
-;;   ;; :config
-;; (aas-set-snippets 'text-mode
-;;                   ;; expand unconditionally
-;;                   "o-" "ō"
-;;                   "i-" "ī"
-;;                   "a-" "ā"
-;;                   "u-" "ū"
-;;                   "e-" "ē")
-;; )
-
-;; (use-package auto-activating-snippets
-;;   :load-path "lisp/auto-activating-snippets.el"
-;;   :hook (LaTeX-mode . auto-activating-snippets-mode)
-;;   ; ... any other hooks
-;;   :config (require 'latex-auto-activating-snippets))
-
-;; (use-package latex-auto-activating-snippets
-;;   :load-path "lisp/latex-auto-activating-snippets.el")
-
-;; (use-package latex-auto-activating-snippets
-;;   :load-path "lisp/latex-auto-activating-snippets.el"
-;;   :after latex ; auctex's LaTeX package
-;;   :config ; do whatever here
-;;   ;;(add-to-list 'load-path "~/.emacs.d/lisp")
-;;  )
-
-;; don't hit C-c C-c six million times to compile latex to pdf
-;; (use-package auctex-latexmk
-;;   :config
-;;   (auctex-latexmk-setup))
-
-;; (use-package magic-latex-buffer)
+;; auto-expanding snippets for when you have to type really fast
+(use-package auto-activating-snippets
+  :load-path "~/.emacs.d/lisp/auto-activating-snippets.el"
+  :hook (LaTeX-mode . auto-activating-snippets-mode)
+  :hook (org-mode . auto-activating-snippets-mode)
+  :config
+  ;;(require 'latex-auto-activating-snippets)
+  (aas-set-snippets 'org-mode
+                    ;; expand unconditionally
+                    "-[" "- [ ] "))
 
 ;; automatic creation of paired delimiters
 (electric-pair-mode 1)
@@ -733,14 +713,10 @@ $0
   :ensure t)
 
 ;; use jupyter notebooks for python data analysis
-(use-package jupyter
-  :ensure t)
+;; (use-package jupyter)
 
 ;; make it easier to keep track of undos
-(use-package undo-tree
-  :ensure t
-  :config
-  (global-undo-tree-mode 1))
+(use-package undo-tree)
 
 ;; use mermaid for diagramming in Org mode
 ;; (use-package ob-mermaid
@@ -778,9 +754,13 @@ $0
 
 
 ;; flyspell-mode: check spelling as you write. Like MS Word's spell checker.
-(use-package flyspell
+;; (use-package flyspell
+;;   :config
+;;   (flyspell-mode 1))
+
+(use-package visual-fill-column
   :config
-  (flyspell-mode 1))
+  (setq fill-column 90))
 
 ;; add support for notmuch: email client
 ;; (autoload 'notmuch "notmuch" "notmuch mail" t)
