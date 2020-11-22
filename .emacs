@@ -36,6 +36,9 @@
 ;; turn off shortcuts that we fat-finger frequently.
 (dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o" "\C-n" "\C-x\C-q")) (global-unset-key key))
 
+;; set the fill-column length to 90 (for visual-fill-column-mode)
+(setq fill-column 90)
+
 ;; ensure save and quit remains the same as default Emacs binding
 ;; (global-set-key (kbd "C-x C-c") 'save-buffers-kill-emacs)
 ;; OR set save and quit to be C-x C-q
@@ -735,18 +738,22 @@ $0
            (org-super-agenda-mode)
            ((org-super-agenda-groups
              '(
-               (:name "Next task"
-                      :todo "NEXT")
                (:name "Waiting"
                       :todo "WAITING")
-               (:name "Research"
-                      :tag "rsch")
                (:name "Important"
                       :priority "A")
-               (:name "Classes"
-                      :tag "classes")
-               (:name "Polish"
-                      :tag "polski")
+               (:name "Next task"
+                      :todo "NEXT")
+               (:name "Homework"
+                      :tag "homework")
+               (:name "Research"
+                      :tag "rsch")
+               (:name "Revise"
+                      :tag "revise")
+               (:name "Study"
+                      :tag "Study")
+               (:name "Housework"
+                      :tag "housework")               
                )))
            (org-agenda nil "a")))))
 ;; display a whole month's worth of tasks by default
@@ -758,9 +765,8 @@ $0
 ;;   :config
 ;;   (flyspell-mode 1))
 
-(use-package visual-fill-column
-  :config
-  (setq fill-column 90))
+;; visual-fill-column for limiting line length visually
+(use-package visual-fill-column)
 
 ;; add support for notmuch: email client
 ;; (autoload 'notmuch "notmuch" "notmuch mail" t)

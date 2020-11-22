@@ -58,6 +58,7 @@ go
 grub
 gst-plugins-good
 helm
+helm-synth
 htop
 i3-gaps
 i3blocks
@@ -89,6 +90,7 @@ lxappearance
 lynx
 m4
 make
+mda.lv2
 milkytracker
 mpv
 msmtp
@@ -140,12 +142,14 @@ rsync
 rubber
 rxvt-unicode
 sagemath
+samplv1
 scrot
 sherlock.lv2
 simple-scan
 stk
 sudo
 swh-plugins
+synthv1
 system-config-printer
 tap-plugins
 tbb
@@ -163,8 +167,10 @@ unzip
 usbutils
 v4l2loopback-dkms
 valgrind
+vamp-aubio-plugins
 vim
 vlc
+vmpk
 wanderlust
 wget
 wiiuse
@@ -229,3 +235,4 @@ zathura-djvu
 zathura-pdf-mupdf
 zathura-ps
 zenity
+zynaddsubfx

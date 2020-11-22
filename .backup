@@ -20,5 +20,16 @@ printf "Done.\n"
 
 # save my personal data
 printf "Backing up personal data...\n"
+
+if [[ $(findmnt -M "~/mnt") ]]; then
+    printf "Drive mounted."
+else
+    printf "Drive not mounted."
+    sudo mount /dev/sdd1 ~/mnt
+fi
+
+printf "Backup stage...\n"
 borg create ./borg-backup::$(date +"%Y-%m-%d") /home/chips --exclude '/home/chips/.?*'
+printf "Copy-to-drive stage...\n"
+rsync -rP ~/borg-backup/ ~/mnt/borg-backup/
 printf "Done.\n"
