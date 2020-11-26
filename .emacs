@@ -447,9 +447,19 @@ With argument ARG, do this that many times."
   ;; don't ask to evaluate source code blocks on export: just do it.
   (setq org-confirm-babel-evaluate nil)
 
-  ;; Use imagemagick to preview in buffer.
-  ;;(setq org-preview-latex-default-process 'imagemagick)
-  (setq org-latex-create-formula-image-program 'imagemagick)
+  ;; Use imagemagick to preview latex in buffer.
+  (setq org-preview-latex-default-process 'imagemagick)
+
+  ;; change formatting options for latex image previews
+  (setq org-format-latex-options '(
+                                   :foreground default 
+                                               :background default 
+                                               :scale 3.0 
+                                               :html-foreground "Black"
+                                               :html-background "Transparent" 
+                                               :html-scale 2.0 :matchers
+                                               ("begin" "$1" "$" "$$" "\\(" "\\[")))
+
 
   ;; org capture templates for mu4e emails
   (setq org-capture-templates
