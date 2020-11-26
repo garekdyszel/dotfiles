@@ -313,7 +313,8 @@ With argument ARG, do this that many times."
  '(org-cdlatex-math-modify-prefix "/")
  '(org-highlight-latex-and-related '(latex entities))
  '(org-latex-prefer-user-labels t)
- '(org-preview-latex-default-process 'dvipng)
+ '(org-msg-mode t)
+ '(org-preview-latex-default-process 'imagemagick)
  '(org-ref-default-citation-link "cite")
  '(org-ref-insert-cite-key "C-c 0")
  '(package-selected-packages
@@ -380,6 +381,7 @@ With argument ARG, do this that many times."
          ("\C-cc" . org-capture)
          )
   :config
+  (setq org-export-html-postamble nil) ;; no extra info at bottom of html export page
   (require 'org-inlinetask) ;; inline todos
   (add-hook 'org-mode-hook 'visual-line-mode)
   (define-key org-mode-map (kbd "C-,") nil)
@@ -436,17 +438,18 @@ With argument ARG, do this that many times."
         '((sequence "TODO" "NEXT" "INPROGRESS" "WAITING" "CHECK" "|" "DONE")))
   
   ;; use makefiles to compile all pdfs
-  (setq org-latex-pdf-process
-        '("make "))
+  ;; (setq org-latex-pdf-process
+  ;;       '("make "))
 
   ;; always prefer my ref:x labels over something else
-  (setq org-latex-prefer-user-labels t)
+  ;; (setq org-latex-prefer-user-labels t)
 
   ;; don't ask to evaluate source code blocks on export: just do it.
   (setq org-confirm-babel-evaluate nil)
 
   ;; Use imagemagick to preview in buffer.
-  (setq org-preview-latex-default-process 'imagemagick)
+  ;;(setq org-preview-latex-default-process 'imagemagick)
+  (setq org-latex-create-formula-image-program 'imagemagick)
 
   ;; org capture templates for mu4e emails
   (setq org-capture-templates
@@ -454,10 +457,10 @@ With argument ARG, do this that many times."
            "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
 
   ;; remove default LaTeX packages so I can load my own
-  (setq org-latex-default-packages nil)
+  ;;(setq org-latex-default-packages nil)
 
   ;; remove the default latex header for org
-  (setq org-format-latex-header nil)
+  ;;(setq org-format-latex-header nil)
 
   ;; make minted the default code renderer for org --> latex export 
   (setq org-latex-listings 'minted)
@@ -790,7 +793,7 @@ $0
                                         ; get mail
 (setq mu4e-get-mail-command "mbsync -a"
       ;; mu4e-html2text-command "w3m -T text/html" ;;using the default mu4e-shr2text
-      mu4e-view-prefer-html t
+      mu4e-view-prefer-html nil ;; prefer the plaintext version when reading emails
       mu4e-update-interval 180
       mu4e-headers-auto-update t
       mu4e-compose-signature-auto-include nil
@@ -867,6 +870,9 @@ $0
 
 ;; convert org mode to HTML automatically
 (setq org-mu4e-convert-to-html t)
+
+(add-hook 'message-mode-hook 'org~mu4e-mime-switch-headers-or-body)
+
 
 ;;from vxlabs config
 ;; show full addresses in view message (instead of just names)
@@ -997,6 +1003,10 @@ $0
 (setq org-mu4e-link-query-in-headers-mode nil)
 
 (bind-key "C-n" 'mu4e)
+
+;; --- begin compose HTML email using org mode config ---
+
+;; --- end compose HTML email using org mode config ---
 ;; --- end mu4e config ---
 
 ;; Outgoing email (msmtp + msmtpq)
@@ -1008,7 +1018,7 @@ $0
 
 ;; turn off automatic buffer narrowing in message-mode
 ;; so you can edit the whole file without that gross column of text
-(add-hook 'message-mode-hook 'widen)
+;; (add-hook 'message-mode-hook 'widen)
 
 ;; org-reveal for reveal.js presentations
 (use-package ox-reveal)
