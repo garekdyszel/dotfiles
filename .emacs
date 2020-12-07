@@ -37,7 +37,7 @@
 (dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o" "\C-n" "\C-x\C-q")) (global-unset-key key))
 
 ;; set the fill-column length to 90 (for visual-fill-column-mode)
-(setq fill-column 90)
+;; (setq fill-column 90)                   
 
 ;; ensure save and quit remains the same as default Emacs binding
 ;; (global-set-key (kbd "C-x C-c") 'save-buffers-kill-emacs)
@@ -160,6 +160,13 @@ With argument ARG, do this that many times."
 
 ;; change default cursor style to bar instead of rectangle
 (setq-default cursor-type 'bar)
+
+
+;; electric-case-mode for camelcase labels in latex modes
+(use-package electric-case
+  :config
+  ;;(add-hook 'LaTeX-mode-hook 'electric-case-mode)
+)
 
 ;; stop yelling at me about package cl being deprecated
 
@@ -317,8 +324,9 @@ With argument ARG, do this that many times."
  '(org-preview-latex-default-process 'imagemagick)
  '(org-ref-default-citation-link "cite")
  '(org-ref-insert-cite-key "C-c 0")
+ '(org-support-shift-select t)
  '(package-selected-packages
-   '(ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -381,6 +389,10 @@ With argument ARG, do this that many times."
          ("\C-cc" . org-capture)
          )
   :config
+  ;; default export settings for sending emails (global settings; so they affect all org buffers)
+  (setq-default org-export-with-toc nil)
+  (setq-default org-export-with-latex 'imagemagick)
+  ;; other defaults
   (setq org-export-html-postamble nil) ;; no extra info at bottom of html export page
   (require 'org-inlinetask) ;; inline todos
   (add-hook 'org-mode-hook 'visual-line-mode)
@@ -438,8 +450,8 @@ With argument ARG, do this that many times."
         '((sequence "TODO" "NEXT" "INPROGRESS" "WAITING" "CHECK" "|" "DONE")))
   
   ;; use makefiles to compile all pdfs
-  ;; (setq org-latex-pdf-process
-  ;;       '("make "))
+  (setq org-latex-pdf-process
+        '("make "))
 
   ;; always prefer my ref:x labels over something else
   ;; (setq org-latex-prefer-user-labels t)
@@ -453,12 +465,12 @@ With argument ARG, do this that many times."
   ;; change formatting options for latex image previews
   (setq org-format-latex-options '(
                                    :foreground default 
-                                               :background default 
-                                               :scale 3.0 
-                                               :html-foreground "Black"
-                                               :html-background "Transparent" 
-                                               :html-scale 2.0 :matchers
-                                               ("begin" "$1" "$" "$$" "\\(" "\\[")))
+                                   :background default 
+                                   :scale 3.0 
+                                   :html-foreground "Black"
+                                   :html-background "Transparent" 
+                                   :html-scale 2.0 :matchers
+                                   ("begin" "$1" "$" "$$" "\\(" "\\[")))
 
 
   ;; org capture templates for mu4e emails
@@ -477,6 +489,7 @@ With argument ARG, do this that many times."
   (setq org-latex-minted-options
         '(("frame" "lines") ("linenos=true")))
 
+  ;; export all headings to separate files
   (defun org-export-all (backend)
     "Export all subtrees that are *not* tagged with :noexport: to
 separate files.
@@ -508,16 +521,18 @@ to a unique value for this to work properly."
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+               '("standalone"
+                 "\\documentclass{standalone}
+                [NO-DEFAULT-PACKAGES]
+                [NO-PACKAGES]"))
   )
 
-;; ;; org-ref, for referencing things
-;; (use-package org-ref
-;; ;;  :config
-;; ;;  (setq org-ref-default-ref-type "cref")
-;;   )
+;; org-ref, for referencing things
+(use-package org-ref
+;;  :config
+;;  (setq org-ref-default-ref-type "cref")
+  )
 
 ;; org export to restructured text
 (use-package ox-rst)
@@ -603,7 +618,7 @@ $0
   ;; (setq TeX-command-BibTeX 'Biber)
 
   ;; always turn on cdlatex-mode when we enter latex-mode
-  ;; (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
+  (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
   
   ;; make the preview font size MUCH bigger, so we can read our equations
   (set-default 'preview-scale-function 1.2)
@@ -745,7 +760,13 @@ $0
   :ensure t
   :after org-agenda
   :init
+  ;; show org-agenda on startup
+  ;; (add-hook 'after-init-hook 'org-agenda-list)
 
+  ;; make org-agenda open in the current window
+  (setq org-agenda-window-setup 'only-window)
+
+  ;; set up org-super-agenda
   (setq org-agenda-custom-commands
         '(("c" "Super Agenda" agenda
            (org-super-agenda-mode)
@@ -758,7 +779,7 @@ $0
                (:name "Next task"
                       :todo "NEXT")
                (:name "Homework"
-                      :tag "homework")
+                      :tag "classes")
                (:name "Research"
                       :tag "rsch")
                (:name "Revise"
@@ -779,7 +800,14 @@ $0
 ;;   (flyspell-mode 1))
 
 ;; visual-fill-column for limiting line length visually
-(use-package visual-fill-column)
+(use-package visual-fill-column
+  :config 
+  ;; enable visual-fill-column-mode in all buffers
+  (global-visual-fill-column-mode t)
+  ;; set the fill column to 90 characters. 
+  ;; that means you get 90 characters per line
+  (setq-default fill-column 95)
+  )
 
 ;; add support for notmuch: email client
 ;; (autoload 'notmuch "notmuch" "notmuch mail" t)
@@ -808,6 +836,9 @@ $0
       mu4e-headers-auto-update t
       mu4e-compose-signature-auto-include nil
       mu4e-compose-format-flowed t)
+
+;; no, really, prefer the plaintext version!
+(setq mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum)
 
 ;; to view selected message in the browser, no signin, just html mail
 (add-to-list 'mu4e-view-actions
@@ -1044,8 +1075,11 @@ $0
 
 ;; Set the default mode of the scratch buffer to Org
 (setq initial-major-mode 'org-mode)
-;; and change the message accordingly. No scratch message
-(setq initial-scratch-message " ")
+;; and change the message accordingly. A nice inspirational quote:
+(setq initial-scratch-message "# \"If you didn't plan it out before bringing it to me... Well, that's your problem then. Not mine.\"
+
+")
+;; Another part of the quote; use where appropriate: "And it's ESPECIALLY not an emergency for me, either!"
 
 ;; visual construction of regular expressions, mostly for searching
 (use-package visual-regexp)
@@ -1538,3 +1572,4 @@ than current time and is not currently being edited."
 (provide 'mu4e-send-delay)
 
 ;;; mu4e-send-delay.el ends here
+(put 'downcase-region 'disabled nil)

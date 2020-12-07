@@ -60,3 +60,6 @@ numlockx &
 # run i3
 twm &
 exec i3
+
+# set the dark theme for all GTK apps
+GTK_THEME=Breeze:dark

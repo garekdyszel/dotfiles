@@ -11,7 +11,7 @@ GENERAL:
   # Scholar will retrieve and save entries from this library.
   default: scholar
   # Set the default text editor
-  editor: vi
+  editor: emacs -nw 
   # Set this to false to disable interactive mode
   interactive: true
   # Set the email for polite use of CrossRef
