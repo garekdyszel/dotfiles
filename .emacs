@@ -766,6 +766,10 @@ $0
   ;; make org-agenda open in the current window
   (setq org-agenda-window-setup 'only-window)
 
+  ;; hide any DONE scheduled tasks and tasks with deadlines
+  (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-agenda-skip-deadline-if-done t)
+
   ;; set up org-super-agenda
   (setq org-agenda-custom-commands
         '(("c" "Super Agenda" agenda
@@ -809,9 +813,15 @@ $0
   (setq-default fill-column 95)
   )
 
+;; --- begin notmuch config ---
 ;; add support for notmuch: email client
-;; (autoload 'notmuch "notmuch" "notmuch mail" t)
-;; (bind-key "C-n" 'notmuch)
+(autoload 'notmuch "notmuch" "notmuch mail" t)
+(bind-key "C-n" 'notmuch)
+;; show the newest mail first
+(setq-default notmuch-search-oldest-first nil)
+;; use mu4e-compose-mode so I can write emails using org-mode
+(add-hook 'notmuch-hello-mode-hook '(local-set-key (m 'mu4e-compose-mode)))
+;; --- end notmuch config ---
 
 ;; --- begin mu4e config (mail client) ---
 ;; all config copied mostly from
@@ -1043,7 +1053,7 @@ $0
 ;; store link to message in header view only
 (setq org-mu4e-link-query-in-headers-mode nil)
 
-(bind-key "C-n" 'mu4e)
+;; (bind-key "C-n" 'mu4e)
 
 ;; --- begin compose HTML email using org mode config ---
 
