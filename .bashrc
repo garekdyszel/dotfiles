@@ -20,8 +20,11 @@ shopt -s extglob
 # set the install location for cmake in deal.ii programs
 export DEAL_II_DIR=/usr/include/deal.ii-9.2.0/
 
-# grab mail (use mbsync -a if you want to sync all the mailboxes)
-alias mail='killall mu; mbsync mtu && mu index'
+# grab mail 
+# use mbsync -a if you want to sync all the mailboxes
+# use mu index if you want to tell mu where your emails are
+alias mail='mbsync mtu && notmuch new'
+alias gmail='mbsync gmail && notmuch new'
 
 # set environment variables
 export QT_QPA_PLATFORMTHEME=qt5ct # Qt theme controller

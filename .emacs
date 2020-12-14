@@ -320,7 +320,6 @@ With argument ARG, do this that many times."
  '(org-cdlatex-math-modify-prefix "/")
  '(org-highlight-latex-and-related '(latex entities))
  '(org-latex-prefer-user-labels t)
- '(org-msg-mode t)
  '(org-preview-latex-default-process 'imagemagick)
  '(org-ref-default-citation-link "cite")
  '(org-ref-insert-cite-key "C-c 0")
@@ -435,7 +434,9 @@ With argument ARG, do this that many times."
                                (C . t)
                                (org . t)
                                (latex . t)
-                               (python . t)))
+                               (python . t)
+                               (shell . t)
+                               (makefile . t)))
 
   (setq org-babel-python-command "python3")
 
@@ -469,7 +470,7 @@ With argument ARG, do this that many times."
                                    :scale 3.0 
                                    :html-foreground "Black"
                                    :html-background "Transparent" 
-                                   :html-scale 2.0 :matchers
+                                   :html-scale 1.0 :matchers
                                    ("begin" "$1" "$" "$$" "\\(" "\\[")))
 
 
@@ -819,8 +820,26 @@ $0
 (bind-key "C-n" 'notmuch)
 ;; show the newest mail first
 (setq-default notmuch-search-oldest-first nil)
+;; use smtpmail to send everything, so we get a password prompt
+(setq message-send-mail-function 'smtpmail-send-it)
+
+
+
+;; (define-key mu4e-main-mode-map "s" 'notmuch-search)
+
+;;(add-hook 'notmuch-mua-new-mail 'mu4e-compose)
 ;; use mu4e-compose-mode so I can write emails using org-mode
-(add-hook 'notmuch-hello-mode-hook '(local-set-key (m 'mu4e-compose-mode)))
+;; (use-package org-msg
+;;   :config
+;;   (setq org-msg-options "html-postamble:nil H:5 ^:{} num:nil author:nil email:nil toc:nil tex:imagemagick d:nil"
+;; 	     org-msg-startup "#+LATEX_HEADER: \\usepackage{notomath}"
+;; 	     org-msg-greeting-fmt nil
+;; 	     org-msg-greeting-name-limit nil
+;; 	     org-msg-default-alternatives '(text html)
+;; 	     org-msg-signature nil)
+;;   (add-hook 'message-mode-hook 'org-msg-mode)
+;;   )
+
 ;; --- end notmuch config ---
 
 ;; --- begin mu4e config (mail client) ---
@@ -861,7 +880,7 @@ $0
   (imagemagick-register-types))
 
 ;; every new email composition gets its own frame!
-;;(setq mu4e-compose-in-new-frame t)
+(setq mu4e-compose-in-new-frame t)
 
 ;; don't save message to Sent Messages, IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
@@ -1261,7 +1280,7 @@ typing speed."
 
 ;; Heavily inspired by gnus-delay and mu4e-delay, but made to fit into the mu4e
 ;; environment better.
-;; Thanks to Ben Maughen and Kai Großjohann.
+;; Thanks to Ben Maughen and Kai Grossjohann.
 
 ;;; Code:
 
@@ -1428,7 +1447,7 @@ message; if nil, only do so when sending the message"
                                      :function (lambda (msg)
                                                  (mu4e-send-delay-header-value
                                                   (mu4e-message-field msg :path))))))
-(add-to-list 'mu4e-view-fields :send-delay t)
+;;(add-to-list 'mu4e-view-fields :send-delay t)
 
 (defun mu4e-send-delay-header-value (file-path)
   (ignore-errors

@@ -6,6 +6,7 @@
  (magit-dispatch nil)
  (magit-log
   (("--" "research_record/record.tex")))
+ (magit-merge nil)
  (magit-patch-apply nil)
  (magit-pull nil)
  (magit-push nil))
