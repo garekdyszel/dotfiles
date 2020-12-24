@@ -1,3 +1,4 @@
+adms
 anaconda
 ann
 archlinux-java-run
@@ -13,6 +14,7 @@ invada-studio-plugins-lv2
 jabref
 libselinux
 libsepol
+minecraft
 mmg
 mu
 obs-v4l2sink
@@ -32,6 +34,7 @@ ocamlfuse
 ocamlnet
 perl-term-shellui
 qt4
+qucs
 qucs-s
 skypeforlinux-stable-bin
 texlive-local-algorithmicx
@@ -112,8 +115,10 @@ texlive-local-xifthen
 texlive-local-xstring
 texlive-local-xypic
 texlive-local-zref
+three.js
 tllocalmgr-git
 ttf-vista-fonts
 v4l2loopback-dc-dkms
+xorg-server-xwayland
 yay
 zoom

@@ -102,6 +102,7 @@ ngspice
 ninjas2
 noise-repellent
 non-mixer
+notmuch
 noto-fonts
 ntfs-3g
 numlockx
@@ -195,7 +196,6 @@ xorg-server-devel
 xorg-server-xephyr
 xorg-server-xnest
 xorg-server-xvfb
-xorg-server-xwayland
 xorg-sessreg
 xorg-setxkbmap
 xorg-smproxy

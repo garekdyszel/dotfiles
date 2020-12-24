@@ -11,16 +11,14 @@ GENERAL:
   # Scholar will retrieve and save entries from this library.
   default: scholar
   # Set the default text editor
-  editor: emacs -nw 
+  editor: vi
   # Set this to false to disable interactive mode
   interactive: true
   # Set the email for polite use of CrossRef
-  mailto: mail@example.com
+  mailto: gjdyszel@mtu.edu
 
 # Path locations for the libraries.
 # You can add as many libraries as you want.
 # You can name the library however you want.
 LIBRARIES:
   scholar: ~/uni/rsch/refs/scholar/
-  papers: ~/uni/rsch/refs/scholar/papers
-  books: ~/uni/rsch/refs/scholar/books
