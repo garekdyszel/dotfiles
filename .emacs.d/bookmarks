@@ -1,0 +1,20 @@
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("org-capture-last-stored-marker"
+ (filename . "~/notes/org/todolist.org")
+ (front-context-string . "** TODO get ahol")
+ (rear-context-string . "ster Wrap Up]]\n\n")
+ (position . 6159))
+("org-refile-last-stored"
+ (filename . "~/notes/org/todolist.org")
+ (front-context-string . "** TODO get ahol")
+ (rear-context-string . "ster Wrap Up]]\n\n")
+ (position . 6159))
+("org-capture-last-stored"
+ (filename . "~/notes/org/todolist.org")
+ (front-context-string . "** TODO get ahol")
+ (rear-context-string . "scripts\n* Tasks\n")
+ (position . 6692))
+)

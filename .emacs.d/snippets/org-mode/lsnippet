@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: lsnippet
+# key: lsnippet
+# --
+#+LATEX_CLASS: nodefaults
+#+LATEX_HEADER: \\usepackage{mathptmx}
+#+begin_export latex
+$1
+#+end_export
+$0

@@ -1,0 +1,2 @@
+;;; Generated package description from /home/chips/.emacs.d/elpa/ob-axiom-20190623.2052/ob-axiom.el  -*- no-byte-compile: t -*-
+(define-package "ob-axiom" "20190623.2052" "An org-babel backend for the axiom-environment system" '((emacs "24.2") (axiom-environment "20171021")) :commit "25932da0dc40c6877463cbf019b14ab05a6b0164" :keywords '("axiom" "openaxiom" "fricas") :authors '(("Paul Onions")) :maintainer '("Paul Onions"))

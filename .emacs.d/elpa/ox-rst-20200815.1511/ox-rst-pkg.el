@@ -1,0 +1,2 @@
+;;; Generated package description from /home/chips/.emacs.d/elpa/ox-rst-20200815.1511/ox-rst.el  -*- no-byte-compile: t -*-
+(define-package "ox-rst" "20200815.1511" "Export reStructuredText using org-mode." '((emacs "25.1") (org "8.3")) :commit "99fa790da55b57a3f2e9aa187493ba434a64250e" :keywords '("org" "rst" "rest" "restructuredtext") :authors '(("Masanao Igarashi" . "syoux2@gmail.com")) :maintainer '("Masanao Igarashi" . "syoux2@gmail.com") :url "https://github.com/msnoigrs/ox-rst")

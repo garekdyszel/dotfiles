@@ -75,6 +75,11 @@
 ;; turn off that infernal overwrite mode activator that we keep fat-fingering
 (global-unset-key (kbd "<insert>"))
 
+;; enable lilypond omde
+(autoload 'LilyPond-mode "lilypond-mode")
+(setq auto-mode-alist
+      (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+
 ;; make the compilation show up in a new window (not one of the ones we already have open)
                                         ;(setq display-buffer-alist
                                         ;      '("*compilation*"))
@@ -316,10 +321,16 @@ With argument ARG, do this that many times."
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(org-agenda-files
-   '("~/uni/rsch/record/notes.org" "~/notes/org/todolist.org" "~/uni/rsch/current_projects/.projects/projects"))
+   '("~/notes/org/jot" "~/uni/rsch/record/notes.org" "~/notes/org/todolist.org" "~/uni/rsch/current_projects/.projects/projects"))
  '(org-cdlatex-math-modify-prefix "/")
  '(org-highlight-latex-and-related '(latex entities))
  '(org-latex-prefer-user-labels t)
+ '(org-link-frame-setup
+   '((vm . vm-visit-folder-other-frame)
+     (vm-imap . vm-visit-imap-folder-other-frame)
+     (gnus . org-gnus-no-new-news)
+     (file . find-file)
+     (wl . wl-other-frame)))
  '(org-preview-latex-default-process 'imagemagick)
  '(org-ref-default-citation-link "cite")
  '(org-ref-insert-cite-key "C-c 0")
@@ -1105,7 +1116,14 @@ $0
 ;; Set the default mode of the scratch buffer to Org
 (setq initial-major-mode 'org-mode)
 ;; and change the message accordingly. A nice inspirational quote:
-(setq initial-scratch-message "# \"If you didn't plan it out before bringing it to me... Well, that's your problem then. Not mine.\"
+(setq initial-scratch-message "# \"Work less. Think more.\"
+
+# Work projects:
+[[/home/chips/uni/rsch/current_projects/espin_modeling_review/Predictive_Structure_Theory_for_Electrospun_Fibers/master.tex][A Review of Electromagnetism in Electrospinning Theory]]
+[[/home/chips/uni/rsch/current_projects/learnElectricalEngineering/analog_circuits/analog_syllabus.org][Learn Electrical Engineering: Analog Circuits]]
+
+# Personal projects:
+[[/home/chips/notes/music/transcriptions/kenny_garrett_giant_steps/kenny_garrett_giant_steps.ly][Kenny Garrett's solo on Giant Steps from Triology]]
 
 ")
 ;; Another part of the quote; use where appropriate: "And it's ESPECIALLY not an emergency for me, either!"
