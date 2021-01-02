@@ -80,10 +80,12 @@ konsole
 libreoffice-fresh
 libxss
 lighttpd
+lilypond
 linux
 linux-firmware
 linux-headers
 linux-lts-headers
+lmms
 lsp-plugins
 luit
 lxappearance
@@ -160,6 +162,7 @@ tesseract
 tesseract-data-eng
 texinfo
 thunar
+timidity++
 tmux
 torbrowser-launcher
 ttf-dejavu
@@ -175,13 +178,16 @@ vmpk
 wanderlust
 wget
 wiiuse
+wildmidi
 wine
 wolf-shaper
 wolf-spectrum
 x42-plugins
 xbindkeys
+xclip
 xf86-video-nouveau
 xf86-video-vesa
+xmlto
 xorg-bdftopcf
 xorg-docs
 xorg-font-util
@@ -223,6 +229,7 @@ xorg-xrefresh
 xorg-xset
 xorg-xsetroot
 xorg-xvinfo
+xorg-xwayland
 xorg-xwd
 xorg-xwininfo
 xorg-xwud

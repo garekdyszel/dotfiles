@@ -9,6 +9,7 @@ epson-inkjet-printer-escpr2
 fricas
 gapi-ocaml
 gmsh
+google-chrome
 google-drive-ocamlfuse
 invada-studio-plugins-lv2
 jabref
@@ -77,6 +78,7 @@ texlive-local-hyphenat
 texlive-local-ifmtarg
 texlive-local-imakeidx
 texlive-local-lastpage
+texlive-local-lato
 texlive-local-libertine
 texlive-local-logreq
 texlive-local-makecell
@@ -91,6 +93,7 @@ texlive-local-notomath
 texlive-local-overpic
 texlive-local-pgfgantt
 texlive-local-pgfplots
+texlive-local-raleway
 texlive-local-relsize
 texlive-local-scalerel
 texlive-local-sectsty
@@ -115,10 +118,8 @@ texlive-local-xifthen
 texlive-local-xstring
 texlive-local-xypic
 texlive-local-zref
-three.js
 tllocalmgr-git
 ttf-vista-fonts
 v4l2loopback-dc-dkms
-xorg-server-xwayland
 yay
 zoom
