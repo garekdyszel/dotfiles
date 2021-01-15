@@ -21,4 +21,4 @@ GENERAL:
 # You can add as many libraries as you want.
 # You can name the library however you want.
 LIBRARIES:
-  scholar: ~/uni/rsch/refs/scholar/
+  scholar: ~/notes/uni/rsch/refs/scholar/

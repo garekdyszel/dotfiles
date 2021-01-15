@@ -4,17 +4,17 @@
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored-marker"
  (filename . "~/notes/org/todolist.org")
- (front-context-string . "** TODO get ahol")
- (rear-context-string . "ster Wrap Up]]\n\n")
- (position . 6159))
+ (front-context-string . "** TODO add new ")
+ (rear-context-string . "circuit takes.\n\n")
+ (position . 255))
 ("org-refile-last-stored"
  (filename . "~/notes/org/todolist.org")
- (front-context-string . "** TODO get ahol")
- (rear-context-string . "ster Wrap Up]]\n\n")
- (position . 6159))
+ (front-context-string . "** TODO add new ")
+ (rear-context-string . "circuit takes.\n\n")
+ (position . 255))
 ("org-capture-last-stored"
  (filename . "~/notes/org/todolist.org")
- (front-context-string . "** TODO get ahol")
- (rear-context-string . "scripts\n* Tasks\n")
- (position . 6692))
+ (front-context-string . "** TODO add new ")
+ (rear-context-string . "rials]]\n* Tasks\n")
+ (position . 4036))
 )

@@ -30,6 +30,16 @@
 ;; external packages NOT from use-package. Add them to the load path
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
+;; avoid accidentally cutting text when it's not highlighted
+(defun better-kill-region ()
+  (interactive)
+  (if (region-active-p)
+      (call-interactively 'kill-region)
+    (message "Region not active, didn't kill")))
+
+(global-set-key (kbd "C-w") 'better-kill-region)
+
+
 ;; create a backup directory
 (setq backup-directory-alist `(("." . "~/.saves")))
 
@@ -46,8 +56,8 @@
 
 ;; set up keyboard shortcuts to jump to commonly-used files.
 (global-set-key (kbd "\C-ctd") (lambda () (interactive) (find-file "~/notes/org/todolist.org")))
-(global-set-key (kbd "\C-cn") (lambda () (interactive) (find-file "~/uni/rsch/record/notes.org")))
-(global-set-key (kbd "\C-cj") (lambda () (interactive) (find-file "~/notes/org/jot")))
+(global-set-key (kbd "\C-cn") (lambda () (interactive) (find-file "~/notes/uni/rsch/record/notes.org")))
+(global-set-key (kbd "\C-cj") (lambda () (interactive) (find-file "~/notes/jot")))
 
 ;; change indentation size for CC mode (C and C++).
 (setq-default c-basic-offset 3)
@@ -79,6 +89,7 @@
 (autoload 'LilyPond-mode "lilypond-mode")
 (setq auto-mode-alist
       (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+(setq-default LilyPond-pdf-command "zathura")
 
 ;; make the compilation show up in a new window (not one of the ones we already have open)
                                         ;(setq display-buffer-alist
@@ -290,9 +301,10 @@ With argument ARG, do this that many times."
  '(cua-enable-cua-keys nil)
  '(cua-mode t nil (cua-base))
  '(cua-normal-cursor-color "black")
- '(custom-enabled-themes '(srcery))
+ '(cursor-type 'bar)
+ '(custom-enabled-themes '(badwolf))
  '(custom-safe-themes
-   '("efbd20364f292a1199d291dfaff28cc1fd89fff5b38e314bd7e40121f5c465b4" "bbbd58d82a60c4913b00db1ecab1938ddcb0378225a1a3e54d840f36370d86c6" "2d835b43e2614762893dc40cbf220482d617d3d4e2c35f7100ca697f1a388a0e" "a77ced882e25028e994d168a612c763a4feb8c4ab67c5ff48688654d0264370c" "0dd2666921bd4c651c7f8a724b3416e95228a13fca1aa27dc0022f4e023bf197" "b73a23e836b3122637563ad37ae8c7533121c2ac2c8f7c87b381dd7322714cd0" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "d707aeee54d91b181a267a473862ebf0e20502c9bca8bef078b0a226b9581dd2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" default))
+   '("16ab866312f1bd47d1304b303145f339eac46bbc8d655c9bfa423b957aa23cc9" "1f6039038366e50129643d6a0dc67d1c34c70cdbe998e8c30dc4c6889ea7e3db" "efbd20364f292a1199d291dfaff28cc1fd89fff5b38e314bd7e40121f5c465b4" "bbbd58d82a60c4913b00db1ecab1938ddcb0378225a1a3e54d840f36370d86c6" "2d835b43e2614762893dc40cbf220482d617d3d4e2c35f7100ca697f1a388a0e" "a77ced882e25028e994d168a612c763a4feb8c4ab67c5ff48688654d0264370c" "0dd2666921bd4c651c7f8a724b3416e95228a13fca1aa27dc0022f4e023bf197" "b73a23e836b3122637563ad37ae8c7533121c2ac2c8f7c87b381dd7322714cd0" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "d707aeee54d91b181a267a473862ebf0e20502c9bca8bef078b0a226b9581dd2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" default))
  '(doc-view-continuous t)
  '(electric-indent-mode nil)
  '(fci-rule-character-color "#202020")
@@ -310,6 +322,7 @@ With argument ARG, do this that many times."
  '(main-line-color2 "#111111")
  '(main-line-separator-style 'chamfer)
  '(major-mode 'org-mode)
+ '(mark-even-if-inactive nil)
  '(message-send-mail-function 'sendmail-query-once)
  '(notmuch-saved-searches
    '((:name "inbox" :query "tag:inbox" :key "i")
@@ -321,7 +334,7 @@ With argument ARG, do this that many times."
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(org-agenda-files
-   '("~/notes/org/jot" "~/uni/rsch/record/notes.org" "~/notes/org/todolist.org" "~/uni/rsch/current_projects/.projects/projects"))
+   '("~/notes/jot" "~/notes/uni/rsch/record/notes.org" "~/notes/org/todolist.org" "~/notes/uni/rsch/current_projects/.projects/projects"))
  '(org-cdlatex-math-modify-prefix "/")
  '(org-highlight-latex-and-related '(latex entities))
  '(org-latex-prefer-user-labels t)
@@ -332,11 +345,12 @@ With argument ARG, do this that many times."
      (file . find-file)
      (wl . wl-other-frame)))
  '(org-preview-latex-default-process 'imagemagick)
+ '(org-preview-latex-image-directory ".ltximg/")
  '(org-ref-default-citation-link "cite")
  '(org-ref-insert-cite-key "C-c 0")
  '(org-support-shift-select t)
  '(package-selected-packages
-   '(electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode yasnippet-snippets mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(smartparens-config smartparens badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -344,6 +358,7 @@ With argument ARG, do this that many times."
  '(python-shell-virtualenv-root "/usr/bin/python3")
  '(send-mail-function 'mailclient-send-it)
  '(show-paren-mode t)
+ '(smartparens-global-mode t)
  '(tab-width 3)
  '(texmathp-tex-commands '(("align" env-on)))
  '(tool-bar-mode nil)
@@ -409,13 +424,16 @@ With argument ARG, do this that many times."
   (define-key org-mode-map (kbd "C-,") nil)
   (setq org-log-done t)
 
-                                        ; make org ignore some headlines on latex export
+  ;; make org ignore headlines tagged ":ignore:" on export
   (require 'ox-extra)
   (ox-extras-activate '(ignore-headlines))
 
 
-                                        ; enable cdlatex mode by default
-  ;;(add-hook 'org-mode-hook 'org-cdlatex-mode)
+  ;; add keybinding for enabling org-cdlatex-mode
+  (unbind-key "C-l" org-mode-map)
+  (bind-key "C-l" 'org-cdlatex-mode org-mode-map)
+  ;; while we're at it, get rid of the annoying C-x C-l binding I keep hitting
+  (bind-key "C-x C-l" nil)
 
   ;; (defun my/org-mode-hook ()
   ;;   "Stop the org-level headers from increasing in height relative to the other text."
@@ -464,6 +482,11 @@ With argument ARG, do this that many times."
   ;; use makefiles to compile all pdfs
   (setq org-latex-pdf-process
         '("make "))
+  ;; original value: 
+  ;; (setq org-latex-pdf-process
+  ;;       '("%latex -interaction nonstopmode -output-directory %o %f" 
+  ;;         "%latex -interaction nonstopmode -output-directory %o %f" 
+  ;;         "%latex -interaction nonstopmode -output-directory %o %f"))
 
   ;; always prefer my ref:x labels over something else
   ;; (setq org-latex-prefer-user-labels t)
@@ -473,6 +496,8 @@ With argument ARG, do this that many times."
 
   ;; Use imagemagick to preview latex in buffer.
   (setq org-preview-latex-default-process 'imagemagick)
+  ;; make sure the preview latex image directory is a hidden folder
+  (setq org-preview-latex-image-directory ".ltximg/")
 
   ;; change formatting options for latex image previews
   (setq org-format-latex-options '(
@@ -522,8 +547,10 @@ to a unique value for this to work properly."
                                         ; added a variable fix: org-export-latex-classes should be org-latex-classes
   ;; (unless (find "nodefaults" org-latex-classes :key 'car
   ;;               :test 'equal)
-  (add-to-list 'org-latex-classes
-               '("nodefaults"
+
+
+(add-to-list 'org-latex-classes
+             '("nodefaults" ;;originally: {"standalone"}
                  "\\documentclass{report}
                 [NO-DEFAULT-PACKAGES]
                 [NO-PACKAGES]"
@@ -533,12 +560,20 @@ to a unique value for this to work properly."
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-               '("standalone"
-                 "\\documentclass{standalone}
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+(add-to-list 'org-latex-classes
+             '("beamer"
+                 "\\documentclass{beamer}
                 [NO-DEFAULT-PACKAGES]
-                [NO-PACKAGES]"))
-  )
+                [NO-PACKAGES]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+(setq org-latex-with-hyperref nil) ;; remove the hyperref stuff
+
+)
 
 ;; org-ref, for referencing things
 (use-package org-ref
@@ -559,7 +594,7 @@ to a unique value for this to work properly."
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
                                         ;"~/notes/org/snippets"))
-  (yas-global-mode +1)
+  ;;(yas-global-mode +1)
 
   ;; snippets for inconvenient stuff to type
   (yas-define-snippets 'latex-mode '(
@@ -582,9 +617,11 @@ $0
 (use-package emmet-mode)
 
 ;; cdlatex-mode for lightning-fast latex editing
-;; (use-package cdlatex
-;;   :config
-;;   (setq cdlatex-simplify-sub-super-scripts nil))
+(use-package cdlatex
+  :config
+  ;; don't automatically label equations with \label{eq:n}, where n is an integer.
+  (setq-default cdlatex-insert-auto-labels-in-env-template nil)
+)
 
 ;; AucTex
 (use-package tex
@@ -658,6 +695,8 @@ $0
   (setq reftex-label-alist
         '(("align" ?e nil nil t)))
 
+  ;; enable yasnippet expansion for latex-mode
+  (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
   )
 
 ;; auto-expanding snippets for when you have to type really fast
@@ -671,8 +710,14 @@ $0
                     ;; expand unconditionally
                     "-[" "- [ ] "))
 
-;; automatic creation of paired delimiters
-(electric-pair-mode 1)
+;; use better paired delimiters
+(use-package smartparens
+  :config
+  (setq smartparens-global-mode t)
+  (sp-pair "\\left( " " \\right)" :trigger "\\l(")
+  (sp-pair "\\left[ " " \\right]" :trigger "\\l[")
+  (sp-pair "\\left{ " " \\right}" :trigger "\\l{")
+)
 
 ;; replace the minibuffer with a better one
 (use-package helm
@@ -833,7 +878,15 @@ $0
 (setq-default notmuch-search-oldest-first nil)
 ;; use smtpmail to send everything, so we get a password prompt
 (setq message-send-mail-function 'smtpmail-send-it)
-
+;; smtpmail settings
+(setq smtpmail-smtp-user "gjdyszel@mtu.edu")
+(setq smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg"))
+(setq smtpmail-default-smtp-server "smtp.gmail.com")
+(setq smtpmail-smtp-server "smtp.gmail.com")
+(setq smtpmail-smtp-service 587)
+(setq smtpmail-debug-info t)
+(setq smtpmail-debug-verbose t)
+;; --- end notmuch config ---
 
 
 ;; (define-key mu4e-main-mode-map "s" 'notmuch-search)
@@ -1118,12 +1171,17 @@ $0
 ;; and change the message accordingly. A nice inspirational quote:
 (setq initial-scratch-message "# \"Work less. Think more.\"
 
-# Work projects:
-[[/home/chips/uni/rsch/current_projects/espin_modeling_review/Predictive_Structure_Theory_for_Electrospun_Fibers/master.tex][A Review of Electromagnetism in Electrospinning Theory]]
-[[/home/chips/uni/rsch/current_projects/learnElectricalEngineering/analog_circuits/analog_syllabus.org][Learn Electrical Engineering: Analog Circuits]]
+# Projects that have somebody depending on me:
+[[/home/chips/notes/uni/rsch/current_projects/espin_modeling_review/Predictive_Structure_Theory_for_Electrospun_Fibers/master.tex][A Review of Electromagnetism in Electrospinning Theory]]
+[[/home/chips/notes/uni/rsch/current_projects/learnElectricalEngineering/analog_circuits/analog_syllabus.org][Learn Electrical Engineering: Analog Circuits]]
+Control Systems labs
+
 
 # Personal projects:
 [[/home/chips/notes/music/transcriptions/kenny_garrett_giant_steps/kenny_garrett_giant_steps.ly][Kenny Garrett's solo on Giant Steps from Triology]]
+[[/home/chips/notes/uni/rsch/refs/integrals/(Almost) Impossible Integrals, Sums, and Series by Valean, Cornel Ioan (z-lib.org).pdf][Integration techniques]]
+[[/home/chips/notes/polski/Polish A Comprehensive Grammar by Iwona Sadowska (z-lib.org).pdf][Polish]]
+Make flashcards for advanced stuff (circuits, optics, emag, integration, etc.)
 
 ")
 ;; Another part of the quote; use where appropriate: "And it's ESPECIALLY not an emergency for me, either!"

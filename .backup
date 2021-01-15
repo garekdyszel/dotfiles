@@ -31,5 +31,5 @@ printf "Backing up personal data...\n"
 printf "Backup stage...\n"
 borg create ./borg-backup::$(date +"%Y-%m-%d") /home/chips --exclude '/home/chips/.?*'
 printf "Copy-to-drive stage...\n"
-sudo rsync -rP ~/borg-backup/ ~/mnt/borg-backup/
+time sudo rsync -rP ~/borg-backup/ ~/mnt/borg-backup/
 printf "Done.\n"
