@@ -227,7 +227,7 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 # client.background       #ffffff
 
 # set background image
-exec feh --bg-max ~/pics/ira_glass_the_gap.jpg
+exec feh --bg-fill ~/pics/ira_glass_the_gap.jpg
 
 # keybindings for specific programs
 bindsym $mod+m exec emacsclient --create-frame

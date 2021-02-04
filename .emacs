@@ -44,10 +44,7 @@
 (setq backup-directory-alist `(("." . "~/.saves")))
 
 ;; turn off shortcuts that we fat-finger frequently.
-(dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o" "\C-n" "\C-x\C-q")) (global-unset-key key))
-
-;; set the fill-column length to 90 (for visual-fill-column-mode)
-;; (setq fill-column 90)                   
+(dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o" "\C-n" "\C-x\C-q")) (global-unset-key key))               
 
 ;; ensure save and quit remains the same as default Emacs binding
 ;; (global-set-key (kbd "C-x C-c") 'save-buffers-kill-emacs)
@@ -335,7 +332,6 @@ With argument ARG, do this that many times."
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(org-agenda-files
    '("~/notes/jot" "~/notes/uni/rsch/record/notes.org" "~/notes/org/todolist.org" "~/notes/uni/rsch/current_projects/.projects/projects"))
- '(org-cdlatex-math-modify-prefix "/")
  '(org-highlight-latex-and-related '(latex entities))
  '(org-latex-prefer-user-labels t)
  '(org-link-frame-setup
@@ -344,13 +340,14 @@ With argument ARG, do this that many times."
      (gnus . org-gnus-no-new-news)
      (file . find-file)
      (wl . wl-other-frame)))
+ '(org-list-demote-modify-bullet t)
  '(org-preview-latex-default-process 'imagemagick)
  '(org-preview-latex-image-directory ".ltximg/")
  '(org-ref-default-citation-link "cite")
  '(org-ref-insert-cite-key "C-c 0")
  '(org-support-shift-select t)
  '(package-selected-packages
-   '(smartparens-config smartparens badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -414,6 +411,11 @@ With argument ARG, do this that many times."
          ("\C-cc" . org-capture)
          )
   :config
+  ;; change the structure of lists
+  (setq org-list-demote-modify-bullet
+       '(("-" . "+") ("+" . "-") ("*" . "+")))
+
+
   ;; default export settings for sending emails (global settings; so they affect all org buffers)
   (setq-default org-export-with-toc nil)
   (setq-default org-export-with-latex 'imagemagick)
@@ -434,6 +436,9 @@ With argument ARG, do this that many times."
   (bind-key "C-l" 'org-cdlatex-mode org-mode-map)
   ;; while we're at it, get rid of the annoying C-x C-l binding I keep hitting
   (bind-key "C-x C-l" nil)
+
+  ;; change the modifier for org-cdlatex-mode
+  ;;(bind-key "'" org-cdlatex-math-modify org-mode-map)
 
   ;; (defun my/org-mode-hook ()
   ;;   "Stop the org-level headers from increasing in height relative to the other text."
@@ -611,7 +616,7 @@ $0
   )
 
 ;; pre-packaged snippets for yasnippet
-;;(use-package yasnippet-snippets)
+(use-package yasnippet-snippets)
 
 ;; emmet is like yasnippet, but for HTML.
 (use-package emmet-mode)
@@ -670,7 +675,7 @@ $0
   (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
   
   ;; make the preview font size MUCH bigger, so we can read our equations
-  (set-default 'preview-scale-function 1.2)
+  (set-default 'preview-scale-function 2)
 
   ;; make sure we can build using our makefiles
   (eval-after-load "tex" '(add-to-list 'TeX-command-list '("Make" "make" TeX-run-compile nil t)))
@@ -696,7 +701,16 @@ $0
         '(("align" ?e nil nil t)))
 
   ;; enable yasnippet expansion for latex-mode
-  (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
+  ;; (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
+
+  ;; add support for auto-inserting "\left(" and "\right)"
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (setq LaTeX-electric-left-right-brace t)
+              (local-set-key "|" 'LaTeX-insert-left-brace)))
+
+
+
   )
 
 ;; auto-expanding snippets for when you have to type really fast
@@ -711,13 +725,13 @@ $0
                     "-[" "- [ ] "))
 
 ;; use better paired delimiters
-(use-package smartparens
-  :config
-  (setq smartparens-global-mode t)
-  (sp-pair "\\left( " " \\right)" :trigger "\\l(")
-  (sp-pair "\\left[ " " \\right]" :trigger "\\l[")
-  (sp-pair "\\left{ " " \\right}" :trigger "\\l{")
-)
+;; (use-package smartparens
+;;   :config
+;;   (setq smartparens-global-mode t)
+;;   (sp-pair "\\left( " " \\right)" :trigger "\\l(")
+;;   (sp-pair "\\left[ " " \\right]" :trigger "\\l[")
+;;   (sp-pair "\\left{ " " \\right}" :trigger "\\l{")
+;; )
 
 ;; replace the minibuffer with a better one
 (use-package helm
@@ -833,8 +847,7 @@ $0
            (org-super-agenda-mode)
            ((org-super-agenda-groups
              '(
-               (:name "Waiting"
-                      :todo "WAITING")
+               
                (:name "Important"
                       :priority "A")
                (:name "Next task"
@@ -842,13 +855,9 @@ $0
                (:name "Homework"
                       :tag "classes")
                (:name "Research"
-                      :tag "rsch")
-               (:name "Revise"
-                      :tag "revise")
-               (:name "Study"
-                      :tag "Study")
-               (:name "Housework"
-                      :tag "housework")               
+                      :tag "rsch")              
+               (:name "Waiting"
+                      :todo "WAITING")
                )))
            (org-agenda nil "a")))))
 ;; display a whole month's worth of tasks by default
@@ -1168,22 +1177,26 @@ $0
 
 ;; Set the default mode of the scratch buffer to Org
 (setq initial-major-mode 'org-mode)
+
 ;; and change the message accordingly. A nice inspirational quote:
 (setq initial-scratch-message "# \"Work less. Think more.\"
 
-# Projects that have somebody depending on me:
-[[/home/chips/notes/uni/rsch/current_projects/espin_modeling_review/Predictive_Structure_Theory_for_Electrospun_Fibers/master.tex][A Review of Electromagnetism in Electrospinning Theory]]
-[[/home/chips/notes/uni/rsch/current_projects/learnElectricalEngineering/analog_circuits/analog_syllabus.org][Learn Electrical Engineering: Analog Circuits]]
-Control Systems labs
-
-
-# Personal projects:
-[[/home/chips/notes/music/transcriptions/kenny_garrett_giant_steps/kenny_garrett_giant_steps.ly][Kenny Garrett's solo on Giant Steps from Triology]]
-[[/home/chips/notes/uni/rsch/refs/integrals/(Almost) Impossible Integrals, Sums, and Series by Valean, Cornel Ioan (z-lib.org).pdf][Integration techniques]]
-[[/home/chips/notes/polski/Polish A Comprehensive Grammar by Iwona Sadowska (z-lib.org).pdf][Polish]]
-Make flashcards for advanced stuff (circuits, optics, emag, integration, etc.)
-
 ")
+
+;; project stuff for scratch message
+;; # Projects that have somebody depending on me:
+;; [[/home/chips/notes/uni/rsch/current_projects/espin_modeling_review/Predictive_Structure_Theory_for_Electrospun_Fibers/master.tex][A Review of Electromagnetism in Electrospinning Theory]]
+;; [[/home/chips/notes/uni/rsch/current_projects/learnElectricalEngineering/analog_circuits/analog_syllabus.org][Learn Electrical Engineering: Analog Circuits]]
+;; Control Systems labs
+
+
+;; # Personal projects:
+;; [[/home/chips/notes/music/transcriptions/kenny_garrett_giant_steps/kenny_garrett_giant_steps.ly][Kenny Garrett's solo on Giant Steps from Triology]]
+;; [[/home/chips/notes/uni/rsch/refs/integrals/(Almost) Impossible Integrals, Sums, and Series by Valean, Cornel Ioan (z-lib.org).pdf][Integration techniques]]
+;; [[/home/chips/notes/polski/Polish A Comprehensive Grammar by Iwona Sadowska (z-lib.org).pdf][Polish]]
+;; Make flashcards for advanced stuff (circuits, optics, emag, integration, etc.)
+
+
 ;; Another part of the quote; use where appropriate: "And it's ESPECIALLY not an emergency for me, either!"
 
 ;; visual construction of regular expressions, mostly for searching

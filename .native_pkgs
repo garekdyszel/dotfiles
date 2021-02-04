@@ -4,6 +4,10 @@ amsynth
 android-file-transfer
 android-tools
 ardour
+arduino
+arduino-avr-core
+arduino-cli
+arduino-docs
 aspell-en
 audacity
 autoconf
@@ -74,6 +78,7 @@ jack2
 java-environment-common
 jdk-openjdk
 julia
+jupyter
 kicad-library
 kitty
 konsole
@@ -149,6 +154,7 @@ samplv1
 scrot
 sherlock.lv2
 simple-scan
+squashfuse
 stk
 sudo
 swh-plugins
