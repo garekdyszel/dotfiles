@@ -44,6 +44,9 @@ alias anki="ANKI_NOHIGHDPI=1 anki"
 
 # add path for MEEP
 # PATH=/home/chips/.local/bin:$PATH
+# add path for ruby gems
+PATH=$PATH:/home/chips/.local/share/gem/ruby/2.7.0/bin
+
 
 # add alias for scholar (a command line reference manager)
 alias scholar="~/go/bin/scholar"

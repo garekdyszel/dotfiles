@@ -348,7 +348,7 @@ With argument ARG, do this that many times."
  '(org-ref-insert-cite-key "C-c 0")
  '(org-support-shift-select t)
  '(package-selected-packages
-   '(flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode ein org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -409,7 +409,7 @@ With argument ARG, do this that many times."
   :ensure org-plus-contrib
   :bind (("\C-cl" . org-store-link)
          ("\C-ca" . org-agenda)
-         ("\C-cc" . org-capture)
+         ;("\C-cC-c" . org-capture)
          )
   :config
   ;; change the structure of lists
@@ -472,7 +472,8 @@ With argument ARG, do this that many times."
                                (python . t)
                                (shell . t)
                                (makefile . t)
-                               (arduino . t)))
+                               (arduino . t)
+                               (calc . t)))
 
   (setq org-babel-python-command "python3")
 
@@ -558,26 +559,25 @@ to a unique value for this to work properly."
 
 (add-to-list 'org-latex-classes
              '("nodefaults" ;;originally: {"standalone"}
-                 "\\documentclass{report}
+                 "\\documentclass[12pt]{article}
                 [NO-DEFAULT-PACKAGES]
-                [NO-PACKAGES]"
-                 ("\\part{%s}" . "\\part*{%s}")
-                 ("\\chapter{%s}" . "\\chapter*{%s}")
+                [NO-PACKAGES]"              
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-(add-to-list 'org-latex-classes
-             '("beamer"
-                 "\\documentclass{beamer}
-                [NO-DEFAULT-PACKAGES]
-                [NO-PACKAGES]"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+;; (add-to-list 'org-latex-classes
+;;              '("beamer"
+;;                  "\\documentclass{beamer}
+;;                 [NO-DEFAULT-PACKAGES]
+;;                 [NO-PACKAGES]"
+;;                  ("\\section{%s}" . "\\section*{%s}")
+;;                  ("\\subsection{%s}" . "\\subsection*{%s}")
+;;                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+;;                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
+;;                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
 (setq org-latex-with-hyperref nil) ;; remove the hyperref stuff
 
 )
@@ -849,6 +849,8 @@ $0
                       :priority "A")
                (:name "Next task"
                       :todo "NEXT")
+               (:name "Job"
+                      :tag "job")
                (:name "Homework"
                       :tag "classes")
                (:name "Research"
@@ -1693,3 +1695,28 @@ than current time and is not currently being edited."
 
 ;; arduino mode for editing and uploading arduino code
 (use-package arduino-mode)
+
+;; get inline results from org mode source blocks
+(defun get-inline-result (name)
+  (save-excursion
+    (org-babel-goto-named-result name)
+    (re-search-forward "{{{results(=\\(.*?\\)=)}}}")
+    (match-string 1)))
+
+;; open a buffer from stdin using emacsclient
+;; REF: https://stackoverflow.com/questions/2465006/creating-a-new-buffer-with-text-using-emacsclient
+;; USAGE: In the bash terminal,
+;;   emacsclient -e '(open-buffer-with "some\nstuff\nhere")'
+(defun open-buffer-with (txt)
+  "create a new buffer, insert txt"
+  (pop-to-buffer (get-buffer-create (generate-new-buffer-name "something")))
+  (insert txt))
+
+;; develop in the rust language using emacs
+(use-package rust-mode
+  :config
+  (bind-key "C-c c" 'rust-run rust-mode-map)
+  (bind-key "C-c t" 'rust-test rust-mode-map)
+  (bind-key "C-c ," 'rust-compile rust-mode-map)
+  (bind-key "C-c h" 'rust-test rust-mode-map)
+)
