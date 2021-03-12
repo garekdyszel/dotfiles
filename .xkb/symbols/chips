@@ -1,10 +1,6 @@
-// default_switch: set up windows keys for mode switching and the menu keys
-// to generate mod3. since I have some machines without those fancy keys, I
-// also configure the right CTRL and ALT keys to do the same.
 partial modifier_keys
-xkb_symbols "include_hyper" {
-  replace key <RCTL> {
-    [ Hyper_L, Hyper_R ]
-  };
-  modifier_map Mod3 { <RCTL> };
+xkb_symbols "hyper_lwin_rctl" {
+    key <LWIN> { [ Hyper_L ] };
+    key <RCTL> { [ Hyper_R ] };
+    modifier_map Mod4 { Hyper_L, Hyper_R };
 };

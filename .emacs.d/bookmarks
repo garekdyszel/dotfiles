@@ -14,7 +14,7 @@
  (position . 255))
 ("org-capture-last-stored"
  (filename . "~/notes/org/todolist.org")
- (front-context-string . "** TODO add new ")
+ (front-context-string . "** TODO whatever")
  (rear-context-string . "rials]]\n* Tasks\n")
- (position . 4036))
+ (position . 10003))
 )
