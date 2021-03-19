@@ -242,7 +242,8 @@ bindsym $mod+t exec torbrowser-launcher
 bindsym $mod+p exec thunar
 
 # keyboard layout
-exec setxkbmap -model pc105 -layout pl -option kpdl:dot -option altwin:hyper_win -option caps:ctrl_modifier -option ctrl:swap_lalt_lctl -option shift:both_capslock -option compose:menu 
+xkbcomp -I$HOME/.xkb ~/.xkb/map $DISPLAY
+# exec setxkbmap -model pc105 -layout pl -option kpdl:dot -option altwin:hyper_win -option caps:ctrl_modifier -option ctrl:swap_lalt_lctl -option shift:both_capslock -option compose:menu 
 # -option grp:alt_shift_toggle
 # exec xmodmap -e "keycode 75 = dead_greek dead_greek dead_greek dead_greek"
 

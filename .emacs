@@ -11,6 +11,8 @@
              '("org" . "https://orgmode.org/elpa/") t)
 (add-to-list 'package-archives 
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("cselpa" . "https://elpa.thecybershadow.net/packages/")) ;; term-keys
 (package-initialize)
 
 ;; make sure use-package is always installed, even if it's not right away.
@@ -353,7 +355,7 @@ With argument ARG, do this that many times."
  '(org-ref-insert-cite-key "C-c 0")
  '(org-support-shift-select t)
  '(package-selected-packages
-   '(org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref magit sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -478,6 +480,7 @@ With argument ARG, do this that many times."
                                (python . t)
                                (shell . t)
                                (makefile . t)
+                               (julia . t)
                                (arduino . t)
                                (rust . t)))
 
@@ -1735,3 +1738,14 @@ than current time and is not currently being edited."
   (bind-key "C-c ," 'rust-compile rust-mode-map)
   (bind-key "C-c h" 'rust-test rust-mode-map)
 )
+
+;; spaced repetition.
+;; anki replacement, but only usable inside emacs
+(use-package org-drill
+:config 
+(setq org-drill-spaced-repetition-algorithm 'sm2) 
+)
+
+;; term-keys. For using modifier keys in TTY the same way you would on X11.
+;; No extra configuration needed.
+(use-package term-keys)
