@@ -288,8 +288,6 @@ With argument ARG, do this that many times."
  '(TeX-view-program-selection '((output-html "xdg-open")))
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(auth-source-save-behavior nil)
  '(auto-fill-mode t)
  '(beacon-color "#cc6666")
@@ -339,6 +337,29 @@ With argument ARG, do this that many times."
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(org-agenda-files
    '("~/notes/jot" "~/notes/uni/rsch/record/notes.org" "~/notes/org/todolist.org" "~/notes/uni/rsch/current_projects/.projects/projects"))
+ '(org-confirm-babel-evaluate nil)
+ '(org-format-latex-header
+   "\\documentclass{article}
+\\usepackage[usenames]{color}
+[PACKAGES]
+[DEFAULT-PACKAGES]
+\\pagestyle{empty}             % do not remove
+% The settings below are copied from fullpage.sty
+\\setlength{\\textwidth}{\\paperwidth}
+\\addtolength{\\textwidth}{-3cm}
+\\setlength{\\oddsidemargin}{1.5cm}
+\\addtolength{\\oddsidemargin}{-2.54cm}
+\\setlength{\\evensidemargin}{\\oddsidemargin}
+\\setlength{\\textheight}{\\paperheight}
+\\addtolength{\\textheight}{-\\headheight}
+\\addtolength{\\textheight}{-\\headsep}
+\\addtolength{\\textheight}{-\\footskip}
+\\addtolength{\\textheight}{-3cm}
+\\setlength{\\topmargin}{1.5cm}
+\\addtolength{\\topmargin}{-2.54cm}")
+ '(org-format-latex-options
+   '(:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+                 ("begin" "$1" "$" "$$" "\\(" "\\[")))
  '(org-highlight-latex-and-related '(latex entities))
  '(org-latex-prefer-user-labels t)
  '(org-link-frame-setup
@@ -355,7 +376,7 @@ With argument ARG, do this that many times."
  '(org-ref-insert-cite-key "C-c 0")
  '(org-support-shift-select t)
  '(package-selected-packages
-   '(magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview srcery-theme cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(centered-window srcery-theme org-tree-slide magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -407,10 +428,10 @@ With argument ARG, do this that many times."
   (require 'use-package))
 
 ;; set up theme
-(use-package srcery-theme
-  :config
-  (load-theme 'srcery)
-)
+;; (use-package srcery-theme
+;;   :config
+;;   (load-theme 'srcery)
+;; )
 
 ;; org-mode config
 (use-package org
@@ -420,6 +441,9 @@ With argument ARG, do this that many times."
          ;("\C-cC-c" . org-capture)
          )
   :config
+  ;; resize images in org mode buffers
+  (setq org-image-actual-width nil)
+
   ;; change the structure of lists
   (setq org-list-demote-modify-bullet
        '(("-" . "+") ("+" . "-") ("*" . "+")))
@@ -480,7 +504,6 @@ With argument ARG, do this that many times."
                                (python . t)
                                (shell . t)
                                (makefile . t)
-                               (julia . t)
                                (arduino . t)
                                (rust . t)))
 
@@ -878,14 +901,14 @@ $0
 ;;   (flyspell-mode 1))
 
 ;; visual-fill-column for limiting line length visually
-(use-package visual-fill-column
-  :config 
-  ;; enable visual-fill-column-mode in all buffers
-  (global-visual-fill-column-mode t)
-  ;; set the fill column to 90 characters. 
-  ;; that means you get 90 characters per line
-  (setq-default fill-column 95)
-  )
+;; (use-package visual-fill-column
+;;   :config 
+;;   ;; enable visual-fill-column-mode in all buffers
+;;   (global-visual-fill-column-mode t)
+;;   ;; set the fill column to 90 characters. 
+;;   ;; that means you get 90 characters per line
+;;   (setq-default fill-column 95)
+;;   )
 
 ;; --- begin notmuch config ---
 ;; add support for notmuch: email client
@@ -908,33 +931,33 @@ $0
 ;;(add-hook 'notmuch-mua-new-mail 'mu4e-compose)
 
 (setq mail-user-agent 'notmuch-mua-user-agent-function)
-(use-package org-msg
-  :config
-  (setq org-msg-options "html-postamble:nil H:5 ^:{} num:nil author:nil email:nil toc:nil tex:imagemagick d:nil"
-	     org-msg-startup nil
-	     org-msg-greeting-fmt nil
-	     org-msg-greeting-name-limit nil
-	     org-msg-default-alternatives '(text html)
-	     org-msg-signature nil)
+;; (use-package org-msg
+;;   :config
+;;   (setq org-msg-options "html-postamble:nil H:5 ^:{} num:nil author:nil email:nil toc:nil tex:imagemagick d:nil"
+;; 	     org-msg-startup nil
+;; 	     org-msg-greeting-fmt nil
+;; 	     org-msg-greeting-name-limit nil
+;; 	     org-msg-default-alternatives '(text html)
+;; 	     org-msg-signature nil)
 
-  ;; keybind for quickly inserting the header stuff if you want
-  ;; "#+OPTIONS: html-postamble:nil H:5 ^:{} num:nil author:nil email:nil toc:nil tex:imagemagick d:nil"
+;;   ;; keybind for quickly inserting the header stuff if you want
+;;   ;; "#+OPTIONS: html-postamble:nil H:5 ^:{} num:nil author:nil email:nil toc:nil tex:imagemagick d:nil"
 
-  ;; if you want org-msg mode to run immediately when you type a message, use this:
-  ;; (add-hook 'notmuch-message-mode-hook 'org-msg-mode)
+;;   ;; if you want org-msg mode to run immediately when you type a message, use this:
+;;   ;; (add-hook 'notmuch-message-mode-hook 'org-msg-mode)
 
-  ;; set up a key to run org-msg-edit mode (useful for typing math into emails)
-  (bind-key "C-c n" 'org-msg-edit-mode)
-)
-(use-package org-notmuch
-  ;; capture links into org mode from notmuch buffers
-  :load-path "~/.emacs.d/lisp/org-notmuch.el") 
+;;   ;; set up a key to run org-msg-edit mode (useful for typing math into emails)
+;;   (bind-key "C-c n" 'org-msg-edit-mode)
+;; )
+;; (use-package org-notmuch
+;;   ;; capture links into org mode from notmuch buffers
+;;   :load-path "~/.emacs.d/lisp/org-notmuch.el") 
 
-;; --- end notmuch config ---
+;; ;; --- end notmuch config ---
 
-;; --- begin mu4e config (mail client) ---
-;; all config copied mostly from
-;; https://www.reddit.com/r/emacs/comments/bfsck6/mu4e_for_dummies/
+;; ;; --- begin mu4e config (mail client) ---
+;; ;; all config copied mostly from
+;; ;; https://www.reddit.com/r/emacs/comments/bfsck6/mu4e_for_dummies/
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/")
 (require 'mu4e)
 
@@ -1749,3 +1772,9 @@ than current time and is not currently being edited."
 ;; term-keys. For using modifier keys in TTY the same way you would on X11.
 ;; No extra configuration needed.
 (use-package term-keys)
+
+;; Center text in the window. You don't have to crane your neck to type in Emacs if Emacs is the only window now!
+(use-package centered-window
+  :config
+  (centered-window-mode t)
+)
