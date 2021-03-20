@@ -1,6 +1,10 @@
 partial modifier_keys
 xkb_symbols "hyper_lwin_rctl" {
-    key <LWIN> { [ Hyper_L ] };
-    key <RCTL> { [ Hyper_R ] };
-    modifier_map Mod4 { Hyper_L, Hyper_R };
+    key <LWIN> { [ Hyper_L ] }; // Use left Super as a Hyper key.
+    key <RCTL> { [ Hyper_R ] }; // Use right Control as a Hyper key.
+    modifier_map Control {  <INS>  }; // Use Insert as another Control key.
+    modifier_map Mod4 { Hyper_L, Hyper_R }; // Add the Hyper keys to the modifier keymap.
 };
+
+
+// Eliminate CapsLock, making it another Ctrl.

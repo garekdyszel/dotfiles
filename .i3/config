@@ -236,7 +236,7 @@ exec feh --bg-fill ~/pics/ira_glass_the_gap.jpg
 
 # keybindings for specific programs
 bindsym $mod+m exec emacsclient --create-frame
-bindsym $mod+i exec firefox
+bindsym $mod+i exec qutebrowser 
 bindsym $mod+z exec zathura
 bindsym $mod+t exec torbrowser-launcher
 bindsym $mod+p exec thunar
