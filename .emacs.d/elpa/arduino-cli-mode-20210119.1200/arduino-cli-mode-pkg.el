@@ -1,0 +1,2 @@
+;;; Generated package description from /home/chips/.emacs.d/elpa/arduino-cli-mode-20210119.1200/arduino-cli-mode.el  -*- no-byte-compile: t -*-
+(define-package "arduino-cli-mode" "20210119.1200" "Arduino-CLI command wrapper" '((emacs "25.1")) :commit "10d5cfa1563f314e5b24b151f63b9579992a7ba5" :authors '(("Love Lagerkvist")) :maintainer '("Love Lagerkvist") :keywords '("extensions" "processes" "arduino") :url "https://github.com/motform/arduino-cli-mode")

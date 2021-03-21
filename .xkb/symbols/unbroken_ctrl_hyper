@@ -1,0 +1,11 @@
+// -*- c -*-
+
+partial modifier_keys
+xkb_symbols "ctrl_hyper" {
+
+    // Right Control as Hyper
+    replace key <RCTL> { [ Hyper_R ] }; // Use right Control as a Hyper key.
+
+    // Add new modifier keys to the global modifier keymap.
+    modifier_map Mod3 { Hyper_R };
+};

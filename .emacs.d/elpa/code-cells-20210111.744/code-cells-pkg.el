@@ -1,0 +1,2 @@
+;;; Generated package description from /home/chips/.emacs.d/elpa/code-cells-20210111.744/code-cells.el  -*- no-byte-compile: t -*-
+(define-package "code-cells" "20210111.744" "Work with code split into cells and Jupyter notebooks" '((emacs "27.1")) :commit "d03621b1033cc33054e30169517c57d020c13050" :authors '(("Augusto Stoffel" . "arstoffel@gmail.com")) :maintainer '("Augusto Stoffel" . "arstoffel@gmail.com") :keywords '("convenience" "outlines") :url "https://github.com/astoff/code-cells.el")

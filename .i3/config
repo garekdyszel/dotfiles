@@ -10,10 +10,10 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 # Hyper key (right Ctrl on my setup)
-# set $mod Mod3
+set $mod Mod3
 
 # Super/Windows key (Left Win)
-set $mod mod4 
+# set $mod mod4 
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -242,7 +242,7 @@ bindsym $mod+t exec torbrowser-launcher
 bindsym $mod+p exec thunar
 
 # keyboard layout
-xkbcomp -I$HOME/.xkb ~/.xkb/map $DISPLAY
+exec xkbcomp -I$HOME/.xkb ~/.xkb/map $DISPLAY
 # exec setxkbmap -model pc105 -layout pl -option kpdl:dot -option altwin:hyper_win -option caps:ctrl_modifier -option ctrl:swap_lalt_lctl -option shift:both_capslock -option compose:menu 
 # -option grp:alt_shift_toggle
 # exec xmodmap -e "keycode 75 = dead_greek dead_greek dead_greek dead_greek"

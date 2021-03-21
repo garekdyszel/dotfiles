@@ -369,7 +369,6 @@ With argument ARG, do this that many times."
      (file . find-file)
      (wl . wl-other-frame)))
  '(org-list-demote-modify-bullet t)
- '(org-msg-mode t)
  '(org-preview-latex-default-process 'imagemagick)
  '(org-preview-latex-image-directory ".ltximg/")
  '(org-ref-default-citation-link "cite")
@@ -1772,6 +1771,15 @@ than current time and is not currently being edited."
 ;; term-keys. For using modifier keys in TTY the same way you would on X11.
 ;; No extra configuration needed.
 (use-package term-keys)
+
+;; presenting in org mode
+(use-package org-tree-slide
+:config
+(bind-key "<f8>" 'org-tree-slide-mode)
+(bind-key "<f9>" 'org-tree-slide-move-previous-tree org-tree-slide-mode-map)
+(bind-key "<f10>" 'org-tree-slide-move-next-tree org-tree-slide-mode-map)
+(bind-key "<f11>" 'org-tree-slide-content org-tree-slide-mode-map)
+)
 
 ;; Center text in the window. You don't have to crane your neck to type in Emacs if Emacs is the only window now!
 (use-package centered-window

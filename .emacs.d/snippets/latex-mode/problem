@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: problem
+# key: problem
+# --
+\\begin{p}
+
+
+
+\\end{p}

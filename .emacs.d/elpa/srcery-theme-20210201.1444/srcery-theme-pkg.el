@@ -1,0 +1,2 @@
+;;; Generated package description from /home/chips/.emacs.d/elpa/srcery-theme-20210201.1444/srcery-theme.el  -*- no-byte-compile: t -*-
+(define-package "srcery-theme" "20210201.1444" "Dark color theme" '((emacs "24")) :commit "760dc6cb854383ab087d9b924de7273deddefe6a" :authors '(("Daniel Berg")) :maintainer '("Daniel Berg") :keywords '("faces") :url "https://github.com/srcery-colors/srcery-emacs")

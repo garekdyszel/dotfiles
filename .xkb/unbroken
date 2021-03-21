@@ -1,0 +1,10 @@
+// -*- c -*-
+
+// a layout that I won't break while I'm tweaking my setup.
+xkb_keymap {
+	xkb_keycodes  { include "evdev+aliases(qwerty)"	};
+	xkb_types     { include "complete"	};
+	xkb_compat    { include "complete"	};
+	xkb_symbols   { include "pc+pl+inet(evdev)+altwin(hyper_win)+capslock(ctrl_modifier)+ctrl(swap_lalt_lctl)+compose(menu)+kpdl(dot)+shift(both_capslock)+unbroken_ctrl_hyper(ctrl_hyper)"	};
+	xkb_geometry  { include "pc(pc105)"	};
+};

@@ -1,0 +1,18 @@
+# -*- sh -*-
+
+#!/bin/bash
+
+# open all my current projects
+# i3-msg 'workspace 5 rsch-write; exec emacsclient --create-frame ~/rsch/funding/2020/2020_NSF_GRFP/2020_NSF_GRFP.tex'
+# sleep 1
+# i3-msg 'workspace 6 rsch-write; exec emacsclient --create-frame ~/rsch/current_projects/2020_05_xx_espin_modeling_review_paper/Predictive_Structure_Theory_for_Electrospun_Fibers/Predictive_Structure_Theory_for_Electrospun_Fibers.tex'
+# sleep 1
+i3-msg 'workspace 9 other-write; exec emacsclient --create-frame ~/rsch/current_projects/learnElectricalEngineering/analog_circuits/analog_syllabus.php'
+sleep 1
+i3-msg 'exec lighttpd -D -f ~/rsch/current_projects/learnElectricalEngineering/lighttpd.conf; exec firefox --new-window localhost:9999'
+sleep 1
+# i3-msg 'workspace 10 other-write; exec emacsclient --create-frame ~/job/resume/GD_resume.tex'
+# sleep 1
+i3-msg 'workspace 10 other-write; exec emacsclient --create-frame ~/uni/huge_notepack/analogcircuits.tex; exec zathura ~/uni/huge_notepack/master.pdf '
+sleep 1
+i3-msg 'workspace 6 class-write; exec firefox --new-window mtu.instructure.com; exec emacsclient --create-frame'

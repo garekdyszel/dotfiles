@@ -1,0 +1,18 @@
+// -*- c -*-
+
+// Make the keys on the numpad work without having to turn Num Lock on.
+partial modifier_keys
+xkb_symbols "no_numlock" {
+
+    replace key <KP0> { [ 0 ] };
+    replace key <KP1> { [ 1 ] };
+    replace key <KP2> { [ 2 ] };
+    replace key <KP3> { [ 3 ] };
+    replace key <KP4> { [ 4 ] };
+    replace key <KP5> { [ 5 ] };
+    replace key <KP6> { [ 6 ] };
+    replace key <KP7> { [ 7 ] };
+    replace key <KP8> { [ 8 ] };
+    replace key <KP9> { [ 9 ] };
+
+};
