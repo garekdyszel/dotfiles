@@ -2,6 +2,6 @@ xkb_keymap {
 	xkb_keycodes  { include "evdev+aliases(qwerty)"	};
 	xkb_types     { include "complete"	};
 	xkb_compat    { include "complete"	};
-	xkb_symbols   { include "pc_modifiers(pc105)+us+unused_keys(not_existing)+numpad(no_numlock)+accents(accents)+chips(chips_modifiers)+capslock(ctrl_modifier)+kpdl(dot)+shift(both_capslock)"	};
+	xkb_symbols   { include "us+pc_modifiers(pc105)+capslock(ctrl_modifier)+kpdl(dot)+shift(both_capslock)+unused_keys(not_existing)+numpad(no_numlock)+accents(accents)+chips(chips_modifiers)"	};
 	xkb_geometry  { include "pc(pc105)"	};
 };
