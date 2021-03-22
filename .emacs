@@ -375,7 +375,7 @@ With argument ARG, do this that many times."
  '(org-ref-insert-cite-key "C-c 0")
  '(org-support-shift-select t)
  '(package-selected-packages
-   '(ivy centered-window srcery-theme org-tree-slide magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(citeproc-org counsel ivy centered-window srcery-theme org-tree-slide magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -761,38 +761,6 @@ $0
 ;; use paired delimiters that auto-fill the right-hand side
 ;; setting this to t makes it a global minor-mode
 (electric-pair-mode t)
-
-;; replace the minibuffer with a better one
-;; this guy is a little bloated for me now (2021-03-21) but still useful!
-;; (use-package helm
-;;   :ensure t
-;;   :config
-;;   ;; keybindings
-;;   ;;(global-unset-key (kbd "M-x"))
-;;   (global-unset-key (kbd "C-x C-f"))
-;;   (global-unset-key (kbd "C-x C-b"))
-;;   (global-unset-key (kbd "C-x b"))
-;;   (global-unset-key (kbd "C-x c M-y"))
-;;   (global-unset-key (kbd "C-y"))
-  
-;;   ;;(global-set-key (kbd "M-x") 'helm-M-x)
-;;   (global-set-key (kbd "C-x C-f") 'helm-find-files)
-;;   (global-set-key (kbd "C-x C-b") 'helm-mini)
-;;   (global-set-key (kbd "C-x b") 'helm-mini)
-;;   (global-set-key (kbd "C-y") 'helm-show-kill-ring)
-  
-;;   (define-key helm-map (kbd "<right>") 'forward-char)
-  
-  ;; (setq helm-buffers-fuzzy-matching t
-  ;;       helm-recentf-fuzzy-match t)
-  ;; (setq helm-ff-lynx-style-map t)
-
-  ;; ;; bibliography config
-  ;; ;; (setq bibtex-completion "~/refs/rsch-refs.bib"
-  ;; ;;       helm-bibtex-library-path "~/refs/"
-  ;; ;;       helm-bibtex-notes-path "~/refs/refnotes.org")
-  ;; ;; run helm-mode everywhere
-  ;; (helm-mode 1))
 
 ;; make sure shells pop up in the current buffer.
 (add-to-list 'display-buffer-alist
@@ -1240,7 +1208,10 @@ $0
 ;; Another part of the quote; use where appropriate: "And it's ESPECIALLY not an emergency for me, either!"
 
 ;; visual construction of regular expressions, mostly for searching
-(use-package visual-regexp)
+(use-package visual-regexp
+  :config
+  (bind-key "C-M-%" 'vr/query-replace)
+)
 
 ;; get rid of change-log-mode and replace it with markdown mode for changelog files
 (fset 'change-log-mode (symbol-function 'org-mode))
@@ -1788,3 +1759,31 @@ than current time and is not currently being edited."
   (centered-window-mode t)
 )
 
+;; use counsel to help us find keybindings.
+;; this includes both ivy and swiper as dependencies
+(use-package counsel
+  :config
+  (ivy-mode 1) ;; enable ivy mode everywhere.
+  (bind-key "M-x" #'counsel-M-x)
+
+  (bind-key "C-s"  'swiper-isearch)
+  (bind-key "M-x"  'counsel-M-x)
+  (bind-key "C-x C-f"  'counsel-find-file)
+  (bind-key "M-y"  'counsel-yank-pop)
+  (bind-key "<f1> f"  'counsel-describe-function)
+  (bind-key "<f1> v"  'counsel-describe-variable)
+  (bind-key "<f1> l"  'counsel-find-library)
+  (bind-key "<f2> i"  'counsel-info-lookup-symbol)
+  (bind-key "<f2> u"  'counsel-unicode-char)
+  (bind-key "<f2> j"  'counsel-set-variable)
+  (bind-key "C-x b"  'ivy-switch-buffer)
+  (bind-key "C-c v"  'ivy-push-view)
+  (bind-key "C-c V"  'ivy-pop-view)
+)
+
+;; citeproc-org for easier citation creation using CSL
+(use-package citeproc-org)
+
+;; render HTML directly in an org buffer using babel.
+;; You have to have PhantomJS installed
+;; (use-package ob-browser)

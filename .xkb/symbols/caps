@@ -1,0 +1,2 @@
+partial alphanumeric_keys
+xkb_symbols "caps:ctrl_modifier"

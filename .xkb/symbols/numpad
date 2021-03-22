@@ -14,5 +14,6 @@ xkb_symbols "no_numlock" {
     replace key <KP7> { [ 7 ] };
     replace key <KP8> { [ 8 ] };
     replace key <KP9> { [ 9 ] };
+    replace key <KPDL> { [ KP_Decimal ] }; // has to be this and not "." for whatever reason
 
 };

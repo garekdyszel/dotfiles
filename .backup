@@ -3,6 +3,8 @@
 
 # back up everything I care about on my computer.
 
+# Make sure you mount the backup drive at ~/mnt before running this script.
+
 # save a list of installed packages
 printf "Creating list of installed packages...\n"
 printf "Listing packages from official repos...\n"
@@ -20,13 +22,6 @@ printf "Done.\n"
 
 # save my personal data
 printf "Backing up personal data...\n"
-
-# if [[ $(findmnt -M ~/mnt) ]]; then
-#     printf "Drive mounted.\n"
-#  else
-#     printf "Drive not mounted.\n"
-#     sudo mount /dev/sdc1 ~/mnt
-# fi
 
 printf "Backup stage...\n"
 borg create ./borg-backup::$(date +"%Y-%m-%d") /home/chips --exclude '/home/chips/.?*'

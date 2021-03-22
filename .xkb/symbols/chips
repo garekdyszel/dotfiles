@@ -19,9 +19,13 @@ xkb_symbols "chips_modifiers" {
     // replace printscreen with Compose
     replace key <LALT> { [ Multi_key ] };
  
-    // NumLock as another control
-    key <NMLK> { [ ] }; // Remove the current mapping of the Insert key.
-    //modifier_map Control {  <NMLK>  }; // Use Insert as another Control key.
+    // Clear the mapping of NumLock
+    key <NMLK> { [ ] }; 
+
+    // Remap the 9 and 0 keys to be parentheses instead.
+    // Because I use parens more often.
+    replace key <AE09> { [ parenleft ] };
+    replace key <AE10> { [ parenright ] };
 
     // Add new modifier keys to the global modifier keymap.
     modifier_map Mod1 { Meta_L };
