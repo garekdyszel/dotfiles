@@ -7,12 +7,14 @@ droidcam
 elmerfem
 epson-inkjet-printer-escpr2
 fricas
+fritzing
 gapi-ocaml
 gmsh
 google-chrome
 google-drive-ocamlfuse
 invada-studio-plugins-lv2
 jabref
+libmagick6
 libselinux
 libsepol
 minecraft
@@ -32,6 +34,7 @@ ocaml-xmlm
 ocaml-yojson
 ocamlfuse
 ocamlnet
+pandoc-citeproc
 perl-term-shellui
 python2-gobject2
 qt4
@@ -40,6 +43,7 @@ qucs-s
 scotch
 skypeforlinux-stable-bin
 snapd
+texlive-local-adjustbox
 texlive-local-algorithmicx
 texlive-local-algorithms
 texlive-local-algpseudocodex
@@ -65,11 +69,13 @@ texlive-local-changepage
 texlive-local-cheatsheet
 texlive-local-circuitikz
 texlive-local-cleveref
+texlive-local-collectbox
 texlive-local-commath
 texlive-local-csquotes
 texlive-local-dashrule
 texlive-local-datetime
 texlive-local-dejavu
+texlive-local-diffcoeff
 texlive-local-easylist
 texlive-local-enumitem
 texlive-local-environ
@@ -82,10 +88,12 @@ texlive-local-fvextra
 texlive-local-hyphenat
 texlive-local-ifmtarg
 texlive-local-imakeidx
+texlive-local-kpfonts
 texlive-local-lastpage
 texlive-local-lato
 texlive-local-libertine
 texlive-local-logreq
+texlive-local-ly1
 texlive-local-makecell
 texlive-local-marginnote
 texlive-local-mdframed
@@ -106,6 +114,7 @@ texlive-local-scalerel
 texlive-local-sectsty
 texlive-local-siunitx
 texlive-local-soul
+texlive-local-sourcesanspro
 texlive-local-standalone
 texlive-local-subfigure
 texlive-local-tabto-ltx
@@ -114,10 +123,12 @@ texlive-local-tensor
 texlive-local-thmtools
 texlive-local-tikz-cd
 texlive-local-titlesec
+texlive-local-titling
 texlive-local-todonotes
 texlive-local-totcount
 texlive-local-trimspaces
 texlive-local-truncate
+texlive-local-ucs
 texlive-local-upquote
 texlive-local-varwidth
 texlive-local-wrapfig
@@ -130,3 +141,4 @@ ttf-vista-fonts
 v4l2loopback-dc-dkms
 yay
 zoom
+zyn-fusion

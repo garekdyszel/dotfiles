@@ -42,7 +42,6 @@ dune
 emacs
 eq10q
 fakeroot
-faust
 fbset
 feh
 figlet
@@ -93,12 +92,13 @@ linux-lts-headers
 lmms
 lsp-plugins
 luit
-lxappearance
+lxappearance-gtk3
 lynx
 m4
 make
 mda.lv2
 milkytracker
+mlocate
 mpv
 msmtp
 msmtp-mta
@@ -122,7 +122,6 @@ openmpi
 otf-fantasque-sans-mono
 p7zip
 pandoc
-pandoc-citeproc
 parted
 patch
 pavucontrol
@@ -139,17 +138,21 @@ pulseaudio-jack
 pwgen
 python-llfuse
 python-pip
+python-pyqt5-webengine
+python-tensorflow
 python2
 qjackctl
 qt5ct
+qutebrowser
 realtime-privileges
 redshift
+remind
 remmina
 rofi
 rsync
 rubber
+rust
 rxvt-unicode
-sagemath
 samplv1
 scrot
 sherlock.lv2
@@ -162,6 +165,7 @@ synthv1
 system-config-printer
 tap-plugins
 tbb
+tensorboard
 terminator
 terminus-font
 tesseract
@@ -190,6 +194,7 @@ wolf-shaper
 wolf-spectrum
 x42-plugins
 xbindkeys
+xcape
 xclip
 xf86-video-nouveau
 xf86-video-vesa
@@ -241,6 +246,7 @@ xorg-xwininfo
 xorg-xwud
 xournalpp
 xterm
+xxkb
 youtube-dl
 zam-plugins
 zathura
@@ -248,4 +254,3 @@ zathura-djvu
 zathura-pdf-mupdf
 zathura-ps
 zenity
-zynaddsubfx
