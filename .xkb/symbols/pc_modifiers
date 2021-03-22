@@ -1,6 +1,6 @@
 // -*- c -*-
 
-partial alphanumeric_keys modifier_keys
+default partial alphanumeric_keys modifier_keys
 xkb_symbols "pc105" {
 
     key <ESC>  {	[ Escape		]	};
@@ -22,7 +22,7 @@ xkb_symbols "pc105" {
     key <RTRN> {	[ Return		]	};
 
     key <CAPS> {	[ Caps_Lock		]	};
-    // key <NMLK> {	 [ Num_Lock 		]	};
+    //key <NMLK> {	[ Num_Lock 		]	};
 
     key <LFSH> {	[ Shift_L		]	};
     key <LCTL> {	[ Control_L		]	};
@@ -37,7 +37,7 @@ xkb_symbols "pc105" {
     modifier_map Shift  { Shift_L, Shift_R };
     modifier_map Lock   { Caps_Lock };
     modifier_map Control{ Control_L, Control_R };
-    // modifier_map Mod2   { Num_Lock };
+    //modifier_map Mod2   { Num_Lock };
     modifier_map Mod4   { Super_L, Super_R };
 
     // Fake keys for virtual<->real modifiers mapping:
@@ -46,7 +46,7 @@ xkb_symbols "pc105" {
     modifier_map Mod5   { <LVL3>, <MDSW> };
 
     key <ALT>  {	[ NoSymbol, Alt_L	]	};
-    // include "altwin(meta_alt)"
+    //include "altwin(meta_alt)" // this makes meta and Alt be the same symbol
 
     key <META> {	[ NoSymbol, Meta_L	]	};
     modifier_map Mod1   { <META> };
@@ -55,7 +55,7 @@ xkb_symbols "pc105" {
     modifier_map Mod4   { <SUPR> };
 
     key <HYPR> {	[ NoSymbol, Hyper_L	]	};
-    modifier_map Mod4   { <HYPR> };
+    //modifier_map Mod4   { <HYPR> };
     // End of modifier mappings.
 
     key <OUTP> { [ XF86Display ] };

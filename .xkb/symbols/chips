@@ -20,7 +20,7 @@ xkb_symbols "chips_modifiers" {
     replace key <LALT> { [ Multi_key ] };
  
     // Clear the mapping of NumLock
-    key <NMLK> { [ ] }; 
+    replace key <NMLK> { [ ] }; 
 
     // Remap the 9 and 0 keys to be parentheses instead.
     // Because I use parens more often.
