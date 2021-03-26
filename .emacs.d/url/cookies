@@ -5,8 +5,7 @@
  'nil)
 (setq url-cookie-secure-storage
  '((".doi.org"
-  [url-cookie "__cfduid" "dc19c22d89af4caa148928c442a849dce1574941436" "28 Dec 19 11:43:56 [GMT]" "/" ".doi.org" t]
-  [url-cookie "HttpOnly" nil "28 Dec 19 11:43:56 [GMT]" "/" ".doi.org" t]))
+  [url-cookie "__cfduid" "d7352297cbd373e1f5461df011d4e8bb21616432119" "Wed, 21-Apr-21 16:55:19 GMT" "/" ".doi.org" t]))
 )
 
 ;; Local Variables:

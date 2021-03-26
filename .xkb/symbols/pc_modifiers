@@ -22,7 +22,7 @@ xkb_symbols "pc105" {
     key <RTRN> {	[ Return		]	};
 
     key <CAPS> {	[ Caps_Lock		]	};
-    //key <NMLK> {	[ Num_Lock 		]	};
+    key <NMLK> {	[ Num_Lock 		]	};
 
     key <LFSH> {	[ Shift_L		]	};
     key <LCTL> {	[ Control_L		]	};

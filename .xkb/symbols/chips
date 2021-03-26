@@ -5,13 +5,16 @@ xkb_symbols "chips_modifiers" {
 
     // Right Control as Hyper
     //replace key <LWIN> { [ Hyper_L ] }; // Use left Super as a Hyper key.
-    replace key <RCTL> { [ Hyper_R ] }; // Use right Control as a Hyper key.
+    replace key <RCTL> { [ Hyper_L ] }; // Use right Control as a Hyper key.
 
     // Left Control as Meta
     replace key <LCTL> { [ Meta_L ] };
 
     // Menu as Alt (/not/ Meta!) key
-    replace key <MENU> { [ Alt_R ] };
+    replace key <MENU> { [ Alt_L ] }; // this doesn't work right now
+
+    // Menu as level 5 shifter
+    //replace key <MENU> { [ ISO_Level5_Shift ] };
 
     // RAlt as the level3 modifier (for accented characters w/o using Compose key)
     replace key <RALT> { [ ISO_Level3_Shift ] };
@@ -20,16 +23,22 @@ xkb_symbols "chips_modifiers" {
     replace key <LALT> { [ Multi_key ] };
  
     // Clear the mapping of NumLock
-    replace key <NMLK> { [ ] }; 
+    //replace key <NMLK> { [ ] }; 
 
-    // Remap the 9 and 0 keys to be parentheses instead.
-    // Because I use parens more often.
-    replace key <AE09> { [ parenleft ] };
-    replace key <AE10> { [ parenright ] };
+
+    // Make paired delimiter insertion a heck of a lot more comfortable.
+    replace key <AD04> { [ r, R, braceleft    ] };
+    replace key <AD05> { [ t, T, braceright   ] };
+    replace key <AC04> { [ f, F, parenleft    ] };
+    replace key <AC05> { [ g, G, parenright   ] };
+    replace key <AB04> { [ v, V, bracketleft  ] };
+    replace key <AB05> { [ b, B, bracketright ] };
+
 
     // Add new modifier keys to the global modifier keymap.
-    modifier_map Mod1 { Meta_L };
-    modifier_map Mod2 { Alt_R };
-    modifier_map Mod3 { Hyper_R };
+    //modifier_map Mod1 { Meta_L };
+    //modifier_map Mod2 { Alt_L };
+    modifier_map Mod3 { Hyper_L };
+    modifier_map Mod2 { Alt_L };
 
 };

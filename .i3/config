@@ -10,10 +10,10 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 # Hyper key (right Ctrl on my setup)
-set $mod mod3
+set $mod Mod3
 
 # Super/Windows key (Left Win)
-# set $mod mod4 
+# set $mod Mod4 
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -236,14 +236,14 @@ exec feh --bg-fill ~/pics/ira_glass_the_gap.jpg
 
 # keybindings for specific programs
 bindsym $mod+m exec emacsclient --create-frame
-bindsym $mod+i exec qutebrowser 
+bindsym $mod+i exec firefox 
 bindsym $mod+z exec zathura
 bindsym $mod+t exec torbrowser-launcher
 bindsym $mod+p exec thunar
 
 # keyboard layout
-exec xkbcomp -I$HOME/.xkb ~/.xkb/map $DISPLAY
-# exec setxkbmap -model pc105 -layout pl -option kpdl:dot -option ctrl:nocaps -option ctrl:swap_lalt_lctl -option shift:both_capslock -option compose:menu 
+# exec xkbcomp -I$HOME/.xkb ~/.xkb/map $DISPLAY
+exec setxkbmap -model pc105 -layout pl -option kpdl:dot -option ctrl:nocaps -option ctrl:swap_lalt_lctl -option shift:both_capslock -option compose:menu 
 
 # startup programs 
 exec emacs --daemon

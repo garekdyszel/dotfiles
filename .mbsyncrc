@@ -25,8 +25,8 @@ Path ~/mail/gmail/
 Inbox ~/mail/gmail/inbox
 
 Channel gmail
-Master :gmail-remote:
-Slave :gmail-local:
+Far :gmail-remote:
+Near :gmail-local:
 # Exclude everything under the internal [Gmail] folder, except the interesting folders
 Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
 # Or include everything
@@ -62,8 +62,8 @@ Path ~/mail/mtu/
 Inbox ~/mail/mtu/inbox
 
 Channel mtu
-Master :mtu-remote:
-Slave :mtu-local:
+Far :mtu-remote:
+Near :mtu-local:
 # Exclude everything under the internal [Gmail] folder, except the interesting folders
 Patterns * ![MTU]* "[MTU]/Sent Mail" "[MTU]/Starred" "[MTU]/All Mail"
 # Or include everything
@@ -99,8 +99,8 @@ SyncState *
 # Inbox ~/mail/bay/inbox
 
 # Channel bay
-# Master :bay-remote:
-# Slave :bay-local:
+# Far :bay-remote:
+# Near :bay-local:
 # # Exclude everything under the internal [Gmail] folder, except the interesting folders
 # Patterns * ![BAY]* "[BAY]/Sent Mail" "[BAY]/Starred" "[BAY]/All Mail"
 # # Or include everything

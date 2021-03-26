@@ -311,6 +311,7 @@ With argument ARG, do this that many times."
  '(frame-background-mode 'dark)
  '(frame-title-format "%b" t)
  '(fringe-mode 4 nil (fringe))
+ '(git-commit-summary-max-length 3000)
  '(global-pretty-mode t)
  '(global-visual-line-mode t)
  '(gnus-delay-default-hour 7)
@@ -1210,6 +1211,7 @@ $0
 ;; visual construction of regular expressions, mostly for searching
 (use-package visual-regexp
   :config
+  (bind-key "M-%" 'vr/query-replace)
   (bind-key "C-M-%" 'vr/query-replace)
 )
 
@@ -1787,3 +1789,14 @@ than current time and is not currently being edited."
 ;; render HTML directly in an org buffer using babel.
 ;; You have to have PhantomJS installed
 ;; (use-package ob-browser)
+
+;; --- paired delimiters ---
+;; insert paired delimiters with one command
+(bind-key "M-(" 'insert-pair)
+(bind-key "M-[" 'insert-pair)
+(bind-key "M-{" 'insert-pair)
+;; delete them with one command
+(bind-key "M-)" 'delete-pair)
+(bind-key "M-]" 'delete-pair)
+(bind-key "M-}" 'delete-pair)
+;; --- end paired delimiters ---
