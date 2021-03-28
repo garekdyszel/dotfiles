@@ -13,6 +13,7 @@ xkb_symbols "accents" {
   replace key <AB03> { [ c, C, cacute, Cacute ] };
   replace key <AC02> { [ s, S, sacute, Sacute ] };
   replace key <AB02> { [ x, X, zacute, Zacute ] };
+  replace key <AB06> { [ n, N, nacute, Nacute ] };
   
   // inne znaki diakrytyczne
   replace key <AB01> { [ z, Z, zabovedot, Zabovedot ] };

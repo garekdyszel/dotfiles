@@ -57,5 +57,11 @@ alias libreoffice="GTK_THEME=Breeze:dark libreoffice"
 # backup files shell script
 alias backup="/home/chips/.backup"
 
+# macro to update system 
+# (so I don't have to remember to fix my grub config every time the linux kernel is updated)
+alias update="sudo pacman -Syu; sudo pacman -Syu linux linux-firmware linux-headers; 
+	sudo mkinitcpio -p linux; grub-mkconfig -o /boot/grub/grub.cfg; 
+	grub-install --target=i386-pc /dev/sdb; grub-mkconfig -o /boot/grub/grub/cfg; poweroff"
+
 # printer
 PRINTER="EPSON-WF-4720-Series"
