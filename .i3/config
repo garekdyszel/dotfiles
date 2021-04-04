@@ -10,10 +10,10 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 # Hyper key (right Ctrl on my setup)
-set $mod Mod3
+# set $mod Mod3
 
-# Super/Windows key (Left Win)
-# set $mod Mod4 
+# Super/Windows key (h Win)
+set $mod Mod4 
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -49,22 +49,22 @@ bindsym $mod+f exec rofi -show file-browser
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+# bindsym $mod+Shift+Left move left
+# bindsym $mod+Shift+Right move down
+# bindsym $mod+Shift+Up move up
+# bindsym $mod+Shift+Down move right
 
 # split in horizontal orientation
 bindsym $mod+g split h
@@ -185,10 +185,10 @@ bindsym k resize shrink height 10 px or 10 ppt
 bindsym l resize grow width 10 px or 10 ppt
 
 # same bindings, but for the arrow keys
-bindsym Left resize shrink width 10 px or 10 ppt
-bindsym Down resize grow height 10 px or 10 ppt
-bindsym Up resize shrink height 10 px or 10 ppt
-bindsym Right resize grow width 10 px or 10 ppt
+bindsym h resize shrink width 10 px or 10 ppt
+bindsym j resize grow height 10 px or 10 ppt
+bindsym k resize shrink height 10 px or 10 ppt
+bindsym l resize grow width 10 px or 10 ppt
 
 # back to normal: Enter or Escape
 bindsym Return mode "default"
@@ -265,3 +265,7 @@ bindsym $mod+Shift+e mode "exit: [l]ogout, [r]eboot, [s]hutdown"
 # run kitty right away, in case anything breaks
 # i3-msg 'workspace 1 terminal: exec kitty'
 exec kitty
+
+# run cadence right away for audio.
+# then we don't have to keep configuring it all the time.
+# exec cadence

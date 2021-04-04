@@ -46,7 +46,7 @@
 (setq backup-directory-alist `(("." . "~/.saves")))
 
 ;; turn off shortcuts that we fat-finger frequently.
-(dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o" "\C-n" "\C-x\C-q")) (global-unset-key key))               
+(dolist (key '("\C-z" "\C-x\C-z" "\C-x\C-c" "\C-x\C-u" "\C-xs" "\C-o" "\C-n" "\C-x\C-q" "\C-f")) (global-unset-key key))               
 
 ;; ensure save and quit remains the same as default Emacs binding
 ;; (global-set-key (kbd "C-x C-c") 'save-buffers-kill-emacs)
@@ -376,7 +376,7 @@ With argument ARG, do this that many times."
  '(org-ref-insert-cite-key "C-c 0")
  '(org-support-shift-select t)
  '(package-selected-packages
-   '(gnu-apl-mode citeproc-org counsel ivy centered-window srcery-theme org-tree-slide magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(haskell-mode haskell sclang sclang-snippets sclang-extensions egg-timer gnu-apl-mode citeproc-org counsel ivy centered-window srcery-theme org-tree-slide magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -442,6 +442,10 @@ With argument ARG, do this that many times."
          ;("\C-cC-c" . org-capture)
          )
   :config
+  ;; put org-mode tags directly after headings.
+  ;; i.e., do not align them to the right.
+  (setq org-tags-column 0)
+  
   ;; resize images in org mode buffers
   (setq org-image-actual-width nil)
 
@@ -713,7 +717,10 @@ $0
   (set-default 'preview-scale-function 2)
 
   ;; make sure we can build using our makefiles
-  (eval-after-load "tex" '(add-to-list 'TeX-command-list '("Make" "make" TeX-run-compile nil t)))
+  (eval-after-load "tex" '(add-to-list 'TeX-command-list 
+                                       '("Make" "make" TeX-run-compile nil t)
+                                       '("Rubber" "rubber --into=build --pdf %t && open '%s.pdf'" TeX-run-compile nil t)
+                                       ))
   ;; set the Make command to default
   ;; (setq TeX-command-default "Make")
 
@@ -829,6 +836,14 @@ $0
   :ensure t
   :after org-agenda
   :init
+  ;; show the actual deadline date, not in the "in X days" format
+  (org-add-agenda-custom-command
+   '("d" "Deadlines and scheduled work" alltodo ""
+     ((org-agenda-skip-function '(org-agenda-skip-entry-if 'notdeadline))
+      (org-agenda-prefix-format '((todo . " %i %-22(org-entry-get nil 
+  \"DEADLINE\") %-12:c %s")))
+      (org-agenda-sorting-strategy '(deadline-up)))))
+
   ;; show org-agenda on startup
   ;; (add-hook 'after-init-hook 'org-agenda-list)
 
@@ -848,18 +863,23 @@ $0
                
                (:name "Important"
                       :priority "A")
-               (:name "Next task"
-                      :todo "NEXT")
                (:name "Job"
                       :tag "job")
-               (:name "Homework"
-                      :tag "classes")
                (:name "Research"
-                      :tag "rsch")              
+                      :tag "rsch") 
+               (:name "Next task"
+                      :todo "NEXT")
+               (:name "Check this over"
+                      :todo "CHECK")
                (:name "Waiting"
                       :todo "WAITING")
+               (:name "Homework"
+                      :tag "classes")
+
                )))
-           (org-agenda nil "a")))))
+           (org-agenda nil "a"))))
+
+  :config)
 ;; display a whole month's worth of tasks by default
 (setq org-agenda-span 'month)
 
@@ -1768,19 +1788,21 @@ than current time and is not currently being edited."
   (ivy-mode 1) ;; enable ivy mode everywhere.
   (bind-key "M-x" #'counsel-M-x)
 
-  (bind-key "C-s"  'swiper-isearch)
-  (bind-key "M-x"  'counsel-M-x)
-  (bind-key "C-x C-f"  'counsel-find-file)
-  (bind-key "M-y"  'counsel-yank-pop)
-  (bind-key "<f1> f"  'counsel-describe-function)
-  (bind-key "<f1> v"  'counsel-describe-variable)
-  (bind-key "<f1> l"  'counsel-find-library)
-  (bind-key "<f2> i"  'counsel-info-lookup-symbol)
-  (bind-key "<f2> u"  'counsel-unicode-char)
-  (bind-key "<f2> j"  'counsel-set-variable)
-  (bind-key "C-x b"  'ivy-switch-buffer)
-  (bind-key "C-c v"  'ivy-push-view)
-  (bind-key "C-c V"  'ivy-pop-view)
+  (bind-key "C-s" 'swiper-isearch)
+  (bind-key "M-x" 'counsel-M-x)
+  (bind-key "C-x C-f" 'counsel-find-file)
+  (bind-key "M-y" 'counsel-yank-pop)
+  (bind-key "<f1> f" 'counsel-describe-function)
+  (bind-key "<f1> v" 'counsel-describe-variable)
+  (bind-key "<f1> l" 'counsel-find-library)
+  (bind-key "<f2> i" 'counsel-info-lookup-symbol)
+  (bind-key "<f2> u" 'counsel-unicode-char)
+  (bind-key "<f2> j" 'counsel-set-variable)
+  (bind-key "C-x b" 'ivy-switch-buffer)
+  (bind-key "C-c v" 'ivy-push-view)
+  (bind-key "C-c V" 'ivy-pop-view)
+
+  (bind-key "C-f r" 'counsel-recentf)
 )
 
 ;; citeproc-org for easier citation creation using CSL
@@ -1800,3 +1822,12 @@ than current time and is not currently being edited."
 (bind-key "M-]" 'delete-pair)
 (bind-key "M-}" 'delete-pair)
 ;; --- end paired delimiters ---
+
+;; A timer so you can keep track of when the next thing is.
+;; This is *not* the same as a pomodoro timer.
+(use-package egg-timer)
+
+;; tidal for live coding music
+(use-package haskell-mode)
+(use-package tidal
+  :load-path "~/.emacs.d/lisp/tidal.el")

@@ -28,7 +28,7 @@ alias gmail='mbsync gmail && notmuch new'
 
 # set environment variables
 export QT_QPA_PLATFORMTHEME=qt5ct # Qt theme controller
-export TERM=screen-24bit
+# export TERM=screen-24bit
 
 # color output
 alias diff='diff --color=auto'
@@ -37,7 +37,7 @@ alias ls='ls --color=auto'
 alias ip='ip --color=auto'
 
 # add kitty completion commands
-source <(kitty + complete setup bash)
+# source <(kitty + complete setup bash)
 
 # fix rendering issue with anki
 alias anki="ANKI_NOHIGHDPI=1 anki"
