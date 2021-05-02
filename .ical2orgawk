@@ -106,7 +106,7 @@ BEGIN {
     calendarname = ENVIRON["CALENDAR"] != "" ? ENVIRON["CALENDAR"] : "google-calendar"
 
     # any tags for this calendar (e.g. "WORK" or "PERSONAL")
-    filetags = ENVIRON["FILETAGS"] != "" ? ENVIRON["FILETAGS"] : "SCHOOL"
+    filetags = ENVIRON["FILETAGS"] != "" ? ENVIRON["FILETAGS"] : "meetings"
 
     # timezone offsets
     # TODO: this is stupid

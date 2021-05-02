@@ -1,6 +1,4 @@
-# add an alias for emacsclient so we don't have to remember how to connect to the Emacs daemon. 
-alias em="emacsclient -c -a ''"
-
+# add an alias for emacsclient so we don't have to remember how to connect to the Emacs daemon.  alias em="emacsclient -c -a ''"
 # set emacsclient as the default editor
 export EDITOR="emacsclient -nw"
 export VISUAL="emacsclient --create-frame"
@@ -63,5 +61,8 @@ alias update="sudo pacman -Syu; sudo pacman -Syu linux linux-firmware linux-head
 	sudo mkinitcpio -p linux; grub-mkconfig -o /boot/grub/grub.cfg; 
 	grub-install --target=i386-pc /dev/sdb; grub-mkconfig -o /boot/grub/grub/cfg; poweroff"
 
-# printer
+# printer name, in case we have to use it in the command line.
 PRINTER="EPSON-WF-4720-Series"
+
+# arranger, for automatically organizing files into predefined folder types
+alias arranger="~/.bin/arranger"

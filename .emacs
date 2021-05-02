@@ -1,4 +1,4 @@
-;; Revised version of .emacs, created in Sept 2019.
+;; Revised version of .emacs, updated by 2020-04-05.
 ;; Exclusively uses use-package where possible.
 
 ;;----- EMACS CONFIG STARTS HERE -----
@@ -41,6 +41,224 @@
 
 (global-set-key (kbd "C-w") 'better-kill-region)
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(LaTeX-indent-environment-list
+   '(("verbatim" current-indentation)
+     ("verbatim*" current-indentation)
+     ("tabular" LaTeX-indent-tabular)
+     ("tabular*" LaTeX-indent-tabular)
+     ("align" LaTeX-indent-tabular)
+     ("align*" LaTeX-indent-tabular)
+     ("array" LaTeX-indent-tabular)
+     ("eqnarray" LaTeX-indent-tabular)
+     ("eqnarray*" LaTeX-indent-tabular)
+     ("displaymath")
+     ("equation")
+     ("equation*")
+     ("picture")
+     ("tabbing")
+     ("circuitikz")
+     ("tikzpicture")))
+ '(Linum-format "%7i ")
+ '(TeX-command-list
+   '(("TeX" "%(PDF)%(tex) %(file-line-error) %`%(extraopts) %S%(PDFout)%(mode)%' %t" TeX-run-TeX nil
+      (plain-tex-mode texinfo-mode ams-tex-mode)
+      :help "Run plain TeX")
+     ("LaTeX" "%`%l%(mode)%' %T" TeX-run-TeX nil
+      (latex-mode doctex-mode)
+      :help "Run LaTeX")
+     ("Makeinfo" "makeinfo %(extraopts) %t" TeX-run-compile nil
+      (texinfo-mode)
+      :help "Run Makeinfo with Info output")
+     ("Makeinfo HTML" "makeinfo %(extraopts) --html %t" TeX-run-compile nil
+      (texinfo-mode)
+      :help "Run Makeinfo with HTML output")
+     ("AmSTeX" "amstex %(PDFout) %`%(extraopts) %S%(mode)%' %t" TeX-run-TeX nil
+      (ams-tex-mode)
+      :help "Run AMSTeX")
+     ("ConTeXt" "%(cntxcom) --once --texutil %(extraopts) %(execopts)%t" TeX-run-TeX nil
+      (context-mode)
+      :help "Run ConTeXt once")
+     ("ConTeXt Full" "%(cntxcom) %(extraopts) %(execopts)%t" TeX-run-TeX nil
+      (context-mode)
+      :help "Run ConTeXt until completion")
+     ("BibTeX" "bibtex %s" TeX-run-BibTeX nil
+      (plain-tex-mode latex-mode doctex-mode context-mode texinfo-mode ams-tex-mode)
+      :help "Run BibTeX")
+     ("Biber" "biber %s" TeX-run-Biber nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Run Biber")
+     ("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer")
+     ("Print" "%p" TeX-run-command t t :help "Print the file")
+     ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command)
+     ("File" "%(o?)dvips %d -o %f " TeX-run-dvips t
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Generate PostScript file")
+     ("Dvips" "%(o?)dvips %d -o %f " TeX-run-dvips nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Convert DVI file to PostScript")
+     ("Dvipdfmx" "dvipdfmx %d" TeX-run-dvipdfmx nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Convert DVI file to PDF with dvipdfmx")
+     ("Ps2pdf" "ps2pdf %f" TeX-run-ps2pdf nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Convert PostScript file to PDF")
+     ("Glossaries" "makeglossaries %s" TeX-run-command nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Run makeglossaries to create glossary
+     file")
+     ("Index" "makeindex %s" TeX-run-index nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Run makeindex to create index file")
+     ("upMendex" "upmendex %s" TeX-run-index t
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Run upmendex to create index file")
+     ("Xindy" "texindy %s" TeX-run-command nil
+      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
+      :help "Run xindy to create index file")
+     ("Check" "lacheck %s" TeX-run-compile nil
+      (latex-mode)
+      :help "Check LaTeX file for correctness")
+     ("ChkTeX" "chktex -v6 %s" TeX-run-compile nil
+      (latex-mode)
+      :help "Check LaTeX file for common mistakes")
+     ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document")
+     ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files")
+     ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files")
+     ("Other" "" TeX-run-command t t :help "Run an arbitrary command")))
+ '(TeX-view-program-selection '((output-html "xdg-open")))
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(auth-source-save-behavior nil)
+ '(auto-fill-mode t)
+ '(beacon-color "#cc6666")
+ '(cdlatex-insert-auto-labels-in-env-templates nil)
+ '(cdlatex-math-modify-alist nil)
+ '(cdlatex-math-modify-prefix "'")
+ '(company-quickhelp-color-background "#4F4F4F")
+ '(company-quickhelp-color-foreground "#DCDCCC")
+ '(cua-enable-cua-keys nil)
+ '(cua-mode t nil (cua-base))
+ '(cua-normal-cursor-color "black")
+ '(cursor-type 'bar)
+ '(custom-enabled-themes '(kaolin-eclipse))
+ '(custom-safe-themes
+   '("5a00018936fa1df1cd9d54bee02c8a64eafac941453ab48394e2ec2c498b834a" "249e100de137f516d56bcf2e98c1e3f9e1e8a6dce50726c974fa6838fbfcec6b" "06ed754b259cb54c30c658502f843937ff19f8b53597ac28577ec33bb084fa52" "8f20a5dba51c3032066f9bdd636211c22cd858cbb439bbe8e042016f3d215142" "a131602c676b904a5509fff82649a639061bf948a5205327e0f5d1559e04f5ed" "c95813797eb70f520f9245b349ff087600e2bd211a681c7a5602d039c91a6428" "2ce76d65a813fae8cfee5c207f46f2a256bac69dacbb096051a7a8651aa252b0" "11cc65061e0a5410d6489af42f1d0f0478dbd181a9660f81a692ddc5f948bf34" "d9a28a009cda74d1d53b1fbd050f31af7a1a105aa2d53738e9aa2515908cac4c" "f00a605fb19cb258ad7e0d99c007f226f24d767d01bf31f3828ce6688cbdeb22" "6128465c3d56c2630732d98a3d1c2438c76a2f296f3c795ebda534d62bb8a0e3" "d516f1e3e5504c26b1123caa311476dc66d26d379539d12f9f4ed51f10629df3" "733ef3e3ffcca378df65a5b28db91bf1eeb37b04d769eda28c85980a6df5fa37" "e8567ee21a39c68dbf20e40d29a0f6c1c05681935a41e206f142ab83126153ca" "3c7a784b90f7abebb213869a21e84da462c26a1fda7e5bd0ffebf6ba12dbd041" "d14f3df28603e9517eb8fb7518b662d653b25b26e83bd8e129acea042b774298" "4eb6fa2ee436e943b168a0cd8eab11afc0752aebb5d974bba2b2ddc8910fca8f" "6bdcff29f32f85a2d99f48377d6bfa362768e86189656f63adbf715ac5c1340b" "78c4238956c3000f977300c8a079a3a8a8d4d9fee2e68bad91123b58a4aa8588" "83e0376b5df8d6a3fbdfffb9fb0e8cf41a11799d9471293a810deb7586c131e6" "7661b762556018a44a29477b84757994d8386d6edee909409fabe0631952dad9" "6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" "716f0a8a9370912d9e6659948c2cb139c164b57ef5fda0f337f0f77d47fe9073" "8bb9cbdc1fe6f4451b1e1361113cd6e24b784f82f33a0f4d6c5f8991aa32b28c" "16ab866312f1bd47d1304b303145f339eac46bbc8d655c9bfa423b957aa23cc9" "1f6039038366e50129643d6a0dc67d1c34c70cdbe998e8c30dc4c6889ea7e3db" "efbd20364f292a1199d291dfaff28cc1fd89fff5b38e314bd7e40121f5c465b4" "bbbd58d82a60c4913b00db1ecab1938ddcb0378225a1a3e54d840f36370d86c6" "2d835b43e2614762893dc40cbf220482d617d3d4e2c35f7100ca697f1a388a0e" "a77ced882e25028e994d168a612c763a4feb8c4ab67c5ff48688654d0264370c" "0dd2666921bd4c651c7f8a724b3416e95228a13fca1aa27dc0022f4e023bf197" "b73a23e836b3122637563ad37ae8c7533121c2ac2c8f7c87b381dd7322714cd0" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "d707aeee54d91b181a267a473862ebf0e20502c9bca8bef078b0a226b9581dd2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" default))
+ '(doc-view-continuous t)
+ '(electric-indent-mode nil)
+ '(electric-pair-mode t)
+ '(fci-rule-character-color "#202020")
+ '(fci-rule-color "#383838")
+ '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
+ '(frame-background-mode 'dark)
+ '(frame-title-format "%b" t)
+ '(fringe-mode 4 nil (fringe))
+ '(git-commit-summary-max-length 3000)
+ '(global-pretty-mode t)
+ '(global-visual-line-mode t)
+ '(gnus-delay-default-hour 7)
+ '(helm-completion-style 'emacs)
+ '(inhibit-startup-screen t)
+ '(main-line-color1 "#1E1E1E")
+ '(main-line-color2 "#111111")
+ '(main-line-separator-style 'chamfer)
+ '(major-mode 'org-mode)
+ '(mark-even-if-inactive nil)
+ '(message-send-mail-function 'sendmail-query-once)
+ '(notmuch-saved-searches
+   '((:name "inbox" :query "tag:inbox" :key "i")
+     (:name "flagged" :query "tag:flagged" :key "f")
+     (:name "sent" :query "tag:sent" :key "t")
+     (:name "drafts" :query "tag:draft" :key "d")
+     (:name "all mail" :query "*" :key "a")
+     (:name "unread" :query "tag:unread" :key "u")) t)
+ '(notmuch-search-line-faces
+   '(("unread" :foreground "#aeee00")
+     ("flagged" :foreground "#0a9dff")
+     ("deleted" :foreground "#ff2c4b" :bold t)))
+ '(nrepl-message-colors
+   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
+ '(org-agenda-files
+   '("~/notes/jot" "~/notes/uni/rsch/record/notes.org" "~/notes/org/todolist.org" "~/notes/uni/rsch/current_projects/.projects/projects"))
+ '(org-caldav-delete-calendar-entries 'never)
+ '(org-confirm-babel-evaluate nil)
+ '(org-format-latex-header
+   "\\documentclass{article}
+\\usepackage[usenames]{color}
+[PACKAGES]
+[DEFAULT-PACKAGES]
+\\pagestyle{empty}             % do not remove
+% The settings below are copied from fullpage.sty
+\\setlength{\\textwidth}{\\paperwidth}
+\\addtolength{\\textwidth}{-3cm}
+\\setlength{\\oddsidemargin}{1.5cm}
+\\addtolength{\\oddsidemargin}{-2.54cm}
+\\setlength{\\evensidemargin}{\\oddsidemargin}
+\\setlength{\\textheight}{\\paperheight}
+\\addtolength{\\textheight}{-\\headheight}
+\\addtolength{\\textheight}{-\\headsep}
+\\addtolength{\\textheight}{-\\footskip}
+\\addtolength{\\textheight}{-3cm}
+\\setlength{\\topmargin}{1.5cm}
+\\addtolength{\\topmargin}{-2.54cm}")
+ '(org-format-latex-options
+   '(:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+                 ("begin" "$1" "$" "$$" "\\(" "\\[")))
+ '(org-highlight-latex-and-related '(latex entities))
+ '(org-latex-prefer-user-labels t)
+ '(org-link-frame-setup
+   '((vm . vm-visit-folder-other-frame)
+     (vm-imap . vm-visit-imap-folder-other-frame)
+     (gnus . org-gnus-no-new-news)
+     (file . find-file)
+     (wl . wl-other-frame)))
+ '(org-list-demote-modify-bullet t)
+ '(org-preview-latex-default-process 'imagemagick)
+ '(org-preview-latex-image-directory ".ltximg/")
+ '(org-ref-default-citation-link "cite")
+ '(org-ref-insert-cite-key "C-c 0")
+ '(org-support-shift-select t)
+ '(package-selected-packages
+   '(kaolin-themes gruvbox-theme melancholy-theme axiom-mode julia org-caldav haskell-mode haskell sclang sclang-snippets sclang-extensions egg-timer gnu-apl-mode citeproc-org counsel ivy centered-window srcery-theme org-tree-slide magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+ '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
+ '(powerline-color1 "#1E1E1E")
+ '(powerline-color2 "#111111")
+ '(python-shell-interpreter "/usr/bin/python3")
+ '(python-shell-virtualenv-root "/usr/bin/python3")
+ '(send-mail-function 'mailclient-send-it)
+ '(show-paren-mode t)
+ '(smartparens-global-mode t)
+ '(suggest-key-bindings nil)
+ '(tab-width 3)
+ '(texmathp-tex-commands '(("align" env-on)))
+ '(tool-bar-mode nil)
+ '(truncate-partial-width-windows 0)
+ '(vc-annotate-background "#2B2B2B")
+ '(vc-annotate-color-map
+   '((20 . "#BC8383")
+     (40 . "#CC9393")
+     (60 . "#DFAF8F")
+     (80 . "#D0BF8F")
+     (100 . "#E0CF9F")
+     (120 . "#F0DFAF")
+     (140 . "#5F7F5F")
+     (160 . "#7F9F7F")
+     (180 . "#8FB28F")
+     (200 . "#9FC59F")
+     (220 . "#AFD8AF")
+     (240 . "#BFEBBF")
+     (260 . "#93E0E3")
+     (280 . "#6CA0A3")
+     (300 . "#7CB8BB")
+     (320 . "#8CD0D3")
+     (340 . "#94BFF3")
+     (360 . "#DC8CC3")))
+ '(vc-annotate-very-old-color "#DC8CC3")
+ '(window-divider-mode nil))
 
 ;; create a backup directory
 (setq backup-directory-alist `(("." . "~/.saves")))
@@ -151,6 +369,10 @@ With argument ARG, do this that many times."
 (bind-key "M-y" 'nil)
 (bind-key "C-M-y" 'cua-paste)
 
+;; add paragraph motion functions for when arrow keys are not easily accessible
+(unbind-key "M-h")
+(bind-key "M-h" 'backward-paragraph)
+(bind-key "M-n" 'forward-paragraph)
 
 ;; duplicate lines function
 (defun duplicate-line()
@@ -167,11 +389,9 @@ With argument ARG, do this that many times."
 ;; kill all other buffers except the current one
 ;; in a single command
 (defun kill-other-buffers ()
-  "Kill all other buffers."
-  (interactive)
-  (mapc 'kill-buffer 
-        (delq (current-buffer) 
-              (remove-if-not 'buffer-file-name (buffer-list)))))
+      "Kill all other buffers."
+      (interactive)
+      (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
 ;; change default cursor style to bar instead of rectangle
 (setq-default cursor-type 'bar)
@@ -196,228 +416,14 @@ With argument ARG, do this that many times."
 ;; (bind-key "M-s-i" 'backward-paragraph)
 
 ;; ---- custom-set-variables ----
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(LaTeX-indent-environment-list
-   '(("verbatim" current-indentation)
-     ("verbatim*" current-indentation)
-     ("tabular" LaTeX-indent-tabular)
-     ("tabular*" LaTeX-indent-tabular)
-     ("align" LaTeX-indent-tabular)
-     ("align*" LaTeX-indent-tabular)
-     ("array" LaTeX-indent-tabular)
-     ("eqnarray" LaTeX-indent-tabular)
-     ("eqnarray*" LaTeX-indent-tabular)
-     ("displaymath")
-     ("equation")
-     ("equation*")
-     ("picture")
-     ("tabbing")
-     ("circuitikz")
-     ("tikzpicture")))
- '(Linum-format "%7i ")
- '(TeX-command-list
-   '(("TeX" "%(PDF)%(tex) %(file-line-error) %`%(extraopts) %S%(PDFout)%(mode)%' %t" TeX-run-TeX nil
-      (plain-tex-mode texinfo-mode ams-tex-mode)
-      :help "Run plain TeX")
-     ("LaTeX" "%`%l%(mode)%' %T" TeX-run-TeX nil
-      (latex-mode doctex-mode)
-      :help "Run LaTeX")
-     ("Makeinfo" "makeinfo %(extraopts) %t" TeX-run-compile nil
-      (texinfo-mode)
-      :help "Run Makeinfo with Info output")
-     ("Makeinfo HTML" "makeinfo %(extraopts) --html %t" TeX-run-compile nil
-      (texinfo-mode)
-      :help "Run Makeinfo with HTML output")
-     ("AmSTeX" "amstex %(PDFout) %`%(extraopts) %S%(mode)%' %t" TeX-run-TeX nil
-      (ams-tex-mode)
-      :help "Run AMSTeX")
-     ("ConTeXt" "%(cntxcom) --once --texutil %(extraopts) %(execopts)%t" TeX-run-TeX nil
-      (context-mode)
-      :help "Run ConTeXt once")
-     ("ConTeXt Full" "%(cntxcom) %(extraopts) %(execopts)%t" TeX-run-TeX nil
-      (context-mode)
-      :help "Run ConTeXt until completion")
-     ("BibTeX" "bibtex %s" TeX-run-BibTeX nil
-      (plain-tex-mode latex-mode doctex-mode context-mode texinfo-mode ams-tex-mode)
-      :help "Run BibTeX")
-     ("Biber" "biber %s" TeX-run-Biber nil
-      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
-      :help "Run Biber")
-     ("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer")
-     ("Print" "%p" TeX-run-command t t :help "Print the file")
-     ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command)
-     ("File" "%(o?)dvips %d -o %f " TeX-run-dvips t
-      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
-      :help "Generate PostScript file")
-     ("Dvips" "%(o?)dvips %d -o %f " TeX-run-dvips nil
-      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
-      :help "Convert DVI file to PostScript")
-     ("Dvipdfmx" "dvipdfmx %d" TeX-run-dvipdfmx nil
-      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
-      :help "Convert DVI file to PDF with dvipdfmx")
-     ("Ps2pdf" "ps2pdf %f" TeX-run-ps2pdf nil
-      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
-      :help "Convert PostScript file to PDF")
-     ("Glossaries" "makeglossaries %s" TeX-run-command nil
-      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
-      :help "Run makeglossaries to create glossary
-     file")
-     ("Index" "makeindex %s" TeX-run-index nil
-      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
-      :help "Run makeindex to create index file")
-     ("upMendex" "upmendex %s" TeX-run-index t
-      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
-      :help "Run upmendex to create index file")
-     ("Xindy" "texindy %s" TeX-run-command nil
-      (plain-tex-mode latex-mode doctex-mode texinfo-mode ams-tex-mode)
-      :help "Run xindy to create index file")
-     ("Check" "lacheck %s" TeX-run-compile nil
-      (latex-mode)
-      :help "Check LaTeX file for correctness")
-     ("ChkTeX" "chktex -v6 %s" TeX-run-compile nil
-      (latex-mode)
-      :help "Check LaTeX file for common mistakes")
-     ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document")
-     ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files")
-     ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files")
-     ("Other" "" TeX-run-command t t :help "Run an arbitrary command")))
- '(TeX-view-program-selection '((output-html "xdg-open")))
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(auth-source-save-behavior nil)
- '(auto-fill-mode t)
- '(beacon-color "#cc6666")
- '(cdlatex-math-modify-alist nil)
- '(cdlatex-math-modify-prefix "'")
- '(company-quickhelp-color-background "#4F4F4F")
- '(company-quickhelp-color-foreground "#DCDCCC")
- '(cua-enable-cua-keys nil)
- '(cua-mode t nil (cua-base))
- '(cua-normal-cursor-color "black")
- '(cursor-type 'bar)
- '(custom-enabled-themes '(srcery))
- '(custom-safe-themes
-   '("8bb9cbdc1fe6f4451b1e1361113cd6e24b784f82f33a0f4d6c5f8991aa32b28c" "16ab866312f1bd47d1304b303145f339eac46bbc8d655c9bfa423b957aa23cc9" "1f6039038366e50129643d6a0dc67d1c34c70cdbe998e8c30dc4c6889ea7e3db" "efbd20364f292a1199d291dfaff28cc1fd89fff5b38e314bd7e40121f5c465b4" "bbbd58d82a60c4913b00db1ecab1938ddcb0378225a1a3e54d840f36370d86c6" "2d835b43e2614762893dc40cbf220482d617d3d4e2c35f7100ca697f1a388a0e" "a77ced882e25028e994d168a612c763a4feb8c4ab67c5ff48688654d0264370c" "0dd2666921bd4c651c7f8a724b3416e95228a13fca1aa27dc0022f4e023bf197" "b73a23e836b3122637563ad37ae8c7533121c2ac2c8f7c87b381dd7322714cd0" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "d707aeee54d91b181a267a473862ebf0e20502c9bca8bef078b0a226b9581dd2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" default))
- '(doc-view-continuous t)
- '(electric-indent-mode nil)
- '(electric-pair-mode t)
- '(fci-rule-character-color "#202020")
- '(fci-rule-color "#383838")
- '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
- '(frame-background-mode 'dark)
- '(frame-title-format "%b" t)
- '(fringe-mode 4 nil (fringe))
- '(git-commit-summary-max-length 3000)
- '(global-pretty-mode t)
- '(global-visual-line-mode t)
- '(gnus-delay-default-hour 7)
- '(helm-completion-style 'emacs)
- '(inhibit-startup-screen t)
- '(main-line-color1 "#1E1E1E")
- '(main-line-color2 "#111111")
- '(main-line-separator-style 'chamfer)
- '(major-mode 'org-mode)
- '(mark-even-if-inactive nil)
- '(message-send-mail-function 'sendmail-query-once)
- '(notmuch-saved-searches
-   '((:name "inbox" :query "tag:inbox" :key "i")
-     (:name "flagged" :query "tag:flagged" :key "f")
-     (:name "sent" :query "tag:sent" :key "t")
-     (:name "drafts" :query "tag:draft" :key "d")
-     (:name "all mail" :query "*" :key "a")
-     (:name "unread" :query "tag:unread")))
- '(notmuch-search-line-faces
-   '(("unread" :foreground "#aeee00")
-     ("flagged" :foreground "#0a9dff")
-     ("deleted" :foreground "#ff2c4b" :bold t)))
- '(nrepl-message-colors
-   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
- '(org-agenda-files
-   '("~/notes/jot" "~/notes/uni/rsch/record/notes.org" "~/notes/org/todolist.org" "~/notes/uni/rsch/current_projects/.projects/projects"))
- '(org-confirm-babel-evaluate nil)
- '(org-format-latex-header
-   "\\documentclass{article}
-\\usepackage[usenames]{color}
-[PACKAGES]
-[DEFAULT-PACKAGES]
-\\pagestyle{empty}             % do not remove
-% The settings below are copied from fullpage.sty
-\\setlength{\\textwidth}{\\paperwidth}
-\\addtolength{\\textwidth}{-3cm}
-\\setlength{\\oddsidemargin}{1.5cm}
-\\addtolength{\\oddsidemargin}{-2.54cm}
-\\setlength{\\evensidemargin}{\\oddsidemargin}
-\\setlength{\\textheight}{\\paperheight}
-\\addtolength{\\textheight}{-\\headheight}
-\\addtolength{\\textheight}{-\\headsep}
-\\addtolength{\\textheight}{-\\footskip}
-\\addtolength{\\textheight}{-3cm}
-\\setlength{\\topmargin}{1.5cm}
-\\addtolength{\\topmargin}{-2.54cm}")
- '(org-format-latex-options
-   '(:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
-                 ("begin" "$1" "$" "$$" "\\(" "\\[")))
- '(org-highlight-latex-and-related '(latex entities))
- '(org-latex-prefer-user-labels t)
- '(org-link-frame-setup
-   '((vm . vm-visit-folder-other-frame)
-     (vm-imap . vm-visit-imap-folder-other-frame)
-     (gnus . org-gnus-no-new-news)
-     (file . find-file)
-     (wl . wl-other-frame)))
- '(org-list-demote-modify-bullet t)
- '(org-preview-latex-default-process 'imagemagick)
- '(org-preview-latex-image-directory ".ltximg/")
- '(org-ref-default-citation-link "cite")
- '(org-ref-insert-cite-key "C-c 0")
- '(org-support-shift-select t)
- '(package-selected-packages
-   '(haskell-mode haskell sclang sclang-snippets sclang-extensions egg-timer gnu-apl-mode citeproc-org counsel ivy centered-window srcery-theme org-tree-slide magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
- '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
- '(powerline-color1 "#1E1E1E")
- '(powerline-color2 "#111111")
- '(python-shell-interpreter "/usr/bin/python3")
- '(python-shell-virtualenv-root "/usr/bin/python3")
- '(send-mail-function 'mailclient-send-it)
- '(show-paren-mode t)
- '(smartparens-global-mode t)
- '(suggest-key-bindings nil)
- '(tab-width 3)
- '(texmathp-tex-commands '(("align" env-on)))
- '(tool-bar-mode nil)
- '(truncate-partial-width-windows 0)
- '(vc-annotate-background "#2B2B2B")
- '(vc-annotate-color-map
-   '((20 . "#BC8383")
-     (40 . "#CC9393")
-     (60 . "#DFAF8F")
-     (80 . "#D0BF8F")
-     (100 . "#E0CF9F")
-     (120 . "#F0DFAF")
-     (140 . "#5F7F5F")
-     (160 . "#7F9F7F")
-     (180 . "#8FB28F")
-     (200 . "#9FC59F")
-     (220 . "#AFD8AF")
-     (240 . "#BFEBBF")
-     (260 . "#93E0E3")
-     (280 . "#6CA0A3")
-     (300 . "#7CB8BB")
-     (320 . "#8CD0D3")
-     (340 . "#94BFF3")
-     (360 . "#DC8CC3")))
- '(vc-annotate-very-old-color "#DC8CC3")
- '(window-divider-mode nil))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "#1C1B19" :foreground "#FCE8C3" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 165 :width normal :foundry "GOOG" :family "Noto Sans Mono")))))
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#1C1B19" :foreground "#FCE8C3" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 165 :width normal :foundry "GOOG" :family "Noto Mono"))))
+ '(fringe ((t (:background "#1C1B19")))))
 
 
 ;; ----- PACKAGE CONFIG STARTS HERE -----
@@ -508,8 +514,9 @@ With argument ARG, do this that many times."
                                (latex . t)
                                (python . t)
                                (shell . t)
+                               (axiom . t)
                                (makefile . t)
-                               (arduino . t)
+                               (julia . t)
                                (rust . t)))
 
   (setq org-babel-python-command "python3")
@@ -532,6 +539,9 @@ With argument ARG, do this that many times."
   ;;       '("%latex -interaction nonstopmode -output-directory %o %f" 
   ;;         "%latex -interaction nonstopmode -output-directory %o %f" 
   ;;         "%latex -interaction nonstopmode -output-directory %o %f"))
+  
+  ;; use minted for all the code
+  ;;(setq org-latex-listings 'minted)
 
   ;; always prefer my ref:x labels over something else
   ;; (setq org-latex-prefer-user-labels t)
@@ -642,7 +652,7 @@ to a unique value for this to work properly."
 
   ;; snippets for inconvenient stuff to type
   (yas-define-snippets 'latex-mode '(
-                                     ("si" "\\SI{$1}{$2}" "si-units")
+                                     ;;("si" "\\SI{$1}{$2}" "si-units")
                                      ("cl" "\\documentclass[12pt]{report}
 \\include{../preamble}
 \\usepackage{cleveref}
@@ -764,7 +774,12 @@ $0
   ;;(require 'latex-auto-activating-snippets)
   (aas-set-snippets 'org-mode
                     ;; expand unconditionally
-                    "-[" "- [ ] "))
+                    "-[" "- [ ] "
+                    "\\si" " \\SI{}{} ")
+  (aas-set-snippets 'latex-mode
+                    ;; expand unconditionally
+                    "\\si" " \\SI{}{} ")
+)
 
 ;; use paired delimiters that auto-fill the right-hand side
 ;; setting this to t makes it a global minor-mode
@@ -854,32 +869,42 @@ $0
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-skip-deadline-if-done t)
 
-  ;; set up org-super-agenda
+  ;; set up org-super-agenda categories.
+  ;; See 
+  ;;https://github.com/alphapapa/org-super-agenda/blob/master/examples.org#emacs-and-org-mode-to-do-items
+  ;; for more examples of how to set up categories.
   (setq org-agenda-custom-commands
         '(("c" "Super Agenda" agenda
            (org-super-agenda-mode)
            ((org-super-agenda-groups
              '(
-               
                (:name "Important"
-                      :priority "A")
-               (:name "Job"
-                      :tag "job")
-               (:name "Research"
-                      :tag "rsch") 
+                      :priority "A"
+                      :order 1)
                (:name "Next task"
-                      :todo "NEXT")
-               (:name "Check this over"
-                      :todo "CHECK")
-               (:name "Waiting"
-                      :todo "WAITING")
+                      :todo "NEXT"
+                      :order 2)
+               (:name "Scheduled for today"
+                      :date today
+                      :order 3)
                (:name "Homework"
-                      :tag "classes")
-
+                      :tag "classes"
+                      :order 4)
+               (:name "Research"
+                      :tag "rsch"
+                      :order 5) 
+               (:name "Job"
+                      :tag "job"
+                      :order 6)
+               (:name "Meetings"
+                      :tag "meetings"
+                      :order 7)
+               (:name "Waiting"
+                      :todo "WAITING"
+                      :order 8)
                )))
            (org-agenda nil "a"))))
-
-  :config)
+  )
 ;; display a whole month's worth of tasks by default
 (setq org-agenda-span 'month)
 
@@ -903,6 +928,18 @@ $0
 ;; add support for notmuch: email client
 (autoload 'notmuch "notmuch" "notmuch mail" t)
 (bind-key "C-n" 'notmuch)
+
+;; set the default hour at which I want to send delayed emails.
+;; 7 => 07:00, which is 7 am.
+(setq gnus-delay-default-hour 7)
+;; turn on delayed messages
+(gnus-delay-initialize)
+;; remove date until sent
+(setq message-draft-headers '(References From))
+; Demon to send queued email every other minute:
+(gnus-demon-add-handler 'gnus-delay-send-queue 1 nil)
+(gnus-demon-init)
+
 ;; show the newest mail first
 (setq-default notmuch-search-oldest-first nil)
 ;; use smtpmail to send everything, so we get a password prompt
@@ -915,6 +952,14 @@ $0
 (setq smtpmail-smtp-service 587)
 (setq smtpmail-debug-info t)
 (setq smtpmail-debug-verbose t)
+
+;; change keybinds for saved searches
+(setq notmuch-saved-searches '((:name "unread" :query "tag:unread" :key "i")
+                               (:name "flagged" :query "tag:flagged" :key "f")
+                               (:name "sent" :query "tag:sent" :key "t")
+                               (:name "drafts" :query "tag:draft" :key "d")
+                               (:name "all mail" :query "*" :key "a"))
+      )
 
 ;; use mu4e-compose-mode so I can write emails using org-mode
 ;;(add-hook 'notmuch-mua-new-mail 'mu4e-compose)
@@ -1209,6 +1254,7 @@ $0
 
 ;; and change the message accordingly. A nice inspirational quote:
 (setq initial-scratch-message "# \"Work less. Think more.\"
+# \"You write like an academic. Some of my graduate students can't even write like that.\" - comment on my work when we were agonizing over revisions to my first review paper on electrospinning in 2021.
 
 ")
 
@@ -1231,7 +1277,7 @@ $0
 ;; visual construction of regular expressions, mostly for searching
 (use-package visual-regexp
   :config
-  (bind-key "M-%" 'vr/query-replace)
+  (bind-key "M-%" 'vr/replace)
   (bind-key "C-M-%" 'vr/query-replace)
 )
 
@@ -1788,7 +1834,7 @@ than current time and is not currently being edited."
   (ivy-mode 1) ;; enable ivy mode everywhere.
   (bind-key "M-x" #'counsel-M-x)
 
-  (bind-key "C-s" 'swiper-isearch)
+  ;(bind-key "C-s" 'swiper-isearch)
   (bind-key "M-x" 'counsel-M-x)
   (bind-key "C-x C-f" 'counsel-find-file)
   (bind-key "M-y" 'counsel-yank-pop)
@@ -1799,6 +1845,7 @@ than current time and is not currently being edited."
   (bind-key "<f2> u" 'counsel-unicode-char)
   (bind-key "<f2> j" 'counsel-set-variable)
   (bind-key "C-x b" 'ivy-switch-buffer)
+  (bind-key "C-x C-b" 'ivy-switch-buffer)
   (bind-key "C-c v" 'ivy-push-view)
   (bind-key "C-c V" 'ivy-pop-view)
 
@@ -1827,7 +1874,41 @@ than current time and is not currently being edited."
 ;; This is *not* the same as a pomodoro timer.
 (use-package egg-timer)
 
-;; tidal for live coding music
-(use-package haskell-mode)
-(use-package tidal
-  :load-path "~/.emacs.d/lisp/tidal.el")
+;; use julia in org-mode!
+(use-package julia-mode
+  :config 
+  (setq inferior-julia-program-name "/usr/bin/julia")
+)
+
+;; emacs diary to handle your life events
+(setq diary-file "~/notes/diary")
+;; make the diary display fancier
+(setq view-diary-entries-initially t
+       mark-diary-entries-in-calendar t
+       number-of-diary-entries 7)
+ (add-hook 'diary-display-hook 'fancy-diary-display)
+ (add-hook 'today-visible-calendar-hook 'calendar-mark-today)
+;; set the date form to be ISO
+(setq diary-date-forms '((month "[-/]" day "[^-/0-9]")
+                         (year "[-/]" month "[-/]" day "[^0-9]")
+                         (monthname " *" day "[^-0-9]")
+                         (year " *" monthname " *" day "[^0-9]")
+                         (dayname "\\W")))
+
+;; set language-specific default headers for org-mode
+;; (setq org-babel-default-header-args:axiom 
+;;       '((:results . "value")
+;;        '(:noweb . "yes")
+;;        '(:eval . "never-export")
+;;        )
+
+;; )
+
+
+;; run fricas in emacs
+(defun fricas-run ()
+  "Run FriCAS in the current BUFFER."
+  (message "Starting FriCAS...")
+  (start-process-shell-command "fricas" (current-buffer)
+                               fricas-run-command
+                               "-noclef" "2>/dev/null"))

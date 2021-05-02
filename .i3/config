@@ -19,7 +19,7 @@ set $mod Mod4
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 16
+font pango:DejaVu Sans Mono 17
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -32,7 +32,7 @@ font pango:DejaVu Sans Mono 16
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -209,7 +209,7 @@ statusline #ffffff
 separator #666666
 # 4c7899
 
-focused_workspace  #2BFF00 #2BFF00 #000000
+focused_workspace  #BB0000 #BB0000 #000000
 active_workspace   #333333 #5f676a #ffffff
 inactive_workspace #333333 #222222 #888888
 urgent_workspace   #2f343a #900000 #ffffff
@@ -232,18 +232,19 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 # client.background       #ffffff
 
 # set background image
-exec feh --bg-fill ~/pics/ira_glass_the_gap.jpg
+exec feh --bg-fill ~/pics/ira_glass_the_gap_dark.jpg
 
 # keybindings for specific programs
 bindsym $mod+m exec emacsclient --create-frame
-bindsym $mod+i exec firefox 
+bindsym $mod+i exec vimb 
 bindsym $mod+z exec zathura
 bindsym $mod+t exec torbrowser-launcher
 bindsym $mod+p exec thunar
 
 # keyboard layout
 # exec xkbcomp -I$HOME/.xkb ~/.xkb/map $DISPLAY
-exec setxkbmap -model pc105 -layout pl -option kpdl:dot -option ctrl:nocaps -option ctrl:swap_lalt_lctl -option shift:both_capslock -option compose:menu 
+# exec setxkbmap -model pc105 -layout pl -option kpdl:dot -option ctrl:nocaps -option ctrl:swap_lalt_lctl -option shift:both_capslock -option compose:menu 
+exec setxkbmap -model pc105 -layout pl,us -option grp:shifts_toggle
 
 # startup programs 
 exec emacs --daemon
@@ -264,7 +265,7 @@ bindsym $mod+Shift+e mode "exit: [l]ogout, [r]eboot, [s]hutdown"
 
 # run kitty right away, in case anything breaks
 # i3-msg 'workspace 1 terminal: exec kitty'
-exec kitty
+exec alacritty
 
 # run cadence right away for audio.
 # then we don't have to keep configuring it all the time.
