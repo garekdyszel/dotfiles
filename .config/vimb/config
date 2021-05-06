@@ -7,3 +7,12 @@ set download-path=~/dls/
 # default search engine shortcut
 shortcut-add se=https://searx.bar/?q=$0
 shortcut-default se
+
+# never accept cookies, even if they were freshly baked
+set cookie-accept=never
+
+# prefer dark mode
+set dark-mode=on
+
+# never execute javascript, ever!
+set scripts=false

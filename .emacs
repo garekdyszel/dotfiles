@@ -175,7 +175,7 @@
      (:name "sent" :query "tag:sent" :key "t")
      (:name "drafts" :query "tag:draft" :key "d")
      (:name "all mail" :query "*" :key "a")
-     (:name "unread" :query "tag:unread" :key "u")) t)
+     (:name "unread" :query "tag:unread" :key "u")))
  '(notmuch-search-line-faces
    '(("unread" :foreground "#aeee00")
      ("flagged" :foreground "#0a9dff")
@@ -1894,21 +1894,3 @@ than current time and is not currently being edited."
                          (monthname " *" day "[^-0-9]")
                          (year " *" monthname " *" day "[^0-9]")
                          (dayname "\\W")))
-
-;; set language-specific default headers for org-mode
-;; (setq org-babel-default-header-args:axiom 
-;;       '((:results . "value")
-;;        '(:noweb . "yes")
-;;        '(:eval . "never-export")
-;;        )
-
-;; )
-
-
-;; run fricas in emacs
-(defun fricas-run ()
-  "Run FriCAS in the current BUFFER."
-  (message "Starting FriCAS...")
-  (start-process-shell-command "fricas" (current-buffer)
-                               fricas-run-command
-                               "-noclef" "2>/dev/null"))
