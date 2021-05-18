@@ -244,7 +244,7 @@ bindsym $mod+p exec thunar
 # keyboard layout
 # exec xkbcomp -I$HOME/.xkb ~/.xkb/map $DISPLAY
 # exec setxkbmap -model pc105 -layout pl -option kpdl:dot -option ctrl:nocaps -option ctrl:swap_lalt_lctl -option shift:both_capslock -option compose:menu 
-exec setxkbmap -model pc105 -layout pl,us -option grp:shifts_toggle
+exec setxkbmap -model pc105 -layout pl -option lv3:ralt_switch -option kdpl:dot 
 
 # startup programs 
 exec emacs --daemon
@@ -265,7 +265,8 @@ bindsym $mod+Shift+e mode "exit: [l]ogout, [r]eboot, [s]hutdown"
 
 # run kitty right away, in case anything breaks
 # i3-msg 'workspace 1 terminal: exec kitty'
-exec alacritty
+exec alacritty 
+#-e remind -b1 -c1 -@2,2 ~/notes/calendar.rem
 
 # run cadence right away for audio.
 # then we don't have to keep configuring it all the time.

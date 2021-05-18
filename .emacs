@@ -148,6 +148,7 @@
  '(custom-enabled-themes '(kaolin-eclipse))
  '(custom-safe-themes
    '("5a00018936fa1df1cd9d54bee02c8a64eafac941453ab48394e2ec2c498b834a" "249e100de137f516d56bcf2e98c1e3f9e1e8a6dce50726c974fa6838fbfcec6b" "06ed754b259cb54c30c658502f843937ff19f8b53597ac28577ec33bb084fa52" "8f20a5dba51c3032066f9bdd636211c22cd858cbb439bbe8e042016f3d215142" "a131602c676b904a5509fff82649a639061bf948a5205327e0f5d1559e04f5ed" "c95813797eb70f520f9245b349ff087600e2bd211a681c7a5602d039c91a6428" "2ce76d65a813fae8cfee5c207f46f2a256bac69dacbb096051a7a8651aa252b0" "11cc65061e0a5410d6489af42f1d0f0478dbd181a9660f81a692ddc5f948bf34" "d9a28a009cda74d1d53b1fbd050f31af7a1a105aa2d53738e9aa2515908cac4c" "f00a605fb19cb258ad7e0d99c007f226f24d767d01bf31f3828ce6688cbdeb22" "6128465c3d56c2630732d98a3d1c2438c76a2f296f3c795ebda534d62bb8a0e3" "d516f1e3e5504c26b1123caa311476dc66d26d379539d12f9f4ed51f10629df3" "733ef3e3ffcca378df65a5b28db91bf1eeb37b04d769eda28c85980a6df5fa37" "e8567ee21a39c68dbf20e40d29a0f6c1c05681935a41e206f142ab83126153ca" "3c7a784b90f7abebb213869a21e84da462c26a1fda7e5bd0ffebf6ba12dbd041" "d14f3df28603e9517eb8fb7518b662d653b25b26e83bd8e129acea042b774298" "4eb6fa2ee436e943b168a0cd8eab11afc0752aebb5d974bba2b2ddc8910fca8f" "6bdcff29f32f85a2d99f48377d6bfa362768e86189656f63adbf715ac5c1340b" "78c4238956c3000f977300c8a079a3a8a8d4d9fee2e68bad91123b58a4aa8588" "83e0376b5df8d6a3fbdfffb9fb0e8cf41a11799d9471293a810deb7586c131e6" "7661b762556018a44a29477b84757994d8386d6edee909409fabe0631952dad9" "6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" "716f0a8a9370912d9e6659948c2cb139c164b57ef5fda0f337f0f77d47fe9073" "8bb9cbdc1fe6f4451b1e1361113cd6e24b784f82f33a0f4d6c5f8991aa32b28c" "16ab866312f1bd47d1304b303145f339eac46bbc8d655c9bfa423b957aa23cc9" "1f6039038366e50129643d6a0dc67d1c34c70cdbe998e8c30dc4c6889ea7e3db" "efbd20364f292a1199d291dfaff28cc1fd89fff5b38e314bd7e40121f5c465b4" "bbbd58d82a60c4913b00db1ecab1938ddcb0378225a1a3e54d840f36370d86c6" "2d835b43e2614762893dc40cbf220482d617d3d4e2c35f7100ca697f1a388a0e" "a77ced882e25028e994d168a612c763a4feb8c4ab67c5ff48688654d0264370c" "0dd2666921bd4c651c7f8a724b3416e95228a13fca1aa27dc0022f4e023bf197" "b73a23e836b3122637563ad37ae8c7533121c2ac2c8f7c87b381dd7322714cd0" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "d707aeee54d91b181a267a473862ebf0e20502c9bca8bef078b0a226b9581dd2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" default))
+ '(default-input-method "TeX")
  '(doc-view-continuous t)
  '(electric-indent-mode nil)
  '(electric-pair-mode t)
@@ -175,7 +176,7 @@
      (:name "sent" :query "tag:sent" :key "t")
      (:name "drafts" :query "tag:draft" :key "d")
      (:name "all mail" :query "*" :key "a")
-     (:name "unread" :query "tag:unread" :key "u")))
+     (:name "unread" :query "tag:unread" :key "u")) t)
  '(notmuch-search-line-faces
    '(("unread" :foreground "#aeee00")
      ("flagged" :foreground "#0a9dff")
@@ -223,7 +224,7 @@
  '(org-ref-insert-cite-key "C-c 0")
  '(org-support-shift-select t)
  '(package-selected-packages
-   '(kaolin-themes gruvbox-theme melancholy-theme axiom-mode julia org-caldav haskell-mode haskell sclang sclang-snippets sclang-extensions egg-timer gnu-apl-mode citeproc-org counsel ivy centered-window srcery-theme org-tree-slide magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(bbdb proof-general kaolin-themes gruvbox-theme melancholy-theme axiom-mode julia org-caldav haskell-mode haskell sclang sclang-snippets sclang-extensions egg-timer gnu-apl-mode citeproc-org counsel ivy centered-window srcery-theme org-tree-slide magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -448,6 +449,22 @@ With argument ARG, do this that many times."
          ;("\C-cC-c" . org-capture)
          )
   :config
+  ;; enable line breaks after every heading (use this function to do that)
+  ;; from
+  ;; https://emacs.stackexchange.com/questions/30575/adding-latex-newpage-before-a-heading
+  (defun org/get-headline-string-element  (headline backend info)
+    (let ((prop-point (next-property-change 0 headline)))
+      (if prop-point (plist-get (text-properties-at prop-point headline) :parent))))
+
+  (defun org/ensure-latex-clearpage (headline backend info)
+    (when (org-export-derived-backend-p backend 'latex)
+      (let ((elmnt (org/get-headline-string-element headline backend info)))
+        (when (member "newpage" (org-element-property :tags elmnt))
+          (concat "\\newpage\n" headline)))))
+
+  (add-to-list 'org-export-filter-headline-functions
+               'org/ensure-latex-clearpage)
+  
   ;; put org-mode tags directly after headings.
   ;; i.e., do not align them to the right.
   (setq org-tags-column 0)
@@ -516,7 +533,7 @@ With argument ARG, do this that many times."
                                (shell . t)
                                (axiom . t)
                                (makefile . t)
-                               (julia . t)
+                               ;;(julia . t)
                                (rust . t)))
 
   (setq org-babel-python-command "python3")
@@ -775,10 +792,10 @@ $0
   (aas-set-snippets 'org-mode
                     ;; expand unconditionally
                     "-[" "- [ ] "
-                    "\\si" " \\SI{}{} ")
+                    )
   (aas-set-snippets 'latex-mode
                     ;; expand unconditionally
-                    "\\si" " \\SI{}{} ")
+                    )
 )
 
 ;; use paired delimiters that auto-fill the right-hand side
@@ -945,7 +962,21 @@ $0
 ;; use smtpmail to send everything, so we get a password prompt
 (setq message-send-mail-function 'smtpmail-send-it)
 ;; smtpmail settings
-(setq smtpmail-smtp-user "gjdyszel@mtu.edu")
+(defun smtp-user (user)
+  "Choose the smtp user with which to send mail. Allowed arguments include:
+   gmail: garekdyszel@gmail.com
+   mtu:   gjdyszel@mtu.edu" 
+  (interactive "sChoose user: ")
+  (when (equal user "gmail")
+    (message "Setting email user to gmail.")
+    (setq smtpmail-smtp-user "garekdyszel@gmail.com")
+    )
+  (when (equal user "mtu")
+    (message "Setting email user to mtu.")
+    (setq smtpmail-smtp-user "gjdyszel@mtu.edu")
+    )
+)                       ;
+
 (setq smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg"))
 (setq smtpmail-default-smtp-server "smtp.gmail.com")
 (setq smtpmail-smtp-server "smtp.gmail.com")
@@ -1253,8 +1284,10 @@ $0
 (setq initial-major-mode 'org-mode)
 
 ;; and change the message accordingly. A nice inspirational quote:
-(setq initial-scratch-message "# \"Work less. Think more.\"
-# \"You write like an academic. Some of my graduate students can't even write like that.\" - comment on my work when we were agonizing over revisions to my first review paper on electrospinning in 2021.
+(setq initial-scratch-message "# \"Work less. Think more.\" - me, 2021, when I got too frustrated about being a workaholic. I'm not a workaholic anymore thanks to this quote.
+# \"You write like an academic. Some of my graduate students can't even write like that.\" - DG, comment on my work when we were agonizing over revisions to my first review paper on electrospinning in 2021.
+# \"Go to meetings with an agenda. Otherwise, you're letting the other person control the conversation. If something's not getting anywhere, stay on top of it with an agenda.\" - SR, research advisor, summer 2021.
+
 
 ")
 
@@ -1810,7 +1843,7 @@ than current time and is not currently being edited."
 
 ;; term-keys. For using modifier keys in TTY the same way you would on X11.
 ;; No extra configuration needed.
-(use-package term-keys)
+;;(use-package term-keys)
 
 ;; presenting in org mode
 (use-package org-tree-slide
@@ -1894,3 +1927,16 @@ than current time and is not currently being edited."
                          (monthname " *" day "[^-0-9]")
                          (year " *" monthname " *" day "[^0-9]")
                          (dayname "\\W")))
+
+;; Proof general for using Coq (pronounced "coke")
+(use-package proof-general
+  :config
+  (setq proof-electric-terminator-enable 't)
+  )
+
+;; Remind major mode for handling events
+(use-package remind-conf-mode
+  :load-path "~/.emacs.d/lisp/remind-conf-mode.el")
+
+;; BBDB for handling contacts
+(use-package bbdb)

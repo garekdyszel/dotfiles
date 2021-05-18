@@ -66,3 +66,7 @@ PRINTER="EPSON-WF-4720-Series"
 
 # arranger, for automatically organizing files into predefined folder types
 alias arranger="~/.bin/arranger"
+alias kal="remind -b1 -c1 -@2,2 ~/notes/calendar.rem"
+
+# custom prompt
+export PS1="$USER \$ "
