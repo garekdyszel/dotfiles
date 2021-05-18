@@ -1285,8 +1285,8 @@ $0
 
 ;; and change the message accordingly. A nice inspirational quote:
 (setq initial-scratch-message "# \"Work less. Think more.\" - me, 2021, when I got too frustrated about being a workaholic. I'm not a workaholic anymore thanks to this quote.
-# \"You write like an academic. Some of my graduate students can't even write like that.\" - DG, comment on my work when we were agonizing over revisions to my first review paper on electrospinning in 2021.
-# \"Go to meetings with an agenda. Otherwise, you're letting the other person control the conversation. If something's not getting anywhere, stay on top of it with an agenda.\" - SR, research advisor, summer 2021.
+# \"You write like an academic. Some of my graduate students can't even write like that.\" - comment on my work when we were agonizing over revisions to my first review paper on electrospinning in 2021.
+# \"Go to meetings with an agenda. Otherwise, you're letting the other person control the conversation. If something's not getting anywhere, stay on top of it with an agenda.\" - research advisor, summer 2021.
 
 
 ")
