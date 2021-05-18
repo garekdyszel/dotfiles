@@ -1284,10 +1284,8 @@ $0
 (setq initial-major-mode 'org-mode)
 
 ;; and change the message accordingly. A nice inspirational quote:
-(setq initial-scratch-message "# \"Work less. Think more.\" - me, 2021, when I got too frustrated about being a workaholic. I'm not a workaholic anymore thanks to this quote.
-# \"You write like an academic. Some of my graduate students can't even write like that.\" - research advisor 2 at MTU, comment on my work when we were agonizing over revisions to my first review paper on electrospinning in 2021.
-# \"Go to meetings with an agenda. Otherwise, you're letting the other person control the conversation. If something's not getting anywhere, stay on top of it with an agenda.\" - research advisor 1 at MTU, summer 2021.
-# \"Ok. Your strategy of working is good. Continue to interact with me as you need it. I like your approach. You have a plan before communicating with me.\" - nice comment from an email exchange with a prof I had a summer class with at MTU, 2021-05-18.
+(setq initial-scratch-message "# \"Work less. Think more.\"
+
 
 ")
 
