@@ -449,6 +449,9 @@ With argument ARG, do this that many times."
          ;("\C-cC-c" . org-capture)
          )
   :config
+  ;; remove tags from exports
+  (setq org-export-with-tags nil)
+
   ;; enable line breaks after every heading (use this function to do that)
   ;; from
   ;; https://emacs.stackexchange.com/questions/30575/adding-latex-newpage-before-a-heading
@@ -1863,6 +1866,7 @@ than current time and is not currently being edited."
 (use-package counsel
   :config
   (ivy-mode 1) ;; enable ivy mode everywhere.
+  ;; --- keybindings ---
   (bind-key "M-x" #'counsel-M-x)
 
   ;(bind-key "C-s" 'swiper-isearch)
@@ -1881,6 +1885,15 @@ than current time and is not currently being edited."
   (bind-key "C-c V" 'ivy-pop-view)
 
   (bind-key "C-f r" 'counsel-recentf)
+  ;; --- end keybindings ---
+
+  ;; don't open dired if you hit enter while browsing files.
+  ;; This switches the keybindings for ivy-done and ivy-alt-done.
+  (with-eval-after-load 'counsel
+    (let ((done (where-is-internal #'ivy-done     ivy-minibuffer-map t))
+          (alt  (where-is-internal #'ivy-alt-done ivy-minibuffer-map t)))
+      (define-key ivy-minibuffer-map done #'ivy-alt-done)
+      (define-key ivy-minibuffer-map alt #'ivy-done)))
 )
 
 ;; citeproc-org for easier citation creation using CSL

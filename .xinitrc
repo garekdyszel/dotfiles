@@ -65,4 +65,4 @@ exec i3
 GTK_THEME=Breeze:dark
 
 # remove the mouse cursor when not using it
-unclutter &
+#unclutter &

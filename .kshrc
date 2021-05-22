@@ -70,3 +70,6 @@ alias kal="remind -b1 -c1 -@2,2 ~/notes/calendar.rem"
 
 # custom prompt
 export PS1="$USER \$ "
+
+# quickly mount android phone for scans from the printer
+alias android="aft-mtp-mount ~/mnt"
