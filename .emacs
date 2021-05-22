@@ -1289,6 +1289,9 @@ $0
 ;; and change the message accordingly. A nice inspirational quote:
 (setq initial-scratch-message "# \"Work less. Think more.\"
 
+* What I'm doing right now
+- [ ] 
+
 
 ")
 
