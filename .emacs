@@ -232,7 +232,6 @@
  '(python-shell-virtualenv-root "/usr/bin/python3")
  '(send-mail-function 'mailclient-send-it)
  '(show-paren-mode t)
- '(smartparens-global-mode t)
  '(suggest-key-bindings nil)
  '(tab-width 3)
  '(texmathp-tex-commands '(("align" env-on)))
@@ -681,7 +680,14 @@ $0
 
 \\end{document}" "notes-class")
                                      ("se" "\\section{$1}" "section")
-                                     ("su" "\\subsection{$1}" "subsection")))
+                                     ("su" "\\subsection{$1}" "subsection")
+                                     ("\\left(" "\\left( $1 \\right)")))
+  ;; also now in org-mode
+  (yas-define-snippets 'org-mode '(
+                                   ("si" "\\SI{$1}{$2}" "si-units")
+                                   ("\\left(" "\\left( $1 \\right)" "lrparens")
+                                   ("\\left[" "\\left[ $1 \\right]" "lrbrackets")
+                                   ("\\left{" "\\left\\{ $1 \\right\\}" "lrbraces")))
   )
 
 ;; pre-packaged snippets for yasnippet
