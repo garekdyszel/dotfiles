@@ -176,7 +176,7 @@
      (:name "sent" :query "tag:sent" :key "t")
      (:name "drafts" :query "tag:draft" :key "d")
      (:name "all mail" :query "*" :key "a")
-     (:name "unread" :query "tag:unread" :key "u")) t)
+     (:name "unread" :query "tag:unread" :key "u")))
  '(notmuch-search-line-faces
    '(("unread" :foreground "#aeee00")
      ("flagged" :foreground "#0a9dff")
@@ -224,7 +224,7 @@
  '(org-ref-insert-cite-key "C-c 0")
  '(org-support-shift-select t)
  '(package-selected-packages
-   '(bbdb proof-general kaolin-themes gruvbox-theme melancholy-theme axiom-mode julia org-caldav haskell-mode haskell sclang sclang-snippets sclang-extensions egg-timer gnu-apl-mode citeproc-org counsel ivy centered-window srcery-theme org-tree-slide magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(ob-async maxima bbdb multiple-cursors messages-are-flowing proof-general kaolin-themes gruvbox-theme melancholy-theme axiom-mode julia org-caldav haskell-mode haskell sclang sclang-snippets sclang-extensions egg-timer gnu-apl-mode citeproc-org counsel ivy centered-window srcery-theme org-tree-slide magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -448,6 +448,9 @@ With argument ARG, do this that many times."
          ;("\C-cC-c" . org-capture)
          )
   :config
+  ;; wrap inline results in equation format
+  (setq org-babel-inline-result-wrap "\\boxed{$%s$}")
+
   ;; remove tags from exports
   (setq org-export-with-tags nil)
 
@@ -464,8 +467,9 @@ With argument ARG, do this that many times."
         (when (member "newpage" (org-element-property :tags elmnt))
           (concat "\\newpage\n" headline)))))
 
-  (add-to-list 'org-export-filter-headline-functions
-               'org/ensure-latex-clearpage)
+  ;; (add-to-list 
+  ;;  ;;'org-export-filter-headline-functions
+  ;;              'org/ensure-latex-clearpage)
   
   ;; put org-mode tags directly after headings.
   ;; i.e., do not align them to the right.
@@ -535,7 +539,7 @@ With argument ARG, do this that many times."
                                (shell . t)
                                (axiom . t)
                                (makefile . t)
-                               ;;(julia . t)
+                               (matlab . t)
                                (rust . t)))
 
   (setq org-babel-python-command "python3")
@@ -986,6 +990,12 @@ $0
     )
 )                       ;
 
+;; send all messages with format=flowed
+(use-package messages-are-flowing
+  :config
+  (add-hook 'message-mode-hook #'messages-are-flowing-use-and-mark-hard-newlines)
+  )
+
 (setq smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg"))
 (setq smtpmail-default-smtp-server "smtp.gmail.com")
 (setq smtpmail-smtp-server "smtp.gmail.com")
@@ -1293,9 +1303,9 @@ $0
 (setq initial-major-mode 'org-mode)
 
 ;; and change the message accordingly. A nice inspirational quote:
-(setq initial-scratch-message "# \"Work less. Think more.\"
+(setq initial-scratch-message "# \"Don\'t waste your own time. Life is finite.\"
 
-* What I'm doing right now
+* What I\'m doing right now
 - [ ] 
 
 
@@ -1960,3 +1970,15 @@ than current time and is not currently being edited."
 
 ;; BBDB for handling contacts
 (use-package bbdb)
+
+;; titlecase stuff
+(use-package titlecase
+  :load-path "~/.emacs.d/lisp/titlecase.el"
+  :config 
+  (add-to-list 'exec-path "/home/chips/.emacs.d"))
+;; use vr/mc-mark to titlecase multiple things at once in the same buffer.
+;; to do this, install multiple-cursors.
+(use-package multiple-cursors)
+
+;; ob-async for executing code while still typing
+(use-package ob-async)

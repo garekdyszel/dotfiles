@@ -1,4 +1,5 @@
-# add an alias for emacsclient so we don't have to remember how to connect to the Emacs daemon.  alias em="emacsclient -c -a ''"
+# add an alias for emacsclient so we don't have to remember how to connect to the Emacs daemon.  
+alias em="emacsclient -c -a ''"
 # set emacsclient as the default editor
 export EDITOR="emacsclient -nw"
 export VISUAL="emacsclient --create-frame"
@@ -21,7 +22,7 @@ export DEAL_II_DIR=/usr/include/deal.ii-9.2.0/
 # grab mail 
 # use mbsync -a if you want to sync all the mailboxes
 # use mu index if you want to tell mu where your emails are
-alias mail='mbsync mtu && notmuch new'
+alias mtu='mbsync mtu && notmuch new'
 alias gmail='mbsync gmail && notmuch new'
 
 # set environment variables
@@ -83,3 +84,7 @@ alias __D=`echo "\002"`     # left arrow = ^b = back a character
 alias __H=`echo "\001"`     # home = ^a = start of line
 alias __Y=`echo "\005"`     # end = ^e = end of line
 stty erase ^?               # allow for delete key to work
+
+# turn on the internet interface. Apparently it's now not connecting by default?
+#sudo ip link set eno1 up
+#sudo dhcpcd

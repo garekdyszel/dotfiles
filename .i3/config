@@ -236,7 +236,7 @@ exec feh --bg-fill ~/pics/ira_glass_the_gap_dark.jpg
 
 # keybindings for specific programs
 bindsym $mod+m exec emacsclient --create-frame
-bindsym $mod+i exec alacritty -e lynx -accept_all_cookies -cookie_file=/dev/null https://lite.duckduckgo.com/lite
+bindsym $mod+i exec alacritty -e links https://lite.duckduckgo.com/lite
 bindsym $mod+z exec zathura
 bindsym $mod+t exec torbrowser-launcher
 bindsym $mod+p exec thunar
@@ -244,7 +244,7 @@ bindsym $mod+p exec thunar
 # keyboard layout
 # exec xkbcomp -I$HOME/.xkb ~/.xkb/map $DISPLAY
 # exec setxkbmap -model pc105 -layout pl -option kpdl:dot -option ctrl:nocaps -option ctrl:swap_lalt_lctl -option shift:both_capslock -option compose:menu 
-exec setxkbmap -model pc105 -layout pl -option lv3:ralt_switch -option kdpl:dot 
+exec setxkbmap -model pc105 -layout pl -option lv3:ralt_switch -option kdpl:dot -option shift:both_capslock
 
 # startup programs 
 exec emacs --daemon
