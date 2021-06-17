@@ -224,7 +224,7 @@
  '(org-ref-insert-cite-key "C-c 0")
  '(org-support-shift-select t)
  '(package-selected-packages
-   '(ob-async maxima bbdb multiple-cursors messages-are-flowing proof-general kaolin-themes gruvbox-theme melancholy-theme axiom-mode julia org-caldav haskell-mode haskell sclang sclang-snippets sclang-extensions egg-timer gnu-apl-mode citeproc-org counsel ivy centered-window srcery-theme org-tree-slide magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
+   '(minizinc minizinc-mode ob-async maxima bbdb multiple-cursors messages-are-flowing proof-general kaolin-themes gruvbox-theme melancholy-theme axiom-mode julia org-caldav haskell-mode haskell sclang sclang-snippets sclang-extensions egg-timer gnu-apl-mode citeproc-org counsel ivy centered-window srcery-theme org-tree-slide magit magithub term-keys ob-ess-julia org-notmuch org-msg rust-mode code-cells flycheck arduino-cli-mode arduino-mode yasnippet-snippets smartparens-config badwolf-theme seti-theme electric-case electric-case-mode ob-axiom axiom-environment visual-fill-column markdown-mode deferred simple-httpd ox-rst org-rst latex-auto-activating-snippets auto-activating-snippets org-mu4e julia-mode ob-rust visual-regexp csound-mode php-mode mu4e magic-latex-buffer auctex-latexmk cdlatex ox-reveal srcery emmet-mode emmet use-package-el-get org-ref mermaid-mode org-super-agenda ob-mermaid undo-tree css-eldoc c-eldoc latex-math-preview cyberpunk-theme soothe-theme jupyter restart-emacs scad-mode org-re-reveal-ref sage-shell-mode org-drill org-plus-contrib org-babel-eval-in-repl matlab-mode ov tab-jump-out org-link-minor-mode auctex company-mode ox-org yasnippet zenburn-theme anki-editor gnuplot ## pdf-view-restore org-pdfview ox-bibtex-chinese org-noter org htmlize))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(powerline-color1 "#1E1E1E")
  '(powerline-color2 "#111111")
@@ -529,6 +529,9 @@ With argument ARG, do this that many times."
   (setq org-babel-default-header-args:matlab
         '((:results . "output") (:session . "*MATLAB*")))
 
+  ;; set up minizinc in babel
+  (add-to-list 'org-src-lang-modes '("minizinc" . "minizinc-mode"))
+
   ;; load languages to use in source code blocks.
   (org-babel-do-load-languages
    'org-babel-load-languages '(
@@ -539,7 +542,8 @@ With argument ARG, do this that many times."
                                (shell . t)
                                (axiom . t)
                                (makefile . t)
-                               (matlab . t)
+                               ;;(matlab . t)
+                               (julia . t)
                                (rust . t)))
 
   (setq org-babel-python-command "python3")
@@ -991,10 +995,9 @@ $0
 )                       ;
 
 ;; send all messages with format=flowed
-(use-package messages-are-flowing
-  :config
-  (add-hook 'message-mode-hook #'messages-are-flowing-use-and-mark-hard-newlines)
-  )
+;; (use-package messages-are-flowing
+;;   :config
+;;   (add-hook 'message-mode-hook #'messages-are-flowing-use-and-mark-hard-newlines)
 
 (setq smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg"))
 (setq smtpmail-default-smtp-server "smtp.gmail.com")
@@ -1303,7 +1306,7 @@ $0
 (setq initial-major-mode 'org-mode)
 
 ;; and change the message accordingly. A nice inspirational quote:
-(setq initial-scratch-message "# \"Don\'t waste your own time. Life is finite.\"
+(setq initial-scratch-message "# \"Success matters nothing, and we must fight on and never complain...\"
 
 * What I\'m doing right now
 - [ ] 
@@ -1982,3 +1985,29 @@ than current time and is not currently being edited."
 
 ;; ob-async for executing code while still typing
 (use-package ob-async)
+
+;; make sure I can use the arrow keys in a TTY console
+(if (not window-system) ; only do this if the window manager isn't open
+(progn
+  (defvar arrow-keys-map (make-sparse-keymap) "Keymap for arrow keys")
+  (define-key esc-map "[" arrow-keys-map)
+  (define-key arrow-keys-map "A" 'previous-line)
+  (define-key arrow-keys-map "B" 'next-line)
+  (define-key arrow-keys-map "C" 'forward-char)
+  (define-key arrow-keys-map "D" 'backward-char)
+)
+)
+
+;; minizinc for constraint programming
+(use-package minizinc-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.mzn\\'" . minizinc-mode))
+
+  (defun minizinc-setup ()
+    (let ((command (concat "minizinc " (buffer-file-name) " "))
+          (f (concat (file-name-base (buffer-file-name)) ".dzn")))
+      (local-set-key (kbd "C-c C-c") 'recompile)
+      (setq-local compile-command (concat command (if (file-exists-p f) f "")))))
+
+  (add-hook 'minizinc-mode-hook 'minizinc-setup)
+  )

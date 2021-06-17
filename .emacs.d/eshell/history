@@ -1,7 +1,5 @@
 gcc star.c -o star
 ./star
-gcc star.c -o star
-./star
 clear
 
 gcc star.c -o star
@@ -126,3 +124,5 @@ ls
 rm Conference-LaTeX-template_10-17-19/
 rm conference-latex-template_10-17-19.zip
 ls
+ls
+less EE4250_GD_A11.2_p7_strategy.pdf
